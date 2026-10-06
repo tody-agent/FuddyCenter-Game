@@ -1201,46 +1201,348 @@
     </div>
 
     <!-- ======================================================================
-         5. INTERACTIVE GAME COMPONENT & ASSET STUDIO
+         5. INTERACTIVE GAME COMPONENT & ASSET STUDIO (TIẾN TRÌNH TYCOON)
          ====================================================================== -->
     <div class="gds-section-header">
       <div class="gds-section-title-wrap">
-        <h2 class="gds-section-title">THƯ VIỆN ASSET & GAME COMPONENT ĐỘC QUYỀN</h2>
-        <span class="gds-section-desc">Bộ sưu tập hình ảnh 3D nhân vật, máy móc, linh kiện và trạm điều khiển sinh bởi Genspark AI</span>
+        <h2 class="gds-section-title">THƯ VIỆN TRANG THIẾT BỊ & NHÂN SỰ KHO THỰC TẾ (GIAI ĐOẠN 1)</h2>
+        <span class="gds-section-desc">Giai đoạn khởi nghiệp thực tế: trang bị cơ bản, công nhân thủ công, xe nâng tay và bàn đóng gói tiêu chuẩn</span>
       </div>
       <!-- Filter Tags -->
       <div class="gds-sim-controls">
-        <button class="gds-speed-btn active" onclick="filterGallery('all', this)">TẤT CẢ (9)</button>
-        <button class="gds-speed-btn" onclick="filterGallery('character', this)">NHÂN VẬT (3)</button>
-        <button class="gds-speed-btn" onclick="filterGallery('equipment', this)">THIẾT BỊ (3)</button>
-        <button class="gds-speed-btn" onclick="filterGallery('prop', this)">PHỤ KIỆN (2)</button>
-        <button class="gds-speed-btn" onclick="filterGallery('cctv', this)">CCTV (1)</button>
+        <button class="gds-speed-btn active" onclick="filterGallery('phase1', this)">GIAI ĐOẠN 1: PHỔ THÔNG (7)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('char-real', this)">NHÂN VẬT THỰC TẾ (2)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('equip-real', this)">THIẾT BỊ CƠ BẢN (3)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('tool-real', this)">DỤNG CỤ ĐÓNG GÓI (2)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('future', this)">NÂNG CẤP TỰ ĐỘNG HÓA</button>
+        <button class="gds-speed-btn" onclick="filterGallery('all', this)">TẤT CẢ (16)</button>
       </div>
     </div>
 
-    <!-- MISSION CONTROL CCTV OPERATIONS SHOWCASE -->
-    <div class="gds-game-card gds-item-card" data-category="cctv" style="margin-bottom: 28px;">
-      <div class="gds-card-head">
-        <span class="gds-card-tag">
-          <span>🖥️</span> MISSION CONTROL: TỔNG HÀNH DINH & CCTV PANORAMIC
-        </span>
-        <span class="gds-badge gds-badge-green">AI DIGITAL TWIN SYNC: 100%</span>
-      </div>
-      <div class="gds-card-asset-frame" style="height: 380px;">
-        <img src="assets/images/mission_control_cctv_center.png" alt="Mission Control CCTV Center" class="gds-card-img" />
-        <div class="gds-card-overlay-lidar">
-          <span>● 24/7 CCTV TELEMETRY: 18,450 PPH</span>
+    <!-- PHASE 1: REALISTIC EVERYDAY WAREHOUSE ASSETS GRID -->
+    <div class="gds-components-grid">
+
+      <!-- Phase 1 Equip 1: Hand Pallet Jack -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🚜</span> GIAI ĐOẠN 1: XE NÂNG TAY THỦY LỰC
+          </span>
+          <span class="gds-badge gds-badge-amber">TIÊU CHUẨN CƠ BẢN</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/equip_hand_pallet_jack.png" alt="Manual Hand Pallet Jack" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: var(--gds-hazard-amber); color: var(--gds-hazard-amber);">
+            <span>TẢI TRỌNG CƠ: 2.5 TẤN</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>XE KÉO TAY THỦY LỰC (PALLET JACK)</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">$450 / CHIẾC</span>
+          </div>
+          <p class="gds-card-desc">
+            Thiết bị nâng hạ cơ học kéo tay không dùng điện, trang bị cần bơm thủy lực chữ T và bánh xe nylon kép. Phục vụ di chuyển pallet từ xe tải vào khu phân loại.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỐC ĐỘ DI CHUYỂN</span>
+              <span class="gds-tel-val">1.0 m/s (Người kéo)</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">CHI PHÍ BẢO DƯỠNG</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">$15 / tháng</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionBuyPalletJack()">
+              <span>+</span> MUA XE NÂNG TAY (-$450)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionOilJack()">
+              <span>💧</span> BƠM DẦU THỦY LỰC
+            </button>
+          </div>
         </div>
       </div>
-      <div class="gds-card-body">
-        <div class="gds-card-title">
-          <span>TRUNG TÂM GIÁM SÁT TẬP TRUNG & TƯỜNG MÀN HÌNH CCTV CONG</span>
-          <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">1,412 AMR ONLINE</span>
+
+      <!-- Phase 1 Equip 2: Manual Picking Cart / Trolley -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🛒</span> GIAI ĐOẠN 1: XE ĐẨY GOM HÀNG 3 TẦNG
+          </span>
+          <span class="gds-badge gds-badge-green">WAVE BATCHING</span>
         </div>
-        <p class="gds-card-desc">
-          Bàn điều hành Hologram 3 chiều hiển thị mô hình nhà kho ảo thời gian thực, bản đồ nhiệt lưu lượng di chuyển, và tường màn hình đa hướng kết nối trực tiếp camera an ninh các cổng dock và làn băng chuyền.
-        </p>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/equip_picking_cart.png" alt="Warehouse Order Picking Cart" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>SỨC CHỨA: 6 KHAY TOTE</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>XE ĐẨY CHIA HÀNG THEO ĐỢT (TROLLEY)</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">$320 / CHIẾC</span>
+          </div>
+          <p class="gds-card-desc">
+            Khung thép ống sơn tĩnh điện xanh công nghiệp, 3 tầng chứa được 6 khay nhựa Tote, 4 bánh xe cao su xoay 360 độ và khay kẹp bảng phiếu xuất kho A4.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">SỨC CHỨA ĐƠN HÀNG</span>
+              <span class="gds-tel-val">24 đến 48 đơn / lượt</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">BÁNH XE CHỐNG ỒN</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">BÁNH CAO SU PU</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionBuyPickingCart()">
+              <span>+</span> MUA XE ĐẨY GOM HÀNG (-$320)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionAssignCart()">
+              <span>📋</span> KẸP PHIẾU XUẤT MỚI
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- Phase 1 Equip 3: Conventional Packing Workstation -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>📦</span> GIAI ĐOẠN 1: BÀN ĐÓNG GÓI THỦ CÔNG
+          </span>
+          <span class="gds-badge gds-badge-amber">TIÊU CHUẨN TMĐT</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/equip_conventional_pack_table.png" alt="Conventional Packing Table" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: var(--gds-hazard-amber); color: var(--gds-hazard-amber);">
+            <span>TRẠM THỦ CÔNG ĐỒNG BỘ</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>BÀN ĐÓNG GÓI TIÊU CHUẨN MẶT GỖ</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-status-nominal);">$850 / TRẠM</span>
+          </div>
+          <p class="gds-card-desc">
+            Bàn mặt gỗ công nghiệp có giá ngăn để thùng carton phẳng số 1, 2, 3, trục treo cuộn xốp nổ bóng khí, cân bàn điện tử và máy in nhiệt tem đơn Shopee/TikTok.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">NĂNG SUẤT ĐÓNG</span>
+              <span class="gds-tel-val">45 đơn / giờ / người</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">ĐỊNH DẠNG VẬN ĐƠN</span>
+              <span class="gds-tel-val" style="color: var(--gds-brand-sky);">DECAL NHIỆT A6</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionBuildPackTable()">
+              <span>+</span> LẮP BÀN ĐÓNG GÓI MỚI (-$850)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionRestockBubbleWrap()">
+              <span>📦</span> THAY CUỘN XỐP NỔ
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Character 1: Real Warehouse Worker -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 char-real">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>👷</span> NHÂN SỰ: CÔNG NHÂN NHẶT HÀNG & ĐÓNG GÓI
+          </span>
+          <span class="gds-badge gds-badge-green">THỰC TẾ ĐỜI THƯỜNG</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/char_real_warehouse_worker.png" alt="Real Warehouse Worker" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>ĐỒNG PHỤC BOXME TIÊU CHUẨN</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>CÔNG NHÂN KHO PHỔ THÔNG (PICKER/PACKER)</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">LƯƠNG: $450/THÁNG</span>
+          </div>
+          <p class="gds-card-desc">
+            Công nhân mặc áo polo xanh Boxme, áo gile lưới phản quang, găng tay len nhúng cao su, tay cầm súng quét mã vạch có dây và bảng kẹp phiếu xuất kho bằng giấy A4.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỐC ĐỘ NHẶT HÀNG</span>
+              <span class="gds-tel-val">65 UPH (Phiếu giấy)</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỶ LỆ NHẶT ĐÚNG</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">97.5%</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionHireWorker()">
+              <span>+</span> TUYỂN DỤNG CÔNG NHÂN MỚI
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionPayOvertime()">
+              <span>💵</span> PHÁT LƯƠNG TĂNG CA
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Character 2: Real Floor Supervisor -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 char-real">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>📋</span> NHÂN SỰ: TRƯỞNG CA GIÁM SÁT KHO THỰC TẾ
+          </span>
+          <span class="gds-badge gds-badge-green">QUẢN LÝ HIỆN TRƯỜNG</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/char_real_floor_supervisor.png" alt="Real Floor Supervisor" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>BỘ ĐÀM MOTOROLA TRÊN VAI</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>TRƯỞNG CA VẬN HÀNH HIỆN TRƯỜNG</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">KINH NGHIỆM: 8 NĂM</span>
+          </div>
+          <p class="gds-card-desc">
+            Trưởng ca mặc áo sơ mi công trường cài bút ngực, đeo bộ đàm điều phối liên lạc với các cổng dock, cầm bảng phân công ca trực, giám sát chặt chẽ tiến độ đóng hàng.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">KỶ LUẬT CA LÀM</span>
+              <span class="gds-tel-val">95% Chuyên Cần</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">GIẢM LỖI VẬN HÀNH</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">-18% Thất Thoát</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionSupervisorBriefing()">
+              <span>📣</span> HỌP GIAO BAN ĐẦU CA
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionAuditInventory()">
+              <span>📝</span> KIỂM KÊ XÁC SUẤT
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Prop 1: Tape Gun & Box Cutter -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 tool-real">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>✂️</span> DỤNG CỤ: CẮT BĂNG DÍNH & DAO RỌC GIẤY
+          </span>
+          <span class="gds-badge gds-badge-amber">VẬT DỤNG THIẾT YẾU</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/prop_tape_gun_cutter.png" alt="Tape Gun and Box Cutter" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: var(--gds-hazard-amber); color: var(--gds-hazard-amber);">
+            <span>ĐỘ BỀN CÔNG NGHIỆP</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>BỘ DỤNG CỤ ĐÓNG THÙNG CẦM TAY</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">$18 / BỘ</span>
+          </div>
+          <p class="gds-card-desc">
+            Súng miết băng dính cầm tay màu cam có lưỡi cắt răng cưa và dao rọc giấy chuyên dụng cán vàng bọc cao su chống trượt. Trang bị cho từng bàn đóng hàng.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỐC ĐỘ DÁN ĐÁY THÙNG</span>
+              <span class="gds-tel-val">3 giây / thùng</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">LƯỠI THAY THẾ</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">HỘP 10 LƯỠI</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionBuyTapeGuns()">
+              <span>+</span> CẤP 10 BỘ CẮT BĂNG DÍNH (-$180)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Prop 2: Thermal Label Printer -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 tool-real">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🖨️</span> DỤNG CỤ: MÁY IN TEM VẬN ĐƠN NHIỆT A6
+          </span>
+          <span class="gds-badge gds-badge-green">KẾT NỐI USB/LAN</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/prop_thermal_label_printer.png" alt="Desktop Thermal Label Printer" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>KHÔNG DÙNG MỰC IN</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>MÁY IN TEM NHIỆT ĐỂ BÀN KHỔ A6</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">$120 / MÁY</span>
+          </div>
+          <p class="gds-card-desc">
+            Máy in nhiệt trực tiếp in tem nhãn vận đơn kích thước 100x150mm cho các sàn TMĐT Shopee, TikTok Shop, Lazada. Tốc độ in 150mm/giây, không cần thay ruy-băng mực.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỐC ĐỘ IN TEM</span>
+              <span class="gds-tel-val">1 tem / giây</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">CUỘN DECAL NHIỆT</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">500 TEM/CUỘN</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionBuyPrinters()">
+              <span>+</span> MUA THÊM MÁY IN TEM (-$120)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionBuyLabelRolls()">
+              <span>📄</span> MUA 20 CUỘN DECAL
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- UPCOMING ADVANCED PHASES HEADER -->
+    <div class="gds-section-header" style="margin-top: 40px;">
+      <div class="gds-section-title-wrap">
+        <h2 class="gds-section-title">GIAI ĐOẠN NÂNG CẤP (CÔNG NGHỆ BÁN TỰ ĐỘNG & ROBOTICS TƯƠNG LAI)</h2>
+        <span class="gds-section-desc">Mở khóa khi người chơi đạt Doanh Thu trên $1,000,000 và diện tích kho trên 10,000m²</span>
+      </div>
+      <span class="gds-badge gds-badge-amber">TYCOON LATE GAME PHASES</span>
     </div>
 
     <div class="gds-components-grid">

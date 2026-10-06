@@ -1,0 +1,29 @@
+{
+  "name": "simulator",
+  "version": "1.0.0",
+  "description": "Hệ thống mô phỏng 3D Digital Twin, Sandbox ra quyết định What-If & Serious Game Điều hành trung tâm hoàn tất đơn hàng VSIP Bắc Ninh (và chuỗi Hub Đông Nam Á) của Boxme Global.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/tests/**/*.test.js",
+    "audit": "python3 scripts/audit-gamedev-skills.py ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tody-agent/bmwms.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tody-agent/bmwms/issues"
+  },
+  "homepage": "https://github.com/tody-agent/bmwms#readme",
+  "dependencies": {
+    "bitecs": "^0.4.0"
+  }
+}
