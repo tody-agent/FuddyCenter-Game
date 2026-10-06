@@ -2173,6 +2173,14 @@
         document.getElementById("cutoff-clock").innerText = `00:${m}:${s}`;
       }
     }, 1000);
+
+    // Initialize default filter on load
+    window.addEventListener("DOMContentLoaded", () => {
+      const defaultBtn = document.querySelector(".gds-sim-controls button.active");
+      if (defaultBtn) {
+        filterGallery('phase1', defaultBtn);
+      }
+    });
   </script>
 </body>
 </html>
