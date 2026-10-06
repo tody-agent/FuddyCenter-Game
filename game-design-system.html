@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boxme Fulfillment Tycoon: Game Design System & Interactive HUD</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23070b14'/><path d='M8 10h16v12H8z' fill='none' stroke='%2338bdf8' stroke-width='2'/><circle cx='16' cy='16' r='3' fill='%23f59e0b'/></svg>" />
+  
+  <!-- Modern Font Stack: Outfit (Display) & JetBrains Mono (Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800&family=JetBrains+Mono:wght@500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. BOXME FULFILLMENT TYCOON: DESIGN TOKENS (GDS)
+       ========================================================================== */
+    :root {
+      /* Surfaces & Depth */
+      --gds-surface-void: #070b14;
+      --gds-surface-pod: #0d1526;
+      --gds-surface-bezel: #132038;
+      --gds-surface-card: #0f1a2e;
+      --gds-surface-glass: rgba(15, 26, 46, 0.78);
+      --gds-surface-glass-border: rgba(56, 189, 248, 0.22);
+      --gds-surface-glass-highlight: rgba(255, 255, 255, 0.08);
+
+      /* Primary Brand & Cyber Logistics Pulses */
+      --gds-brand-cobalt: #1e58fc;
+      --gds-brand-cobalt-hover: #1848d6;
+      --gds-brand-sky: #38bdf8;
+      --gds-brand-sky-glow: rgba(56, 189, 248, 0.35);
+
+      /* Industrial Hazard & Equipment Signals */
+      --gds-hazard-amber: #f59e0b;
+      --gds-hazard-amber-glow: rgba(245, 158, 11, 0.45);
+      --gds-hazard-yellow: #fbbf24;
+
+      /* Telemetry Status Signals */
+      --gds-status-nominal: #10b981;
+      --gds-status-nominal-bg: rgba(16, 185, 129, 0.12);
+      --gds-status-warning: #f59e0b;
+      --gds-status-alarm: #ef4444;
+      --gds-status-alarm-glow: rgba(239, 68, 68, 0.5);
+      --gds-status-alarm-bg: rgba(239, 68, 68, 0.14);
+
+      /* Typography & Reading Contrast */
+      --gds-text-primary: #f8fafc;
+      --gds-text-secondary: #cbd5e1;
+      --gds-text-muted: #8899b3;
+      --gds-text-mono-cyan: #38bdf8;
+      --gds-text-mono-amber: #fbbf24;
+
+      /* Radii & Chamfers */
+      --gds-radius-sm: 6px;
+      --gds-radius-md: 10px;
+      --gds-radius-lg: 16px;
+      --gds-radius-pill: 9999px;
+
+      /* Font Families */
+      --gds-font-display: 'Outfit', 'Chakra Petch', sans-serif;
+      --gds-font-mono: 'JetBrains Mono', monospace;
+      --gds-font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Tactical Shadows & Bevels */
+      --gds-shadow-pod: 0 16px 36px -10px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(56, 189, 248, 0.16);
+      --gds-shadow-bezel: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 24px -6px rgba(0, 0, 0, 0.55);
+      --gds-shadow-glow-blue: 0 0 24px -4px rgba(30, 88, 252, 0.5);
+      --gds-shadow-glow-amber: 0 0 24px -4px rgba(245, 158, 11, 0.5);
+    }
+
+    /* Tactical Daylight Mode Override */
+    body.theme-daylight {
+      --gds-surface-void: #e8eef8;
+      --gds-surface-pod: #ffffff;
+      --gds-surface-bezel: #f1f5f9;
+      --gds-surface-card: #f8fafc;
+      --gds-surface-glass: rgba(255, 255, 255, 0.88);
+      --gds-surface-glass-border: rgba(30, 88, 252, 0.22);
+      --gds-surface-glass-highlight: rgba(255, 255, 255, 0.8);
+      --gds-text-primary: #0f172a;
+      --gds-text-secondary: #334155;
+      --gds-text-muted: #64748b;
+      --gds-shadow-pod: 0 16px 36px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(30, 88, 252, 0.16);
+    }
+
+    /* Reset & Base Setup */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--gds-surface-void);
+      color: var(--gds-text-primary);
+      font-family: var(--gds-font-body);
+      min-height: 100dvh;
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ambient Industrial Atmosphere */
+    .gds-ambient-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .gds-ambient-glow {
+      position: fixed;
+      top: -150px;
+      right: 10%;
+      width: 650px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(30, 88, 252, 0.18) 0%, rgba(56, 189, 248, 0.05) 50%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .gds-ambient-glow-amber {
+      position: fixed;
+      bottom: -150px;
+      left: 5%;
+      width: 550px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 65%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* App Wrapper */
+    .gds-app-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 20px 60px 20px;
+    }
+
+    /* ==========================================================================
+       2. TOP TELEMETRY HUD BAR (STICKY GAME HEADER)
+       ========================================================================== */
+    .gds-hud-header {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 18px;
+      border-radius: var(--gds-radius-md);
+      background: var(--gds-surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--gds-surface-glass-border);
+      box-shadow: var(--gds-shadow-pod);
+      margin-bottom: 24px;
+    }
+
+    /* Brand Monogram & Hub Badge */
+    .gds-brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gds-brand-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--gds-radius-sm);
+      background: linear-gradient(135deg, var(--gds-brand-cobalt), #0f2c8f);
+      border: 1px solid var(--gds-brand-sky);
+      box-shadow: 0 0 16px var(--gds-brand-sky-glow);
+    }
+
+    .gds-brand-logo svg {
+      width: 22px;
+      height: 22px;
+      fill: #ffffff;
+    }
+
+    .gds-brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gds-brand-title {
+      font-family: var(--gds-font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    body.theme-daylight .gds-brand-title {
+      color: #0f172a;
+    }
+
+    .gds-tag-live {
+      font-size: 10px;
+      font-family: var(--gds-font-mono);
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: var(--gds-radius-pill);
+      background: var(--gds-status-nominal-bg);
+      border: 1px solid var(--gds-status-nominal);
+      color: var(--gds-status-nominal);
+      animation: pulse-dot 2s infinite;
+    }
+
+    .gds-brand-sub {
+      font-size: 11px;
+      color: var(--gds-text-muted);
+      font-weight: 500;
+    }
+
+    /* Real-Time Telemetry Counters */
+    .gds-hud-metrics {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .gds-metric-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: var(--gds-radius-sm);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .gds-metric-label {
+      font-size: 10px;
+      font-family: var(--gds-font-mono);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gds-text-muted);
+    }
+
+    .gds-metric-value {
+      font-family: var(--gds-font-mono);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gds-text-primary);
+      font-feature-settings: "tnum" 1;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .gds-metric-value.val-cash {
+      color: var(--gds-text-mono-amber);
+      text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    }
+
+    .gds-metric-value.val-sla {
+      color: var(--gds-status-nominal);
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
+
+    .gds-metric-value.val-speed {
+      color: var(--gds-brand-sky);
+    }
+
+    /* Simulation Control Dials */
+    .gds-sim-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gds-speed-btn-group {
+      display: flex;
+      background: var(--gds-surface-pod);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--gds-radius-sm);
+      padding: 2px;
+    }
+
+    .gds-speed-btn {
+      font-family: var(--gds-font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border: none;
+      background: transparent;
+      color: var(--gds-text-muted);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .gds-speed-btn:hover {
+      color: var(--gds-text-primary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .gds-speed-btn.active {
+      color: #ffffff;
+      background: var(--gds-brand-cobalt);
+      box-shadow: 0 0 10px var(--gds-brand-sky-glow);
+    }
+
+    .gds-btn-mode-toggle {
+      background: var(--gds-surface-bezel);
+      border: 1px solid var(--gds-surface-glass-border);
+      color: var(--gds-text-primary);
+      padding: 6px 12px;
+      border-radius: var(--gds-radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .gds-btn-mode-toggle:hover {
+      border-color: var(--gds-brand-sky);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       3. CUTOFF SLA EMERGENCY BANNER
+       ========================================================================== */
+    .gds-cutoff-banner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: var(--gds-status-alarm-bg);
+      border: 1px solid var(--gds-status-alarm);
+      border-radius: var(--gds-radius-md);
+      box-shadow: var(--gds-status-alarm-glow);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gds-cutoff-banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 6px;
+      background: var(--gds-status-alarm);
+    }
+
+    .gds-cutoff-timer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .gds-alarm-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--gds-status-alarm);
+      color: #ffffff;
+      font-weight: 800;
+      animation: pulse-alarm 1s infinite;
+    }
+
+    .gds-cutoff-clock {
+      font-family: var(--gds-font-mono);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
+    }
+
+    .gds-cutoff-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gds-cutoff-heading {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+    }
+
+    .gds-cutoff-desc {
+      font-size: 12px;
+      color: #fca5a5;
+    }
+
+    .gds-cutoff-action {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ==========================================================================
+       4. HERO SHOWCASE: INDUSTRIAL LOGISTICS 3D ENVIRONMENT
+       ========================================================================== */
+    .gds-hero-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      position: relative;
+      border-radius: var(--gds-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--gds-surface-glass-border);
+      box-shadow: var(--gds-shadow-pod);
+      margin-bottom: 36px;
+      background: var(--gds-surface-pod);
+    }
+
+    .gds-hero-viewport {
+      position: relative;
+      height: 480px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .gds-hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: contrast(1.08) brightness(0.96);
+      transition: transform 0.5s ease;
+    }
+
+    .gds-hero-viewport:hover .gds-hero-image {
+      transform: scale(1.02);
+    }
+
+    /* Hero Scrim and Vignette */
+    .gds-hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 11, 20, 0.3) 0%, rgba(7, 11, 20, 0.85) 90%);
+      pointer-events: none;
+    }
+
+    /* Hero Overlay Telemetry Pods */
+    .gds-hero-overlay-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      pointer-events: none;
+    }
+
+    .gds-hero-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      pointer-events: auto;
+    }
+
+    .gds-hud-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(13, 21, 38, 0.85);
+      border: 1px solid var(--gds-surface-glass-border);
+      border-radius: var(--gds-radius-sm);
+      padding: 6px 12px;
+      backdrop-filter: blur(12px);
+    }
+
+    .gds-hud-chip .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gds-brand-sky);
+      box-shadow: 0 0 8px var(--gds-brand-sky);
+    }
+
+    .gds-hud-chip span {
+      font-family: var(--gds-font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gds-text-primary);
+    }
+
+    .gds-hero-bottom-panel {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      gap: 20px;
+      pointer-events: auto;
+    }
+
+    .gds-hero-headline-group {
+      max-width: 680px;
+    }
+
+    .gds-hero-title {
+      font-family: var(--gds-font-display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .gds-hero-subtitle {
+      font-size: 14px;
+      color: var(--gds-text-secondary);
+      max-width: 580px;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       5. DESIGN TOKENS EXPLORER & SWATCHES
+       ========================================================================== */
+    .gds-section-header {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gds-section-title-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gds-section-title {
+      font-family: var(--gds-font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--gds-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gds-section-desc {
+      font-size: 13px;
+      color: var(--gds-text-muted);
+    }
+
+    .gds-token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .gds-token-card {
+      background: var(--gds-surface-pod);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--gds-radius-md);
+      padding: 14px;
+      box-shadow: var(--gds-shadow-bezel);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .gds-token-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--gds-brand-sky);
+    }
+
+    .gds-swatch-preview {
+      height: 48px;
+      border-radius: var(--gds-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 10px;
+      font-family: var(--gds-font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .gds-token-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .gds-token-name {
+      font-family: var(--gds-font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gds-text-primary);
+    }
+
+    .gds-token-role {
+      font-size: 11px;
+      color: var(--gds-text-muted);
+    }
+
+    /* Hazard Stripe Decoration */
+    .gds-hazard-band {
+      height: 8px;
+      border-radius: 4px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #f59e0b 0,
+        #f59e0b 10px,
+        #0f172a 10px,
+        #0f172a 20px
+      );
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    }
+
+    /* ==========================================================================
+       6. INTERACTIVE GAME COMPONENT CARDS (TACTICAL PODS)
+       ========================================================================== */
+    .gds-components-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .gds-game-card {
+      background: var(--gds-surface-pod);
+      border: 1px solid var(--gds-surface-glass-border);
+      border-radius: var(--gds-radius-md);
+      overflow: hidden;
+      box-shadow: var(--gds-shadow-pod);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gds-game-card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      box-shadow: var(--gds-shadow-glow-blue);
+    }
+
+    .gds-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: var(--gds-surface-bezel);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .gds-card-tag {
+      font-family: var(--gds-font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gds-brand-sky);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gds-card-asset-frame {
+      position: relative;
+      height: 220px;
+      width: 100%;
+      background: #060911;
+      overflow: hidden;
+    }
+
+    .gds-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s ease;
+    }
+
+    .gds-game-card:hover .gds-card-img {
+      transform: scale(1.04);
+    }
+
+    /* Lidar HUD Radar Overlay on Card */
+    .gds-card-overlay-lidar {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: var(--gds-radius-sm);
+      background: rgba(13, 21, 38, 0.85);
+      border: 1px solid var(--gds-brand-sky);
+      font-family: var(--gds-font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gds-brand-sky);
+      backdrop-filter: blur(8px);
+    }
+
+    .gds-card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .gds-card-title {
+      font-family: var(--gds-font-display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gds-text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gds-card-desc {
+      font-size: 13px;
+      color: var(--gds-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Metric Bar Inside Card */
+    .gds-telemetry-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--gds-radius-sm);
+      padding: 10px 14px;
+    }
+
+    .gds-tel-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gds-tel-label {
+      font-family: var(--gds-font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--gds-text-muted);
+    }
+
+    .gds-tel-val {
+      font-family: var(--gds-font-mono);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gds-text-primary);
+    }
+
+    /* Segmented Gauge Progress Bar */
+    .gds-gauge-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .gds-gauge-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--gds-font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gds-text-muted);
+    }
+
+    .gds-gauge-track {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gds-gauge-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .gds-gauge-fill.fill-amber {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    }
+
+    .gds-gauge-fill.fill-cyan {
+      background: linear-gradient(90deg, #1e58fc, #38bdf8);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+
+    .gds-gauge-fill.fill-green {
+      background: linear-gradient(90deg, #059669, #10b981);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    }
+
+    /* Card Action Footer */
+    .gds-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    /* ==========================================================================
+       7. BUTTONS & TACTILE INTERACTION DESIGN
+       ========================================================================== */
+    .gds-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-family: var(--gds-font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      border-radius: var(--gds-radius-sm);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .gds-btn:active {
+      transform: scale(0.96) translateY(1px);
+    }
+
+    /* Primary Cobalt Action */
+    .gds-btn-primary {
+      color: #ffffff;
+      background: linear-gradient(180deg, var(--gds-brand-cobalt), #1640b8);
+      border: 1px solid var(--gds-brand-sky);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 14px rgba(30, 88, 252, 0.4);
+    }
+
+    .gds-btn-primary:hover {
+      filter: brightness(1.15);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 6px 20px rgba(56, 189, 248, 0.55);
+      transform: translateY(-1px);
+    }
+
+    /* Hazard Amber Equipment Action */
+    .gds-btn-hazard {
+      color: #070b14;
+      background: linear-gradient(180deg, #fbbf24, #d97706);
+      border: 1px solid #fef08a;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(245, 158, 11, 0.4);
+      font-weight: 800;
+    }
+
+    .gds-btn-hazard:hover {
+      filter: brightness(1.1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 6px 20px rgba(245, 158, 11, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Critical Danger / Emergency Action */
+    .gds-btn-danger {
+      color: #ffffff;
+      background: linear-gradient(180deg, #ef4444, #b91c1c);
+      border: 1px solid #fca5a5;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 14px rgba(239, 68, 68, 0.45);
+    }
+
+    .gds-btn-danger:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
+      transform: translateY(-1px);
+    }
+
+    /* Ghost Sub-action */
+    .gds-btn-ghost {
+      color: var(--gds-text-secondary);
+      background: var(--gds-surface-bezel);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .gds-btn-ghost:hover {
+      color: var(--gds-text-primary);
+      border-color: var(--gds-brand-sky);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Small Pill Badges */
+    .gds-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: var(--gds-radius-pill);
+      font-family: var(--gds-font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .gds-badge-green {
+      background: var(--gds-status-nominal-bg);
+      border: 1px solid var(--gds-status-nominal);
+      color: var(--gds-status-nominal);
+    }
+
+    .gds-badge-amber {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid var(--gds-hazard-amber);
+      color: var(--gds-hazard-amber);
+    }
+
+    /* ==========================================================================
+       8. ANIMATIONS & KEYFRAMES
+       ========================================================================== */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    @keyframes pulse-alarm {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.8; }
+    }
+
+    /* Toast Notification */
+    .gds-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      background: var(--gds-surface-bezel);
+      border: 1px solid var(--gds-brand-sky);
+      border-radius: var(--gds-radius-md);
+      padding: 12px 18px;
+      box-shadow: var(--gds-shadow-glow-blue);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .gds-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Responsive Breakdown */
+    @media (max-width: 900px) {
+      .gds-hud-header {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .gds-hud-metrics {
+        flex-wrap: wrap;
+      }
+      .gds-hero-viewport {
+        height: 360px;
+      }
+      .gds-hero-bottom-panel {
+        grid-template-columns: 1fr;
+      }
+      .gds-components-grid {
+        grid-template-columns: 1fr;
+      }
+      .gds-cutoff-banner {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Grid & Glows -->
+  <div class="gds-ambient-grid"></div>
+  <div class="gds-ambient-glow"></div>
+  <div class="gds-ambient-glow-amber"></div>
+
+  <!-- Toast Notification System -->
+  <div id="gds-toast" class="gds-toast">
+    <span id="toast-icon">⚡</span>
+    <span id="toast-msg">Nâng cấp trạm đóng gói thành công!</span>
+  </div>
+
+  <div class="gds-app-container">
+
+    <!-- ======================================================================
+         1. TOP TELEMETRY HUD BAR
+         ====================================================================== -->
+    <header class="gds-hud-header">
+      <!-- Hub Identification -->
+      <div class="gds-brand-cluster">
+        <div class="gds-brand-logo">
+          <svg viewBox="0 0 24 24"><path d="M21 16.5l-9 5.25-9-5.25V7.5L12 2.25l9 5.25v9zM12 4.15L5.2 8.1 12 12.05l6.8-3.95L12 4.15z"/></svg>
+        </div>
+        <div class="gds-brand-meta">
+          <div class="gds-brand-title">
+            BOXME MISSION CONTROL
+            <span class="gds-tag-live">LIVE SIM</span>
+          </div>
+          <span class="gds-brand-sub">VSIP BẮC NINH MEGA HUB - SECTOR A</span>
+        </div>
+      </div>
+
+      <!-- Real-Time Game Telemetry Counters -->
+      <div class="gds-hud-metrics">
+        <div class="gds-metric-node">
+          <span class="gds-metric-label">QUỸ NGÂN SÁCH</span>
+          <span class="gds-metric-value val-cash" id="hud-cash">$2,482,910</span>
+        </div>
+        <div class="gds-metric-node">
+          <span class="gds-metric-label">SLA CAM KẾT</span>
+          <span class="gds-metric-value val-sla">99.2%</span>
+        </div>
+        <div class="gds-metric-node">
+          <span class="gds-metric-label">UPH XỬ LÝ</span>
+          <span class="gds-metric-value val-speed">14,250</span>
+        </div>
+        <div class="gds-metric-node">
+          <span class="gds-metric-label">AMR ACTIVE</span>
+          <span class="gds-metric-value">48 / 50</span>
+        </div>
+      </div>
+
+      <!-- Simulation Speed Controls -->
+      <div class="gds-sim-controls">
+        <div class="gds-speed-btn-group">
+          <button class="gds-speed-btn" onclick="setSpeed(0, this)">PAUSE</button>
+          <button class="gds-speed-btn active" onclick="setSpeed(1, this)">1X</button>
+          <button class="gds-speed-btn" onclick="setSpeed(5, this)">5X</button>
+          <button class="gds-speed-btn" onclick="setSpeed(15, this)">15X</button>
+          <button class="gds-speed-btn" onclick="setSpeed(60, this)">60X</button>
+        </div>
+        <button class="gds-btn-mode-toggle" onclick="toggleDaylightMode()">
+          <span id="theme-icon">☀️</span> DAYLIGHT
+        </button>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         2. CUTOFF SLA EMERGENCY BANNER
+         ====================================================================== -->
+    <div class="gds-cutoff-banner">
+      <div class="gds-cutoff-timer">
+        <div class="gds-alarm-icon">!</div>
+        <div>
+          <span class="gds-metric-label" style="color: #fca5a5;">CUTOFF COUNTDOWN</span>
+          <div class="gds-cutoff-clock" id="cutoff-clock">00:14:59</div>
+        </div>
+      </div>
+      <div class="gds-cutoff-text">
+        <span class="gds-cutoff-heading">CẢNH BÁO XE XUẤT BẾN: CHUYẾN XE HỎA TỐC SHOPEE / SPX DOCK 02</span>
+        <span class="gds-cutoff-desc">142 kiện hàng đang dồn ứ tại băng tải chia máng Sorter Loop 04. Cần điều động nhân lực để tránh phạt SLA!</span>
+      </div>
+      <div class="gds-cutoff-action">
+        <button class="gds-btn gds-btn-danger" onclick="triggerBoostShift()">
+          <span>⚡</span> KÍCH HOẠT CA BÙ (BOOST SHIFT)
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         3. HERO SHOWCASE: INDUSTRIAL LOGISTICS 3D ENVIRONMENT
+         ====================================================================== -->
+    <section class="gds-hero-section">
+      <div class="gds-hero-viewport">
+        <img src="assets/images/fulfillment_game_hero_1791301240800.jpg" alt="Boxme Mega Hub 3D Simulation" class="gds-hero-image" />
+        <div class="gds-hero-scrim"></div>
+        <div class="gds-hero-overlay-content">
+          <div class="gds-hero-top-row">
+            <div class="gds-hud-chip">
+              <span class="chip-dot"></span>
+              <span>DIGITAL TWIN ENGINE V4.2 - VSIP BẮC NINH (35,000M²)</span>
+            </div>
+            <div class="gds-badge gds-badge-green">
+              <span>●</span> ĐỘI XE TỰ HÀNH: 100% ONLINE
+            </div>
+          </div>
+          <div class="gds-hero-bottom-panel">
+            <div class="gds-hero-headline-group">
+              <h1 class="gds-hero-title">SIÊU TRUNG TÂM HOÀN TẤT ĐƠN HÀNG 3D</h1>
+              <p class="gds-hero-subtitle">
+                Hệ thống điều hành và mô phỏng chuỗi dây chuyền fulfillment tự động hóa: quản lý dock hạ tải, phân tầng kệ ABC, đội robot bưng kệ AMR và băng tải phân loại tốc độ cao.
+              </p>
+            </div>
+            <div>
+              <button class="gds-btn gds-btn-hazard" onclick="triggerDemoOrder()">
+                <span>📦</span> BẮT ĐẦU SIÊU SALE 11.11 (+500 ĐƠN)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. CORE DESIGN TOKENS EXPLORER
+         ====================================================================== -->
+    <div class="gds-section-header">
+      <div class="gds-section-title-wrap">
+        <h2 class="gds-section-title">HỆ THỐNG DESIGN TOKENS CỐT LÕI</h2>
+        <span class="gds-section-desc">Bảng mã màu, độ sâu quang học và vật liệu công nghiệp đã được hiệu chỉnh</span>
+      </div>
+      <div class="gds-hazard-band" style="width: 140px;"></div>
+    </div>
+
+    <div class="gds-token-grid">
+      <!-- Token 1 -->
+      <div class="gds-token-card">
+        <div class="gds-swatch-preview" style="background: #1e58fc; color: #ffffff;">#1E58FC</div>
+        <div class="gds-token-info">
+          <span class="gds-token-name">BOXME COBALT CORE</span>
+          <span class="gds-token-role">Nhận diện thương hiệu & Pulse chính</span>
+        </div>
+      </div>
+
+      <!-- Token 2 -->
+      <div class="gds-token-card">
+        <div class="gds-swatch-preview" style="background: #f59e0b; color: #070b14;">#F59E0B</div>
+        <div class="gds-token-info">
+          <span class="gds-token-name">HAZARD INDUSTRIAL AMBER</span>
+          <span class="gds-token-role">Thiết bị xe nâng, Kệ, Băng chuyền</span>
+        </div>
+      </div>
+
+      <!-- Token 3 -->
+      <div class="gds-token-card">
+        <div class="gds-swatch-preview" style="background: #38bdf8; color: #070b14;">#38BDF8</div>
+        <div class="gds-token-info">
+          <span class="gds-token-name">CYBER SKY LIDAR</span>
+          <span class="gds-token-role">Tia quét laser, Đường đi robot AMR</span>
+        </div>
+      </div>
+
+      <!-- Token 4 -->
+      <div class="gds-token-card">
+        <div class="gds-swatch-preview" style="background: #10b981; color: #ffffff;">#10B981</div>
+        <div class="gds-token-info">
+          <span class="gds-token-name">SLA MATRIX NOMINAL</span>
+          <span class="gds-token-role">Chỉ số an toàn, Đạt cam kết giao dịch</span>
+        </div>
+      </div>
+
+      <!-- Token 5 -->
+      <div class="gds-token-card">
+        <div class="gds-swatch-preview" style="background: #ef4444; color: #ffffff;">#EF4444</div>
+        <div class="gds-token-info">
+          <span class="gds-token-name">CRITICAL CUTOFF ALARM</span>
+          <span class="gds-token-role">Cảnh báo nghẽn, Nguy cơ trễ xe xuất bến</span>
+        </div>
+      </div>
+
+      <!-- Token 6 -->
+      <div class="gds-token-card">
+        <div class="gds-swatch-preview" style="background: #0d1526; border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8;">#0D1526</div>
+        <div class="gds-token-info">
+          <span class="gds-token-name">OBSIDIAN SURFACE POD</span>
+          <span class="gds-token-role">Khối nền thẻ HUD & Bezel máy móc</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         5. INTERACTIVE GAME COMPONENT & ASSET STUDIO
+         ====================================================================== -->
+    <div class="gds-section-header">
+      <div class="gds-section-title-wrap">
+        <h2 class="gds-section-title">THƯ VIỆN ASSET & GAME COMPONENT ĐỘC QUYỀN</h2>
+        <span class="gds-section-desc">Bộ sưu tập hình ảnh 3D nhân vật, máy móc, linh kiện và trạm điều khiển sinh bởi Genspark AI</span>
+      </div>
+      <!-- Filter Tags -->
+      <div class="gds-sim-controls">
+        <button class="gds-speed-btn active" onclick="filterGallery('all', this)">TẤT CẢ (9)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('character', this)">NHÂN VẬT (3)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('equipment', this)">THIẾT BỊ (3)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('prop', this)">PHỤ KIỆN (2)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('cctv', this)">CCTV (1)</button>
+      </div>
+    </div>
+
+    <!-- MISSION CONTROL CCTV OPERATIONS SHOWCASE -->
+    <div class="gds-game-card gds-item-card" data-category="cctv" style="margin-bottom: 28px;">
+      <div class="gds-card-head">
+        <span class="gds-card-tag">
+          <span>🖥️</span> MISSION CONTROL: TỔNG HÀNH DINH & CCTV PANORAMIC
+        </span>
+        <span class="gds-badge gds-badge-green">AI DIGITAL TWIN SYNC: 100%</span>
+      </div>
+      <div class="gds-card-asset-frame" style="height: 380px;">
+        <img src="assets/images/mission_control_cctv_center.png" alt="Mission Control CCTV Center" class="gds-card-img" />
+        <div class="gds-card-overlay-lidar">
+          <span>● 24/7 CCTV TELEMETRY: 18,450 PPH</span>
+        </div>
+      </div>
+      <div class="gds-card-body">
+        <div class="gds-card-title">
+          <span>TRUNG TÂM GIÁM SÁT TẬP TRUNG & TƯỜNG MÀN HÌNH CCTV CONG</span>
+          <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">1,412 AMR ONLINE</span>
+        </div>
+        <p class="gds-card-desc">
+          Bàn điều hành Hologram 3 chiều hiển thị mô hình nhà kho ảo thời gian thực, bản đồ nhiệt lưu lượng di chuyển, và tường màn hình đa hướng kết nối trực tiếp camera an ninh các cổng dock và làn băng chuyền.
+        </p>
+      </div>
+    </div>
+
+    <div class="gds-components-grid">
+
+      <!-- Character 1: Shift Supervisor -->
+      <div class="gds-game-card gds-item-card" data-category="character">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>👤</span> NHÂN SỰ: TRƯỞNG CA ĐIỀU HÀNH
+          </span>
+          <span class="gds-badge gds-badge-green">LEVEL 5 LEADER</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/char_shift_supervisor.png" alt="Shift Operations Supervisor" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>HOLOGRAM HUD ACTIVE</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>TRƯỞNG CA VẬN HÀNH (SHIFT SUPERVISOR)</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">BUFF: +15% TOÀN KHO</span>
+          </div>
+          <p class="gds-card-desc">
+            Trang bị bộ đàm tác chiến, áo phản quang Boxme và máy tính bảng Hologram. Tăng 15% tốc độ xử lý đơn hàng toàn kho và giảm 25% tỷ lệ chậm trễ tại cổng dock.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">KỸ NĂNG ĐIỀU PHỐI</span>
+              <span class="gds-tel-val">98 / 100</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">CHỈ SỐ THỂ LỰC (FATIGUE)</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">88% TỐT</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionHireSupervisor()">
+              <span>★</span> BỔ NHIỆM CA ĐÊM (-$8,000)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionInspireTeam()">
+              <span>📣</span> KHÍCH LỆ ĐỘI NGŨ
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Character 2: Elite Wave Picker -->
+      <div class="gds-game-card gds-item-card" data-category="character">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🏃</span> NHÂN SỰ: CHUYÊN VIÊN NHẶT HÀNG TỐC ĐỘ
+          </span>
+          <span class="gds-badge gds-badge-amber">SPEEDSTER</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/char_elite_picker.png" alt="Elite Wave Picker" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: var(--gds-hazard-amber); color: var(--gds-hazard-amber);">
+            <span>AR VISOR HUD ACTIVE</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>CHUYÊN VIÊN NHẶT HÀNG (WAVE PICKER)</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">180 UPH</span>
+          </div>
+          <p class="gds-card-desc">
+            Trang bị kính thông minh AR chỉ dẫn đường đi hình chữ S ngắn nhất và máy quét mã vạch gắn cổ tay không dây. Giảm tỷ lệ nhặt nhầm mã SKU xuống dưới 0.1%.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỐC ĐỘ DI CHUYỂN</span>
+              <span class="gds-tel-val">1.95 m/s</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">ĐỘ CHÍNH XÁC NHẶT ĐƠN</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">99.92%</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionDeploySquad()">
+              <span>⚡</span> ĐIỀU ĐỘNG ĐỘI PICKER (+500 UPH)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionUpgradeArVisor()">
+              <span>👓</span> NÂNG CẤP KÍNH AR
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Character 3: Robotics & Automation Engineer -->
+      <div class="gds-game-card gds-item-card" data-category="character">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🔧</span> NHÂN SỰ: KỸ SƯ BẢO TRÌ ROBOT & CƠ ĐIỆN
+          </span>
+          <span class="gds-badge gds-badge-green">TECH MASTER</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/char_robotics_engineer.png" alt="Robotics Automation Engineer" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>DIAGNOSTIC TELEMETRY</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>KỸ SƯ TỰ ĐỘNG HÓA & ROBOTICS</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-status-nominal);">-40% SỰ CỐ</span>
+          </div>
+          <p class="gds-card-desc">
+            Trang bị đai công cụ cơ điện và máy tính bảng chẩn đoán vi mạch robot AMR. Tự động khắc phục sự cố kẹt băng tải, cân chỉnh cẩu trục ASRS và sạc pin khẩn cấp.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỐC ĐỘ BẢO TRÌ</span>
+              <span class="gds-tel-val">4.5 phút / sự cố</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">BẢO HÀNH ĐỘI XE AMR</span>
+              <span class="gds-tel-val" style="color: var(--gds-brand-sky);">100% SẴN SÀNG</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionOverhaulRobots()">
+              <span>🛠️</span> ĐẠI TU TOÀN BỘ AMR (-$12,000)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionCalibrateSensors()">
+              <span>📡</span> CÂN CHỈNH LIDAR
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipment 1: Electric Counterbalance Forklift -->
+      <div class="gds-game-card gds-item-card" data-category="equipment">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🚜</span> THIẾT BỊ: XE NÂNG ĐIỆN THÔNG MINH
+          </span>
+          <span class="gds-badge gds-badge-amber">HEAVY DUTY</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/equip_electric_forklift.png" alt="Electric Forklift Truck" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: #3b82f6; color: #3b82f6;">
+            <span>BLUE SAFETY BEAM: ON</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>XE NÂNG ĐIỆN HẠ TẢI CONTAINER</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">TẢI: 2.5 TẤN</span>
+          </div>
+          <p class="gds-card-desc">
+            Xe nâng điện động cơ AC không phát thải, tích hợp đèn chiếu điểm an toàn màu xanh xuống mặt sàn để cảnh báo người đi bộ tại các góc cua điểm mù nhà kho.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">THỜI GIAN DỠ CONTAINER</span>
+              <span class="gds-tel-val">35 phút / xe</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TẢI TRỌNG NÂNG PALLET</span>
+              <span class="gds-tel-val" style="color: var(--gds-text-mono-amber);">2,500 KG</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionBuyForklift()">
+              <span>+</span> MUA THÊM XE NÂNG (-$35,000)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionAssignDockGate()">
+              <span>🚪</span> GÁN VÀO DOCK 02
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipment 2: AMR Fleet Unit Controller -->
+      <div class="gds-game-card gds-item-card" data-category="equipment">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🤖</span> THIẾT BỊ: ROBOT BƯNG KỆ TỰ HÀNH AMR-04
+          </span>
+          <span class="gds-badge gds-badge-green" id="amr-status-badge">ACTIVE ENROUTE</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/amr_robot_unit_1791301258131.jpg" alt="AMR Autonomous Robot Unit" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>⚡ LIDAR SCAN: 360° ACTIVE</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>ROBOT TỰ HÀNH AMR KIVA GOODS-TO-PERSON</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">TẢI: 800 KG</span>
+          </div>
+          <p class="gds-card-desc">
+            Chở kệ hàng từ phân khu Fast Movers Zone A tới Trạm Đóng Gói P-04. Sử dụng cảm biến tránh vật cản đa hướng bằng thuật toán định vị SLAM.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">MÃ KIỆN PAYLOAD</span>
+              <span class="gds-tel-val" id="amr-payload">TOTE-VSIP-892</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TỐC ĐỘ DI CHUYỂN</span>
+              <span class="gds-tel-val" id="amr-speed">1.85 m/s</span>
+            </div>
+          </div>
+
+          <!-- Battery Gauge -->
+          <div class="gds-gauge-wrap">
+            <div class="gds-gauge-meta">
+              <span>MỨC PIN NĂNG LƯỢNG (LITHIUM-ION)</span>
+              <span id="amr-battery-label" style="color: var(--gds-text-mono-cyan);">78% CHARGED</span>
+            </div>
+            <div class="gds-gauge-track">
+              <div class="gds-gauge-fill fill-cyan" id="amr-battery-fill" style="width: 78%;"></div>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionAmrReroute()">
+              <span>🔄</span> CHUYỂN TUYẾN (REROUTE)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionAmrCharge()">
+              <span>🔋</span> SẠC NHANH
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipment 3: Smart 3D Packing Station -->
+      <div class="gds-game-card gds-item-card" data-category="equipment">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>📦</span> THIẾT BỊ: BÀN ĐÓNG GÓI 3D & KCS
+          </span>
+          <span class="gds-badge gds-badge-amber">AUTO D-WEIGHT</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/smart_pack_station_1791301274374.jpg" alt="Smart 3D Packing Station" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: var(--gds-hazard-amber); color: var(--gds-hazard-amber);">
+            <span>HOLOGRAM SCAN 3D: READY</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>BÀN ĐÓNG GÓI THÔNG MINH 3D & KCS</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-status-nominal);" id="pack-weight">4.75 KG</span>
+          </div>
+          <p class="gds-card-desc">
+            Máy quét Hologram 3 chiều tự động tính toán thể tích món hàng để đề xuất loại thùng nhỏ nhất (Cartonization), tích hợp cân điện tử đối chiếu trọng lượng chuẩn.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">KÍCH THƯỚC THÙNG TỐI ƯU</span>
+              <span class="gds-tel-val" id="pack-dims">35 × 25 × 18 cm</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">THỂ TÍCH QUY ĐỔI (CBM)</span>
+              <span class="gds-tel-val" id="pack-vol">15,750 cm³</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionPackValidate()">
+              <span>✓</span> XÁC NHẬN KCS & DÁN NHÃN
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionRestockBoxes()">
+              <span>+</span> MUA THÙNG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prop 1: Industrial Handheld RF Barcode Scanner Gun -->
+      <div class="gds-game-card gds-item-card" data-category="prop">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🔫</span> LINH KIỆN: SÚNG QUÉT MÃ VẠCH RF GUN
+          </span>
+          <span class="gds-badge gds-badge-green">TIÊU CHUẨN KHO</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/prop_rf_scanner_gun.png" alt="Industrial RF Scanner Gun" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: #ef4444; color: #ef4444;">
+            <span>LASER AIM: ACTIVE</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>SÚNG BẮN MÃ VẠCH CẦM TAY RF PDA</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">&lt; 0.05s SCAN</span>
+          </div>
+          <p class="gds-card-desc">
+            Vỏ bọc cao su chống sốc rơi rớt độ cao 2.5m, màn hình cảm ứng hiển thị danh sách nhặt hàng Wave Picking theo thời gian thực và tia laser đỏ đọc mã vạch xa 15 mét.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TẦNG SỐ SÓNG RF</span>
+              <span class="gds-tel-val">Wi-Fi 6E / 5GHz</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">ĐỘ BỀN CHỐNG NƯỚC</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">IP67 RUGGED</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionEquipScanner()">
+              <span>🔫</span> TRANG BỊ CHO TOÀN CA (-$4,500)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prop 2: Smart Logistics Totes & E-Commerce Parcels -->
+      <div class="gds-game-card gds-item-card" data-category="prop">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>📦</span> VẬT PHẨM: KHAY CHỨA HÀNG & THÙNG CARTON
+          </span>
+          <span class="gds-badge gds-badge-amber">VẬT TƯ CƠ BẢN</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/prop_smart_crates_parcels.png" alt="Smart Crates and Parcels" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: var(--gds-hazard-amber); color: var(--gds-hazard-amber);">
+            <span>BARCODE LPN: SYNC</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>KHAY NHỰA VÀNG TOTE & KIỆN CARTON</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">TỒN: 14,800 CÁI</span>
+          </div>
+          <p class="gds-card-desc">
+            Hệ thống khay nhựa tiêu chuẩn xếp chồng trên pallet gỗ, tích hợp nhãn mã vạch định danh LPN (License Plate Number) và cuộn băng dính cảnh báo hàng dễ vỡ FRAGILE.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">KHAY TOTE TẠI CHUYỀN</span>
+              <span class="gds-tel-val">4,250 chiếc</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">THÙNG CARTON XUẤT HỎA TỐC</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">10,550 thùng</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionBatchOrderBoxes()">
+              <span>📦</span> NHẬP THÊM 2,000 THÙNG (-$3,200)
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Audio Simulation & Interactions Script -->
+  <script>
+    // Web Audio Synthesizer for tactile game feedback
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playTone(freq, duration, type = "sine") {
+      try {
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Fallback gracefully
+      }
+    }
+
+    function showToast(message, icon = "⚡") {
+      const toast = document.getElementById("gds-toast");
+      document.getElementById("toast-msg").innerText = message;
+      document.getElementById("toast-icon").innerText = icon;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3500);
+    }
+
+    // Toggle Simulation Speed
+    function setSpeed(speed, btn) {
+      document.querySelectorAll(".gds-speed-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      playTone(520 + speed * 60, 0.12, "triangle");
+      showToast(`Tốc độ vận hành: ${speed === 0 ? "PAUSED" : speed + "X"}`, "⏱️");
+    }
+
+    // Toggle Daylight Theme
+    function toggleDaylightMode() {
+      document.body.classList.toggle("theme-daylight");
+      const isDay = document.body.classList.contains("theme-daylight");
+      document.getElementById("theme-icon").innerText = isDay ? "🌙" : "☀️";
+      playTone(440, 0.15);
+      showToast(isDay ? "Đã chuyển sang chế độ Tactical Daylight" : "Đã bật chế độ Obsidian Holo-Deck", "🎨");
+    }
+
+    // Emergency Boost Shift action
+    function triggerBoostShift() {
+      playTone(880, 0.25, "sawtooth");
+      const cashEl = document.getElementById("hud-cash");
+      let currentVal = 2482910;
+      currentVal -= 15000;
+      cashEl.innerText = `$${currentVal.toLocaleString()}`;
+      document.getElementById("cutoff-clock").innerText = "00:29:59";
+      showToast("Kích hoạt Overdrive Shift: Tăng gấp đôi công suất Sorter (-$15,000 phí OT)", "🚀");
+    }
+
+    // Super Sale Demo Order surge
+    function triggerDemoOrder() {
+      playTone(660, 0.15, "triangle");
+      const cashEl = document.getElementById("hud-cash");
+      let currentVal = parseInt(cashEl.innerText.replace(/[^0-9]/g, ''));
+      currentVal += 85000;
+      cashEl.innerText = `$${currentVal.toLocaleString()}`;
+      showToast("Bão đơn 11.11 đổ về: +500 đơn hàng tiếp nhận vào Inbound! (+$85,000 Doanh thu)", "💰");
+    }
+
+    // AMR Reroute
+    function actionAmrReroute() {
+      playTone(600, 0.1);
+      document.getElementById("amr-payload").innerText = "TOTE-VSIP-" + Math.floor(100 + Math.random() * 900);
+      document.getElementById("amr-speed").innerText = "2.10 m/s (TURBO)";
+      showToast("AMR-04: Đã đổi tuyến đường tránh nghẽn lối đi số 4", "🤖");
+    }
+
+    // AMR Charge
+    function actionAmrCharge() {
+      playTone(750, 0.18);
+      document.getElementById("amr-battery-label").innerText = "100% FULLY CHARGED";
+      document.getElementById("amr-battery-fill").style.width = "100%";
+      showToast("AMR-04: Sạc nhanh cảm ứng hoàn tất!", "🔋");
+    }
+
+    // Packing Validation
+    function actionPackValidate() {
+      playTone(587.33, 0.1);
+      setTimeout(() => playTone(880, 0.15), 100);
+      const newWeight = (3.5 + Math.random() * 2).toFixed(2) + " KG";
+      document.getElementById("pack-weight").innerText = newWeight;
+      showToast(`KCS Passed: Kiện hàng ${newWeight} đã dán tem SLAP và chuyển sang máng chia!`, "📦");
+    }
+
+    // Restock Boxes
+    function actionRestockBoxes() {
+      playTone(400, 0.12);
+      showToast("Đã nhập thêm 500 thùng carton số 3 vào kho đệm (-$2,500)", "📋");
+    }
+
+    // Filter Gallery Function
+    function filterGallery(category, btn) {
+      document.querySelectorAll(".gds-sim-controls .gds-speed-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      playTone(480, 0.08);
+      
+      const cards = document.querySelectorAll(".gds-item-card");
+      cards.forEach(card => {
+        if (category === "all" || card.dataset.category === category) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+      showToast(`Bộ lọc hiển thị: ${category.toUpperCase()}`, "🔍");
+    }
+
+    // New Character & Equipment Handlers
+    function actionHireSupervisor() {
+      playTone(700, 0.15, "triangle");
+      showToast("Đã bổ nhiệm Trưởng Ca Điều Hành: Tăng 15% tốc độ xử lý toàn kho!", "👑");
+    }
+
+    function actionInspireTeam() {
+      playTone(800, 0.2, "sine");
+      showToast("Trưởng ca khích lệ tinh thần: Thể lực công nhân phục hồi 100%!", "📣");
+    }
+
+    function actionDeploySquad() {
+      playTone(620, 0.12);
+      showToast("Đội Picker xuất kích: Công suất nhặt hàng tăng thêm 500 UPH!", "🏃");
+    }
+
+    function actionUpgradeArVisor() {
+      playTone(900, 0.15);
+      showToast("Nâng cấp kính AR: Bản đồ dẫn đường hình chữ S tối ưu 100%!", "👓");
+    }
+
+    function actionOverhaulRobots() {
+      playTone(450, 0.2, "sawtooth");
+      showToast("Đại tu đội xe AMR: Giảm 40% tỷ lệ gặp sự cố kẹt đường!", "🛠️");
+    }
+
+    function actionCalibrateSensors() {
+      playTone(850, 0.1);
+      showToast("Cân chỉnh cảm biến Lidar: Độ chính xác định vị đạt 2mm!", "📡");
+    }
+
+    function actionBuyForklift() {
+      playTone(550, 0.25, "square");
+      showToast("Đã nhập thêm 01 xe nâng điện 2.5 tấn vào sân đệm Inbound (-$35,000)", "🚜");
+    }
+
+    function actionAssignDockGate() {
+      playTone(600, 0.1);
+      showToast("Xe nâng đã được điều động trực tiếp tới Cổng Dock 02", "🚪");
+    }
+
+    function actionEquipScanner() {
+      playTone(750, 0.15);
+      showToast("Đã trang bị súng quét mã vạch RF IP67 cho toàn bộ 120 công nhân ca làm!", "🔫");
+    }
+
+    function actionBatchOrderBoxes() {
+      playTone(520, 0.12);
+      showToast("Đã đặt mua 2,000 thùng carton xuất hàng hỏa tốc Shopee / TikTok (-$3,200)", "📦");
+    }
+
+    // Cutoff Countdown Simulation
+    let secondsLeft = 14 * 60 + 59;
+    setInterval(() => {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        const m = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
+        const s = (secondsLeft % 60).toString().padStart(2, '0');
+        document.getElementById("cutoff-clock").innerText = `00:${m}:${s}`;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

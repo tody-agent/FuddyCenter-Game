@@ -1,0 +1,28 @@
+{
+  "name": "Boxme GameDev Secure Sandbox",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "node",
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "DISABLE_SKILL_SHELL_EXECUTION": "true"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.trimTrailingWhitespace": true,
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "bierner.markdown-preview-github-styles"
+      ]
+    }
+  },
+  "forwardPorts": [5173, 8787],
+  "postCreateCommand": "echo '✅ Sandbox initialized with zero host credentials access.'"
+}
