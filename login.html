@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập — Boxme Mission Control</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a1628'/><text x='16' y='22' text-anchor='middle' font-size='16' fill='%233b82f6'>B</text></svg>" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #070d18;
+      --card-bg: rgba(13, 22, 38, 0.88);
+      --card-border: rgba(59, 130, 246, 0.22);
+      --card-hover: rgba(59, 130, 246, 0.38);
+      --primary: #2454DD;
+      --primary-hover: #1d45bc;
+      --accent: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.12);
+      --success: #10b981;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(36, 84, 221, 0.25) 0%, rgba(56, 189, 248, 0.08) 40%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grid-pattern {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 80%);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-section {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(36, 84, 221, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-badge .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    .logo-badge span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #93c5fd;
+      text-transform: uppercase;
+      font-family: var(--mono);
+    }
+
+    .brand-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    .brand-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .login-card:hover {
+      border-color: var(--card-hover);
+    }
+
+    .card-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+      line-height: 1.45;
+    }
+
+    .crypto-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #6ee7b7;
+      font-family: var(--mono);
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-family: var(--mono);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(10, 17, 30, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 10px;
+      padding: 13px 44px 13px 40px;
+      font-size: 15px;
+      color: #fff;
+      font-family: var(--mono);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 0 15px rgba(59, 130, 246, 0.15);
+      background: rgba(10, 17, 30, 0.95);
+    }
+
+    .form-input:focus + .input-icon,
+    .input-wrapper:focus-within .input-icon {
+      color: #60a5fa;
+    }
+
+    .toggle-visibility-btn {
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .toggle-visibility-btn:hover {
+      color: #cbd5e1;
+    }
+
+    .error-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: var(--danger-bg);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(36, 84, 221, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #2b61ef 0%, #2563eb 100%);
+      box-shadow: 0 6px 20px rgba(36, 84, 221, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(36, 84, 221, 0.3);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow"></div>
+  <div class="grid-pattern"></div>
+
+  <div class="container">
+    <div class="brand-section">
+      <div class="logo-badge">
+        <span class="status-dot"></span>
+        <span>Boxme Mission Control · VSIP Bắc Ninh</span>
+      </div>
+      <h1 class="brand-title">Xác thực quyền truy cập</h1>
+      <p class="brand-subtitle">Hệ thống mô phỏng & điều hành vận hành trung tâm hoàn tất đơn hàng</p>
+    </div>
+
+    <div class="login-card">
+      <div class="card-heading">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        Mật khẩu hệ thống
+      </div>
+      <div class="crypto-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        PBKDF2-SHA256 (100k rounds) + HMAC Challenge
+      </div>
+      <p class="card-desc">Vui lòng nhập mật khẩu bảo mật để truy cập bảng điều khiển trực quan 3D.</p>
+
+      <div id="error-banner" class="error-banner">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span id="error-text">Mật khẩu không chính xác, vui lòng thử lại.</span>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="password-input">MẬT KHẨU</label>
+          <div class="input-wrapper">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </span>
+            <input 
+              type="password" 
+              id="password-input" 
+              class="form-input" 
+              placeholder="Nhập mật khẩu..." 
+              autocomplete="current-password"
+              autofocus 
+              required 
+            />
+            <button type="button" id="toggle-pwd-btn" class="toggle-visibility-btn" title="Hiện/ẩn mật khẩu">
+              <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn" class="submit-btn">
+          <span class="spinner" id="btn-spinner"></span>
+          <span id="btn-text">Vào hệ thống Mission Control &rarr;</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="footer-note">
+      Boxme Global Fulfillment Platform &copy; 2026<br/>
+      VSIP Bắc Ninh Warehouse Automation & Digital Twin
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const pwdInput = document.getElementById('password-input');
+    const toggleBtn = document.getElementById('toggle-pwd-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const btnText = document.getElementById('btn-text');
+    const errorBanner = document.getElementById('error-banner');
+    const errorText = document.getElementById('error-text');
+
+    // Expected client key hash (for offline preview only - zero plaintext)
+    const OFFLINE_TARGET_HASH = "6f52063a3cff2f3f446986e54e1dfd8262f65426f473a4ca3062f7e9e8f5162e";
+
+    toggleBtn.addEventListener('click', () => {
+      const isPwd = pwdInput.type === 'password';
+      pwdInput.type = isPwd ? 'text' : 'password';
+      toggleBtn.innerHTML = isPwd ? `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        </svg>
+      ` : `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      `;
+    });
+
+    function bytesToHex(bytes) {
+      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function showError(msg) {
+      errorText.textContent = msg;
+      errorBanner.style.display = 'flex';
+      pwdInput.focus();
+      pwdInput.select();
+    }
+
+    function hideError() {
+      errorBanner.style.display = 'none';
+    }
+
+    pwdInput.addEventListener('input', hideError);
+
+    // Cryptographic Key Derivation (PBKDF2-HMAC-SHA256)
+    async function deriveClientKey(password, saltStr, iterations) {
+      const keyMaterial = await crypto.subtle.importKey(
+        'raw',
+        new TextEncoder().encode(password),
+        { name: 'PBKDF2' },
+        false,
+        ['deriveBits']
+      );
+      const salt = new TextEncoder().encode(saltStr);
+      const derivedBits = await crypto.subtle.deriveBits(
+        { name: 'PBKDF2', salt, iterations, hash: 'SHA-256' },
+        keyMaterial,
+        256
+      );
+      return derivedBits;
+    }
+
+    // Cryptographic Proof Calculation (HMAC-SHA256 over Nonce)
+    async function computeProof(derivedBits, nonce) {
+      const hmacKey = await crypto.subtle.importKey(
+        'raw',
+        derivedBits,
+        { name: 'HMAC', hash: 'SHA-256' },
+        false,
+        ['sign']
+      );
+      const signature = await crypto.subtle.sign('HMAC', hmacKey, new TextEncoder().encode(nonce));
+      return bytesToHex(new Uint8Array(signature));
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = pwdInput.value;
+      if (!password) return;
+
+      hideError();
+      submitBtn.disabled = true;
+      btnSpinner.style.display = 'inline-block';
+      btnText.textContent = 'Đang giải mã & xác thực...';
+
+      try {
+        // 1. Get dynamic cryptographic challenge from server
+        let challenge;
+        try {
+          const cRes = await fetch('/api/challenge', { cache: 'no-store' });
+          if (cRes.ok) {
+            challenge = await cRes.json();
+          }
+        } catch (netErr) {
+          console.warn('Challenge API offline, falling back to local verification.');
+        }
+
+        const saltStr = challenge ? challenge.salt : 'boxme-vsip-mission-control-salt-2026';
+        const iterations = challenge ? challenge.iterations : 100000;
+
+        // 2. High-iteration PBKDF2 key stretching
+        const clientKeyBits = await deriveClientKey(password, saltStr, iterations);
+        const clientKeyHex = bytesToHex(new Uint8Array(clientKeyBits));
+
+        if (challenge && challenge.nonce) {
+          // 3. Compute dynamic HMAC challenge response proof
+          const proof = await computeProof(clientKeyBits, challenge.nonce);
+
+          // 4. Send proof to server (password is NEVER sent across network)
+          const loginRes = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nonce: challenge.nonce, proof })
+          });
+
+          if (loginRes.ok) {
+            const data = await loginRes.json();
+            if (data.success) {
+              localStorage.setItem('bmwms_auth', 'authenticated');
+              window.location.replace('/');
+              return;
+            }
+          } else {
+            showError('Mật khẩu không chính xác, vui lòng thử lại.');
+            submitBtn.disabled = false;
+            btnSpinner.style.display = 'none';
+            btnText.textContent = 'Vào hệ thống Mission Control \u2192';
+            return;
+          }
+        }
+
+        // Offline / Local static server fallback check (Zero plaintext)
+        if (clientKeyHex === OFFLINE_TARGET_HASH) {
+          localStorage.setItem('bmwms_auth', 'authenticated');
+          window.location.replace('/');
+        } else {
+          showError('Mật khẩu không chính xác, vui lòng thử lại.');
+          submitBtn.disabled = false;
+          btnSpinner.style.display = 'none';
+          btnText.textContent = 'Vào hệ thống Mission Control \u2192';
+        }
+      } catch (err) {
+        console.error('Lỗi xác thực:', err);
+        showError('Lỗi xác thực hệ thống: ' + err.message);
+        submitBtn.disabled = false;
+        btnSpinner.style.display = 'none';
+        btnText.textContent = 'Vào hệ thống Mission Control \u2192';
+      }
+    });
+  </script>
+</body>
+</html>

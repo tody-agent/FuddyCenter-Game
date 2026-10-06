@@ -1,0 +1,17 @@
+{
+  "name": "bmwms",
+  "description": "Boxme Mission Control - VSIP Bac Ninh Fulfillment Center Simulator",
+  "github": {
+    "account": "tody-agent",
+    "org": "tody-agent",
+    "repo": "bmwms",
+    "remoteUrl": "https://github.com/tody-agent/bmwms.git",
+    "userEmail": "tracuuphat@gmail.com"
+  },
+  "cloudflare": {
+    "accountId": "5a183e617c2e686d9b59b6b75b398b58",
+    "projectName": "bmwms",
+    "productionUrl": "https://bmwms.pages.dev",
+    "productionBranch": "main"
+  }
+}
