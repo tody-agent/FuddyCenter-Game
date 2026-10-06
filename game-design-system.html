@@ -2028,13 +2028,88 @@
       
       const cards = document.querySelectorAll(".gds-item-card");
       cards.forEach(card => {
-        if (category === "all" || card.dataset.category === category) {
+        const catData = card.dataset.category || "";
+        if (category === "all") {
+          card.style.display = "flex";
+        } else if (category === "future") {
+          if (!catData.includes("phase1")) {
+            card.style.display = "flex";
+          } else {
+            card.style.display = "none";
+          }
+        } else if (catData.includes(category)) {
           card.style.display = "flex";
         } else {
           card.style.display = "none";
         }
       });
       showToast(`Bộ lọc hiển thị: ${category.toUpperCase()}`, "🔍");
+    }
+
+    // Phase 1 Everyday Warehouse Action Handlers
+    function actionBuyPalletJack() {
+      playTone(480, 0.15, "triangle");
+      showToast("Đã mua thêm 01 Xe Kéo Tay Thủy Lực 2.5 Tấn (-$450)", "🚜");
+    }
+
+    function actionOilJack() {
+      playTone(600, 0.1);
+      showToast("Bảo dưỡng bơm dầu thủy lực xe nâng tay hoàn tất!", "💧");
+    }
+
+    function actionBuyPickingCart() {
+      playTone(520, 0.12);
+      showToast("Đã trang bị thêm 01 Xe Đẩy Gom Hàng 3 Tầng (-$320)", "🛒");
+    }
+
+    function actionAssignCart() {
+      playTone(650, 0.1);
+      showToast("Đã kẹp phiếu xuất kho mới vào xe đẩy để bắt đầu nhặt hàng", "📋");
+    }
+
+    function actionBuildPackTable() {
+      playTone(500, 0.2);
+      showToast("Đã dựng thêm 01 Bàn Đóng Gói Thủ Công Tiêu Chuẩn (-$850)", "📦");
+    }
+
+    function actionRestockBubbleWrap() {
+      playTone(700, 0.1);
+      showToast("Đã thay cuộn xốp bóng khí (Bubble wrap) 100 mét mới", "🫧");
+    }
+
+    function actionHireWorker() {
+      playTone(680, 0.15, "sine");
+      showToast("Tuyển dụng 01 công nhân nhặt hàng / đóng gói mới (Lương $450/tháng)", "👷");
+    }
+
+    function actionPayOvertime() {
+      playTone(720, 0.18);
+      showToast("Đã duyệt chi lương tăng ca: Năng suất công nhân đạt 120%!", "💵");
+    }
+
+    function actionSupervisorBriefing() {
+      playTone(600, 0.2, "square");
+      showToast("Họp giao ban 15 phút đầu ca: Nhắc nhở an toàn và chỉ tiêu KPI!", "📣");
+    }
+
+    function actionAuditInventory() {
+      playTone(750, 0.12);
+      showToast("Kiểm kê xác xuất 50 mã SKU: Tỷ lệ chính xác tồn kho 99.1%", "📝");
+    }
+
+    function actionBuyTapeGuns() {
+      playTone(450, 0.1);
+      showToast("Cấp phát 10 bộ súng miết băng dính cầm tay cho các trạm đóng (-$180)", "✂️");
+    }
+
+    function actionBuyPrinters() {
+      playTone(580, 0.12);
+      showToast("Đã lắp thêm 01 máy in nhiệt tem A6 để bàn (-$120)", "🖨️");
+    }
+
+    function actionBuyLabelRolls() {
+      playTone(620, 0.1);
+      showToast("Đã nhập 20 cuộn decal nhiệt 100x150mm (10,000 tem vận đơn)", "📄");
     }
 
     // New Character & Equipment Handlers
