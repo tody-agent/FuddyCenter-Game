@@ -5,8 +5,8 @@
 * **Trạng thái:** FINAL / COMPREHENSIVE PRODUCTION SPECIFICATION (Đã tích hợp đầy đủ nghiên cứu Game Mechanics & Tâm lý học hành vi)
 * **Phiên bản:** 2.0.0
 * **Ngày cập nhật:** 06/10/2026
-* **Tác giả:** Antigravity Architecture Group & Boxme Global Logistics Engineering
-* **Tài liệu nghiên cứu nền tảng:** `docs/research/2026-10-06-game-simulation-behavioral-psychology.md`
+* **Tài liệu thiết kế tổng thể:** [FINAL_PRODUCT_MASTER_BLUEPRINT.md](../../FINAL_PRODUCT_MASTER_BLUEPRINT.md)
+* **Kế hoạch sản xuất:** [MASTER_GAME_PRODUCTION_PLAN.md](../../MASTER_GAME_PRODUCTION_PLAN.md)
 
 ---
 

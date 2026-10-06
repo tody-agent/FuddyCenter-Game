@@ -2,34 +2,37 @@
 
 Hệ thống mô phỏng 3D Digital Twin, Sandbox ra quyết định What-If & Serious Game Điều hành trung tâm hoàn tất đơn hàng VSIP Bắc Ninh (và chuỗi Hub Đông Nam Á) của Boxme Global.
 
-🌐 **Production URL**: [https://bmwms.pages.dev](https://bmwms.pages.dev)
+🌐 **Production URL**: [https://bmwms.pages.dev](https://bmwms.pages.dev)  
+🎮 **Interactive Design System**: [game-design-system.html](./game-design-system.html)  
+🔐 **Portal Đăng nhập**: [login.html](./login.html)  
+🕹️ **3D Simulator Trực tiếp**: [index.html](./index.html)
 
 ---
 
 ## 📚 KHO TRI THỨC & TÀI LIỆU DỰ ÁN (Project Knowledge Base)
 
-Toàn bộ hệ thống tri thức, đặc tả kỹ thuật và mô hình game được chuẩn hóa trong thư mục [`docs/`](docs/):
+Toàn bộ hệ thống tri thức, đặc tả kỹ thuật và mô hình game được chuẩn hóa trong thư mục [`docs/`](./docs/):
 
 ### 1. Tài Liệu Cấp Cao (Master Specifications)
-* 🌟 **[Master Product Blueprint](docs/FINAL_PRODUCT_MASTER_BLUEPRINT.md)**: Bản thiết kế sản phẩm hoàn thiện cao nhất, tích hợp phản biện từ hội đồng đa Agent (Red Team Systems Balance, 3PL Ops Veteran & Behavioral Psychologist).
-* 📋 **[Master Game Design Document (GDD)](docs/GAME_DESIGN_DOCUMENT.md)**: Tài liệu thiết kế game chi tiết (Core loops, 8 phân hệ nghiệp vụ, Dynamic Bottlenecks).
-* 📅 **[Master Game Production Plan](docs/MASTER_GAME_PRODUCTION_PLAN.md)**: Kế hoạch sản xuất, sprint bus và lộ trình phát triển.
-* 📐 **[OpenSpec 2.0 Technical Specification](docs/superpowers/specs/2026-10-06-boxme-simulator-openspec.md)**: Bản đặc tả kỹ thuật kiến trúc phần mềm Three.js WebGL, Simulation Core, Discrete Engine, Monte Carlo.
-* 💼 **[Business Model Canvas & Value Proposition](docs/BUSINESS_MODEL_CANVAS.md)**: Tuyên ngôn giá trị và bài toán kinh tế 4 dòng doanh thu (Internal ROI, B2B Sales, EdTech SaaS, B2C Steam Game).
-* 🏆 **[Tycoon Progression & Multi-Currency Engine](docs/TYCOON_PROGRESSION_MULTI_CURRENCY.md)**: Lộ trình 5 cấp độ tiến hóa kho bãi (300m² -> 40.000m²), hệ thống 5 đơn vị kinh tế tương hỗ và vòng lặp Merchant Churn.
-* 👥 **[Workforce Management & Labor Dynamics](docs/WORKFORCE_MANAGEMENT_LABOR_DYNAMICS.md)**: Quản trị lao động hai tầng (Core vs Temp Agency), rủi ro bùng ca, buddy system và bài toán lương thị trường.
-* 🎨 **[Fulfillment Game Design System (GDS)](docs/FULFILLMENT_GAME_DESIGN_SYSTEM.md)**: Hệ thống design tokens, typography, HUD telemetry, và sound design đa tầng.
+* 🌟 **[Master Product Blueprint](./docs/FINAL_PRODUCT_MASTER_BLUEPRINT.md)**: Bản thiết kế sản phẩm hoàn thiện cao nhất, tích hợp phản biện từ hội đồng đa Agent (Red Team Systems Balance, 3PL Ops Veteran & Behavioral Psychologist).
+* 📋 **[Master Game Design Document (GDD)](./docs/GAME_DESIGN_DOCUMENT.md)**: Tài liệu thiết kế game chi tiết (Core loops, 8 phân hệ nghiệp vụ, Dynamic Bottlenecks).
+* 📅 **[Master Game Production Plan](./docs/MASTER_GAME_PRODUCTION_PLAN.md)**: Kế hoạch sản xuất, sprint bus và lộ trình phát triển.
+* 📐 **[OpenSpec 2.0 Technical Specification](./docs/superpowers/specs/2026-10-06-boxme-simulator-openspec.md)**: Bản đặc tả kỹ thuật kiến trúc phần mềm Three.js WebGL, Simulation Core, Discrete Engine, Monte Carlo.
+* 💼 **[Business Model Canvas & Value Proposition](./docs/BUSINESS_MODEL_CANVAS.md)**: Tuyên ngôn giá trị và bài toán kinh tế 4 dòng doanh thu (Internal ROI, B2B Sales, EdTech SaaS, B2C Steam Game).
+* 🏆 **[Tycoon Progression & Multi-Currency Engine](./docs/TYCOON_PROGRESSION_MULTI_CURRENCY.md)**: Lộ trình 5 cấp độ tiến hóa kho bãi (300m² -> 40.000m²), hệ thống 5 đơn vị kinh tế tương hỗ và vòng lặp Merchant Churn.
+* 👥 **[Workforce Management & Labor Dynamics](./docs/WORKFORCE_MANAGEMENT_LABOR_DYNAMICS.md)**: Quản trị lao động hai tầng (Core vs Temp Agency), rủi ro bùng ca, buddy system và bài toán lương thị trường.
+* 🎨 **[Fulfillment Game Design System (GDS)](./docs/FULFILLMENT_GAME_DESIGN_SYSTEM.md)**: Hệ thống design tokens, typography, HUD telemetry, và sound design đa tầng.
 
-### 2. Nghiên Cứu Chuyên Sâu 9 Phân Hệ Vận Hành ([docs/research/](docs/research/))
-* `01_inbound_qc_slotting.md`: Tiếp nhận container, QC kiểm date, dỡ hàng & thuật toán xếp kệ ABC.
-* `02_picking_wave_routing.md`: Gom đơn wave batching, định tuyến xe nhặt hàng TSP/A*.
-* `03_packing_vas_kcs.md`: Đóng gói bàn thao tác, bọc bóng khí, VAS quà tặng & cân KCS kiểm trọng lượng.
-* `04_sortation_outbound_sla.md`: Phân loại bưu cục máng trượt, chạy đua SLA Shopee FHR & TikTok FDR.
-* `05_layout_racking_robotics.md`: Bố trí layout kệ Mezzanine, High Bay, xe nâng AGV & robot tự hành AMR.
-* `06_workforce_fatigue_skills.md`: Quản trị thể lực, mệt mỏi ca kíp, kỹ năng thợ & ca làm thêm OT.
-* `07_tycoon_economy_crisis_events.md`: Kinh tế kho bãi, hợp đồng thương gia, khấu hao máy móc & sự cố Boss Waves.
-* `08_3d_digital_twin_hud_audio.md`: Đồ họa 3D Three.js PBR, N8AO, shader cảnh báo & Web Audio API.
-* `09_gamedev_engine_skills_security_architecture.md`: Kiến trúc engine gamedev, bảo mật agentic skills & sandbox.
+### 2. Nghiên Cứu Chuyên Sâu 9 Phân Hệ Vận Hành ([docs/research/](./docs/research/))
+* 📥 **[01. Inbound QC & ABC Slotting](./docs/research/01_inbound_qc_slotting.md)**: Tiếp nhận container, QC kiểm date, dỡ hàng & thuật toán xếp kệ ABC.
+* 📦 **[02. Picking & Wave Routing](./docs/research/02_picking_wave_routing.md)**: Gom đơn wave batching, định tuyến xe nhặt hàng TSP/A*.
+* 🎁 **[03. Packing, VAS & KCS Scale](./docs/research/03_packing_vas_kcs.md)**: Đóng gói bàn thao tác, bọc bóng khí, VAS quà tặng & cân KCS kiểm trọng lượng.
+* 🚚 **[04. Sortation & Outbound SLA](./docs/research/04_sortation_outbound_sla.md)**: Phân loại bưu cục máng trượt, chạy đua SLA Shopee FHR & TikTok FDR.
+* 🤖 **[05. Warehouse Layout & Robotics](./docs/research/05_layout_racking_robotics.md)**: Bố trí layout kệ Mezzanine, High Bay, xe nâng AGV & robot tự hành AMR.
+* 👷 **[06. Workforce Fatigue & Skills](./docs/research/06_workforce_fatigue_skills.md)**: Quản trị thể lực, mệt mỏi ca kíp, kỹ năng thợ & ca làm thêm OT.
+* 📈 **[07. Tycoon Economy & Crisis Events](./docs/research/07_tycoon_economy_crisis_events.md)**: Kinh tế kho bãi, hợp đồng thương gia, khấu hao máy móc & sự cố Boss Waves.
+* 🎧 **[08. 3D Digital Twin & Audio Engine](./docs/research/08_3d_digital_twin_hud_audio.md)**: Đồ họa 3D Three.js PBR, N8AO, shader cảnh báo & Web Audio API.
+* 🛡️ **[09. GameDev Security & Architecture](./docs/research/09_gamedev_engine_skills_security_architecture.md)**: Kiến trúc engine gamedev, bảo mật agentic skills & sandbox.
 
 ---
 
