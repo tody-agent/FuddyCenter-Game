@@ -144,27 +144,73 @@ Vòng lặp tương tác 5 bước duy trì nhịp độ căng thẳng và phả
 6. **Người chơi can thiệp:** Kích hoạt 3 bàn dự phòng E1–E3, bật chế độ làm thêm giờ (OT).
 7. **Pha 4 (14:00 - 16:30):** Đóng gói xong 12.000 kiện hàng, nhưng xe tải J&T bị trễ. **Handover và Docks** nghẽn cứng, không còn lối đi cho xe nâng hạ pallet!
 
-### 4.3 Hệ Thống Kinh Tế Tài Nguyên Kép (Dual-Resource Economy)
-Mọi quyết định đều có chi phí đánh đổi rõ rệt:
+### 4.3 Hệ Thống Đa Tiền Tệ & Chỉ Số Sức Mạnh (Multi-Currency & Core Attributes)
+Nhằm tránh tình trạng "game 1 loại tiền dễ chán và dễ bị hack/lạm phát", hệ thống áp dụng cơ chế 5 trụ cột kinh tế tương hỗ:
 
 ```typescript
-interface PlayerEconomyState {
-  opexBudget: number;       // Ngân sách ca (VD: 50.000.000 VNĐ)
-  opexSpent: number;        // Chi phí đã chi (Lương OT, xe ngoài, điện E-station)
-  actionPoints: number;     // Điểm hành động (Max 10 AP, hồi 1 AP / 15s)
-  averageMorale: number;    // Tinh thần công nhân (0 - 100%)
-  averageFatigue: number;   // Mức độ mệt mỏi tích lũy (0 - 100%)
-  slaFinesIncurred: number; // Tiền phạt vi phạm SLA tích lũy
+interface PlayerTycoonState {
+  // 1. Tiền Mặt / Vốn Lưu Động (Soft Currency)
+  cashBalance: number;          // Tiền mặt giao dịch ca (VNĐ)
+  shiftOpexBudget: number;      // Ngân sách dự trù ca
+  
+  // 2. Điểm Uy Tín Danh Vọng (Prestige Currency)
+  reputationStars: number;      // 0.0 - 5.0 sao (Đạt SLA sàn & độ hài lòng của Merchant)
+  platformPenaltyPoints: number;// Điểm sao quả tạ từ Shopee/TikTok
+  
+  // 3. Điểm Sức Mạnh Kho (Hardware Metric)
+  totalCbmCapacity: number;     // Tổng thể tích lưu kho (m³)
+  availableCbmPower: number;    // Số CBM còn rảnh để nhận thêm khách mới
+  warehouseTier: 1 | 2 | 3 | 4 | 5; // Cấp bậc kho hiện tại
+  
+  // 4. Điểm Đổi Mới Công Nghệ (R&D Currency)
+  techSparks: number;           // Điểm mở khóa cây công nghệ (Robot, AI WMS, KCS tự động)
+  
+  // 5. Thước Đo Tiến Trình (Progression XP)
+  opsLevel: number;             // Level người chơi (Level 1 -> 50)
+  growthXp: number;             // Điểm kinh nghiệm tích lũy qua từng đơn hàng
+  
+  // Vận hành nhân sự & thiết bị
+  actionPoints: number;         // Điểm hành động (Max 10 AP, hồi 1 AP/15s)
+  averageMorale: number;        // Tinh thần công nhân (0 - 100%)
+  equipmentHealth: number;      // Độ bền trung bình của máy móc (0 - 100%)
 }
 ```
 
-#### Bộ Thẻ Lệnh Can Thiệp Quản Lý (Management Action Cards):
+### 4.4 Lộ Trình 5 Cấp Độ Tiến Hóa Kho Bãi (Warehouse Evolution Tiers)
+Người chơi khởi đầu từ một kho bãi nhỏ đơn sơ và từng bước mở rộng thành Siêu Hub tự động hóa:
+1. **Tier 1: Kho Vải Bạt Khởi Nghiệp (300m² - 450 CBM):** 2 xe kéo tay, 3 bàn gỗ đóng thủ công, 5 thợ kiêm nhiệm, xử lý 500 đơn/ngày cho 3 shop nhỏ.
+2. **Tier 2: Kho Tiêu Chuẩn Ven Đô (2.000m² - 3.500 CBM):** Kệ Selective 3 tầng, 1 xe nâng dầu, máy in nhiệt, 20 thợ chuyên môn, xử lý 3.000 đơn/ngày.
+3. **Tier 3: Trung Tâm Hoàn Tất Đô Thị (8.000m² - 16.000 CBM):** Kệ High Bay 5 tầng, xe nâng reach truck tầm cao, băng chuyền con lăn, trạm cân KCS, 60 thợ 2 ca, xử lý 15.000 đơn/ngày.
+4. **Tier 4: Siêu Hub Mega Sale VSIP Bắc Ninh (20.000m² - 45.000 CBM):** Sàn Mezzanine 3 tầng, 50 bàn pack, 3 trạm khẩn cấp E1-E3, 6 cửa dock tự động, băng chuyền phân loại máng trượt, 200 thợ, xử lý 50.000–80.000 đơn/ngày.
+5. **Tier 5: Siêu Hub Thông Minh Không Đèn (Lights-Out Gigahub 40.000m² - 100.000 CBM):** Cẩu ASRS tự động 18m, 100 robot AMR mang kệ, máy đóng thùng 3D tự động, camera AI kiểm soát 100% gói hàng, xử lý 250.000 đơn/ngày xuyên biên giới.
+
+### 4.5 Vòng Lặp Sự Hài Lòng Của Khách Hàng (Customer Satisfaction & Churn Engine)
+Khách hàng là các Merchant có chỉ số cảm xúc và lòng trung thành:
+* **Dịch vụ Tốt (SLA > 98.5%, Tỷ lệ lỗi < 0.2%):**
+  - Khách hài lòng ($CSAT \ge 90\%$) $\to$ Tự động gia hạn hợp đồng, ký gửi thêm 25% hàng lưu kho (tăng doanh thu lưu kho CBM).
+  - Kích hoạt sự kiện **"Word-of-Mouth"**: Đối tác nhãn hàng mới tự động tìm đến ký hợp đồng.
+* **Dịch vụ Kém (Trượt SLA, Hàng bẹp vỡ, Giao nhầm):**
+  - Khách thất vọng ($CSAT < 60\%$) $\to$ Đánh giá 1 sao, gửi cảnh báo đòi bồi thường.
+  - Nếu tiếp tục vỡ trận ($CSAT < 40\%$): **Hủy hợp đồng (Merchant Churn)** $\to$ Rút sạch hàng, để lại diện tích sàn Mezzanine trống rỗng, người chơi mất dòng tiền nhưng vẫn phải trả chi phí thuê mặt bằng cố định.
+
+### 4.6 Khấu Hao Thiết Bị, Bảo Trì & Thưởng Đột Biến (Maintenance & Bonus Injections)
+* **Khấu hao & Hỏng hóc (Equipment Wear & Tear):**
+  - Băng chuyền con lăn hao mòn $2.5\%/\text{ca}$, xe nâng hao mòn $3\%/\text{ca}$.
+  - Khi độ bền $< 30\%$, nguy cơ 35% xảy ra sự cố **"Chết máy giữa ca" (Catastrophic Breakdown)** làm tắc nghẽn cả dây chuyền.
+  - Người chơi phải cân đối giữa **Bảo trì Định kỳ (Preventive Maintenance)** giá rẻ trước ca vs **Sửa chữa Khẩn cấp (Emergency Repair)** đắt gấp 3.5 lần khi máy đã cháy động cơ.
+* **Các Khoản Thưởng Đột Biến (Bonus Injections):**
+  - Thưởng hoàn thành ca Rank S: Thưởng nóng $10\%$ doanh thu ca $+ 50\text{ Tech Sparks}$.
+  - Thưởng Đối tác Chiến lược Shopee/TikTok: Giữ SLA > 99% trong 5 ca liên tiếp $\to$ Nhận khoản thưởng đối tác $50.000.000\text{ VNĐ}$.
+  - Thưởng Flash Sale Blitz: Xử lý sạch 5.000 đơn trong 90 phút $\to$ Nhận tiền tip nóng từ Merchant.
+
+### 4.7 Bộ Thẻ Lệnh Can Thiệp Quản Lý (Management Action Cards)
 - `REALLOCATE_WORKERS`: Chuyển 5 thợ giữa các trạm (Tiêu tốn: 2 AP, Độ trễ di chuyển: 30s).
 - `ACTIVATE_EMERGENCY_BENCH`: Mở bàn đóng gói E1/E2/E3 (Tiêu tốn: 3 AP, Chi phí: +250.000 VNĐ/giờ vận hành).
 - `PLATFORM_PRIORITY_SURGE`: Ưu tiên tuyệt đối đơn hàng Shopee hoặc TikTok (Tiêu tốn: 2 AP; Hệ quả: Đơn của sàn còn lại bị trôi về cuối queue).
 - `CALL_BACKUP_CARRIER_TRUCK`: Thuê xe tải chở hàng ngoài khẩn cấp (Tiêu tốn: 4 AP, Chi phí: +1.500.000 VNĐ/xe; Đón hàng sau 25 phút).
 - `DECLARE_SHIFT_OVERTIME`: Kích hoạt ca OT 2 tiếng (Tiêu tốn: 5 AP; Chi phí lương 1.5x–2.0x; Giảm 15% Morale).
 - `FAST_TRACK_SINGLE_ITEMS`: Bỏ qua gom đơn, đẩy toàn bộ đơn Single xuất kho trước (Tiêu tốn: 2 AP; Giúp giải tỏa nhanh số lượng lớn đơn cận kề SLA).
+- `TRIGGER_PREVENTIVE_MAINTENANCE`: Bảo trì bảo dưỡng toàn bộ máy móc trước ca (Tiêu tốn: $5.000.000\text{ VNĐ}$; Hồi phục 100% độ bền thiết bị).
 
 ---
 
