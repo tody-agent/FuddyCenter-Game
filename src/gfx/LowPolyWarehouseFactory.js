@@ -29,7 +29,10 @@ export const PALETTE = {
   concreteFloor: 0xe2e8f0,
   cleanWhite: 0xf8fafc,
   highVisVest: 0xa3e635,
-  skinTone: 0xfbcfe8
+  skinTone: 0xfbcfe8,
+  fireRed: 0xb91c1c,
+  treeGreen: 0x15803d,
+  treeDark: 0x166534
 };
 
 // Cached Materials
@@ -665,6 +668,670 @@ export class LowPolyWarehouseFactory {
     const stripeEdge = new THREE.Mesh(new THREE.BoxGeometry(doorW + 1.2, 0.06, 0.25), matStripe);
     stripeEdge.position.set(0, 0.03, 2.4);
     group.add(apron, stripeEdge);
+
+    return group;
+  }
+
+  /**
+   * 11. Sa Bàn Kho Khởi Nghiệp Toàn Cảnh (Starter Warehouse Diorama)
+   * Tích hợp đồng bộ 2 dãy kệ Selective, bàn đóng gói, xe tải dock, xe kéo tay, xe đẩy và nhân sự
+   */
+  static createStarterWarehouseDiorama(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'StarterWarehouseDiorama';
+
+    // 1. Sàn bê tông kho (Floor Base)
+    const floorSize = 16;
+    const floorGeo = new THREE.BoxGeometry(floorSize, 0.2, floorSize);
+    const floorMesh = new THREE.Mesh(floorGeo, getMaterial(PALETTE.concreteFloor, 0.9));
+    floorMesh.position.set(0, -0.1, 0);
+    group.add(floorMesh);
+
+    // Vạch phân luồng vàng an toàn (Safety Yellow Walkway)
+    const lineGeo = new THREE.BoxGeometry(0.12, 0.01, floorSize - 2);
+    const matLine = getMaterial(PALETTE.hazardAmber, 0.4);
+    const lineL = new THREE.Mesh(lineGeo, matLine);
+    lineL.position.set(-2.5, 0.01, 0);
+    const lineR = new THREE.Mesh(lineGeo, matLine);
+    lineR.position.set(2.5, 0.01, 0);
+    group.add(lineL, lineR);
+
+    // 2. Hai dãy kệ pallet Selective Rack
+    const rack1 = LowPolyWarehouseFactory.createSelectiveRack({ bays: 2 });
+    rack1.position.set(-4.5, 0, -2);
+    const rack2 = LowPolyWarehouseFactory.createSelectiveRack({ bays: 2 });
+    rack2.position.set(-4.5, 0, 3);
+    group.add(rack1, rack2);
+
+    // 3. Bàn đóng gói thủ công KCS
+    const packTable = LowPolyWarehouseFactory.createConventionalPackTable();
+    packTable.position.set(4.5, 0, -2);
+    packTable.rotation.y = -Math.PI / 2;
+    group.add(packTable);
+
+    // 4. Cổng tiếp nhận Inbound Dock và xe tải
+    const dock = LowPolyWarehouseFactory.createInboundDockBay();
+    dock.position.set(0, 0, -floorSize / 2 + 0.2);
+    group.add(dock);
+
+    const truck = LowPolyWarehouseFactory.createDeliveryTruck();
+    truck.position.set(0, 0, -floorSize / 2 - 3.8);
+    group.add(truck);
+
+    // 5. Xe kéo tay pallet jack
+    const jack = LowPolyWarehouseFactory.createHandPalletJack();
+    jack.position.set(-1, 0, -4);
+    jack.rotation.y = 0.5;
+    group.add(jack);
+
+    // 6. Xe đẩy gom hàng kèm khay tote
+    const cart = LowPolyWarehouseFactory.createPickingCart();
+    cart.position.set(1.5, 0, 1.5);
+    cart.rotation.y = -0.6;
+    group.add(cart);
+
+    // 7. Công nhân nhặt hàng (Picker)
+    const picker = LowPolyWarehouseFactory.createWorkerPicker();
+    picker.position.set(1.5, 0, 0.5);
+    picker.rotation.y = Math.PI;
+    group.add(picker);
+
+    // 8. Giám sát viên sàn kho (Supervisor)
+    const supervisor = LowPolyWarehouseFactory.createFloorSupervisor();
+    supervisor.position.set(3.5, 0, -1);
+    supervisor.rotation.y = -1.2;
+    group.add(supervisor);
+
+    // 9. Cụm khay tote và kiện pallet sẵn sàng
+    const toteStack = LowPolyWarehouseFactory.createToteStack({ tiers: 4 });
+    toteStack.position.set(4.5, 0, 2);
+    const stagedPallet = LowPolyWarehouseFactory.createEuroPalletCargo({ heightTiers: 3 });
+    stagedPallet.position.set(0, 0, 4);
+    group.add(toteStack, stagedPallet);
+
+    return group;
+  }
+
+  // Alias methods for convenience
+  static createPackTable(options = {}) {
+    return LowPolyWarehouseFactory.createConventionalPackTable(options);
+  }
+
+  static createInboundDock(options = {}) {
+    return LowPolyWarehouseFactory.createInboundDockBay(options);
+  }
+
+  static createStackOfTotes(options = {}) {
+    return LowPolyWarehouseFactory.createToteStack(options);
+  }
+
+  /**
+   * 12. Xe Nâng Điện Ngồi Lái (Industrial Electric Forklift - FL-12)
+   * Trích xuất từ cấu trúc 3D gốc của boxme-mission-control.html
+   * Kích thước: 2.6m dài, 1.2m rộng, 2.42m cao
+   */
+  static createIndustrialForklift(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'IndustrialForklift';
+
+    const matWhite = getMaterial(PALETTE.cleanWhite, 0.4, 0.1);
+    const matSteel = getMaterial(PALETTE.steelBeam, 0.3, 0.5);
+    const matDark = getMaterial(PALETTE.steelFrame, 0.3, 0.5);
+    const matCobalt = getMaterial(PALETTE.fulldyCobalt, 0.4, 0.2);
+    const matBlack = getMaterial(PALETTE.rubberBlack, 0.8, 0.1);
+    const matWood = getMaterial(PALETTE.woodPallet, 0.7, 0.0);
+    const matBox = getMaterial(PALETTE.cardboardKraft, 0.6, 0.0);
+
+    // 1. Thân xe và khối đối trọng (Chassis & Counterweight)
+    const body = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.55, 1.7), matWhite);
+    body.position.set(0, 0.5, 0.25);
+    const counterweight = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.75, 0.55), matSteel);
+    counterweight.position.set(0, 0.6, -0.45);
+    group.add(body, counterweight);
+
+    // 2. Ghế ngồi lái và bảng điều khiển
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.5), matCobalt);
+    seat.position.set(0, 0.85, -0.05);
+    const seatBack = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.1), matCobalt);
+    seatBack.position.set(0, 1.15, -0.3);
+    const consoleBox = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.35, 0.2), matDark);
+    consoleBox.position.set(0.2, 0.95, 0.45);
+    group.add(seat, seatBack, consoleBox);
+
+    // 3. Khung bảo vệ cabin trên cao (Roll Cage Guard)
+    const cagePosts = [[-0.48, -0.35], [0.48, -0.35], [-0.48, 0.6], [0.48, 0.6]];
+    cagePosts.forEach(([cx, cz]) => {
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.05, 1.35, 0.05), matDark);
+      post.position.set(cx, 1.45, cz);
+      group.add(post);
+    });
+    const cageTop = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.05, 1.05), matDark);
+    cageTop.position.set(0, 2.15, 0.12);
+    group.add(cageTop);
+
+    // 4. Bánh xe cao su (2 bánh tải trước + 2 bánh lái sau)
+    const wheelGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.22, 10);
+    wheelGeo.rotateZ(Math.PI / 2);
+    const frontL = new THREE.Mesh(wheelGeo, matBlack);
+    frontL.position.set(-0.55, 0.28, 0.75);
+    const frontR = new THREE.Mesh(wheelGeo, matBlack);
+    frontR.position.set(0.55, 0.28, 0.75);
+    const rearWheelGeo = new THREE.CylinderGeometry(0.22, 0.22, 0.2, 8);
+    rearWheelGeo.rotateZ(Math.PI / 2);
+    const rearL = new THREE.Mesh(rearWheelGeo, matBlack);
+    rearL.position.set(-0.48, 0.22, -0.35);
+    const rearR = new THREE.Mesh(rearWheelGeo, matBlack);
+    rearR.position.set(0.48, 0.22, -0.35);
+    group.add(frontL, frontR, rearL, rearR);
+
+    // 5. Cột nâng thẳng đứng (Vertical Mast)
+    const mastColGeo = new THREE.BoxGeometry(0.08, 2.4, 0.1);
+    const mastL = new THREE.Mesh(mastColGeo, matSteel);
+    mastL.position.set(0.32, 1.25, 1.08);
+    const mastR = new THREE.Mesh(mastColGeo, matSteel);
+    mastR.position.set(-0.32, 1.25, 1.08);
+    const mastTop = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.08, 0.1), matSteel);
+    mastTop.position.set(0, 2.42, 1.08);
+    group.add(mastL, mastR, mastTop);
+
+    // 6. Giá đỡ và 2 càng nâng thép (Forks)
+    const carriage = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.45, 0.06), matDark);
+    carriage.position.set(0, 0.35, 1.15);
+    const forkGeo = new THREE.BoxGeometry(0.1, 0.04, 1.05);
+    const forkL = new THREE.Mesh(forkGeo, matDark);
+    forkL.position.set(-0.22, 0.15, 1.7);
+    const forkR = new THREE.Mesh(forkGeo, matDark);
+    forkR.position.set(0.22, 0.15, 1.7);
+    group.add(carriage, forkL, forkR);
+
+    // 7. Kiện pallet hàng đặt trên càng (Euro Pallet Cargo Load)
+    const palletBase = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.04, 1.2), matWood);
+    palletBase.position.set(0, 0.2, 1.7);
+    group.add(palletBase);
+
+    for (let i = 0; i < 8; i++) {
+      const bx = (i & 1) ? 0.24 : -0.24;
+      const by = 0.38 + ((i >> 2) & 1) * 0.45;
+      const bz = 1.7 + ((i & 2) ? 0.27 : -0.27);
+      const box = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.42, 0.44), matBox);
+      box.position.set(bx, by, bz);
+      group.add(box);
+    }
+
+    return group;
+  }
+
+  /**
+   * 13. Băng Chuyền Băng Tải Con Lăn (Conveyor Belt Line)
+   * Trích xuất từ cấu trúc module fp() của boxme-mission-control.html
+   * Kích thước: 3.0m dài, 0.85m rộng, 0.75m cao
+   */
+  static createConveyorSegment(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'ConveyorSegment';
+
+    const len = options.length || 3.0;
+    const matRail = getMaterial(PALETTE.steelBeam, 0.3, 0.5);
+    const matLeg = getMaterial(PALETTE.steelLight, 0.3, 0.6);
+    const matBelt = getMaterial(PALETTE.rubberBlack, 0.7, 0.1);
+    const matBox = getMaterial(PALETTE.cardboardKraft, 0.6, 0.0);
+
+    // 2 Thanh ray dẫn hướng song song (Guide Rails)
+    const railGeo = new THREE.BoxGeometry(0.06, 0.15, len);
+    const railL = new THREE.Mesh(railGeo, matRail);
+    railL.position.set(-0.4, 0.68, 0);
+    const railR = new THREE.Mesh(railGeo, matRail);
+    railR.position.set(0.4, 0.68, 0);
+    group.add(railL, railR);
+
+    // Mặt băng tải (Conveyor Belt Bed)
+    const beltGeo = new THREE.BoxGeometry(0.75, 0.04, len);
+    const belt = new THREE.Mesh(beltGeo, matBelt);
+    belt.position.set(0, 0.72, 0);
+    group.add(belt);
+
+    // Chân đế thép cách đều 1.5m (H-Frame Legs)
+    const legGeo = new THREE.BoxGeometry(0.06, 0.7, 0.06);
+    const legCrossGeo = new THREE.BoxGeometry(0.74, 0.05, 0.05);
+    const legZs = [-len / 2 + 0.2, 0, len / 2 - 0.2];
+    legZs.forEach(lz => {
+      const leg1 = new THREE.Mesh(legGeo, matLeg);
+      leg1.position.set(-0.38, 0.35, lz);
+      const leg2 = new THREE.Mesh(legGeo, matLeg);
+      leg2.position.set(0.38, 0.35, lz);
+      const cross = new THREE.Mesh(legCrossGeo, matLeg);
+      cross.position.set(0, 0.25, lz);
+      group.add(leg1, leg2, cross);
+    });
+
+    // 2 Kiện thùng hàng đang chạy trên băng chuyền
+    const box1 = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.3, 0.5), matBox);
+    box1.position.set(0, 0.89, -0.6);
+    const box2 = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.25, 0.35), matBox);
+    box2.position.set(0.05, 0.865, 0.7);
+    group.add(box1, box2);
+
+    return group;
+  }
+
+  /**
+   * 14. Bàn Đóng Gói Kèm Đèn Tín Hiệu Andon (Pack Station with Andon Lamp)
+   * Trích xuất từ module lp() của boxme-mission-control.html
+   * Kích thước: 1.4m dài, 0.8m rộng, 1.75m cao (cột đèn)
+   */
+  static createPackStationWithAndon(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'PackStationAndon';
+
+    const matTop = getMaterial(PALETTE.cleanWhite, 0.4, 0.1);
+    const matLeg = getMaterial(PALETTE.steelLight, 0.3, 0.5);
+    const matDark = getMaterial(PALETTE.steelFrame, 0.4, 0.4);
+    const matGreen = getMaterial(PALETTE.slaNominal, 0.2, 0.1);
+
+    // Mặt bàn composite trắng
+    const top = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.06, 0.8), matTop);
+    top.position.set(0, 0.84, 0);
+    group.add(top);
+
+    // 4 Chân bàn thép ống
+    const legGeo = new THREE.BoxGeometry(0.06, 0.84, 0.06);
+    [[-0.6, -0.3], [0.6, -0.3], [-0.6, 0.3], [0.6, 0.3]].forEach(([lx, lz]) => {
+      const leg = new THREE.Mesh(legGeo, matLeg);
+      leg.position.set(lx, 0.42, lz);
+      group.add(leg);
+    });
+
+    // Màn hình máy tính KCS thao tác
+    const screen = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.35, 0.05), matDark);
+    screen.position.set(0.4, 1.05, -0.3);
+    const screenStand = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.15, 0.06), matDark);
+    screenStand.position.set(0.4, 0.94, -0.3);
+    group.add(screen, screenStand);
+
+    // Máy in tem và máy đọc mã vạch
+    const printer = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.08, 0.2), matLeg);
+    printer.position.set(-0.4, 0.91, 0.1);
+    group.add(printer);
+
+    // Cột đèn tháp tín hiệu Andon (Andon Lamp Mast)
+    const poleGeo = new THREE.CylinderGeometry(0.015, 0.015, 1.6, 6);
+    const pole = new THREE.Mesh(poleGeo, matLeg);
+    pole.position.set(0, 1.0, -0.38);
+    const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 8), matGreen);
+    lamp.position.set(0, 1.75, -0.38);
+    group.add(pole, lamp);
+
+    return group;
+  }
+
+  /**
+   * 15. Kệ Pallet Selective 3 Tầng Siêu Tải (3-Tier Heavy Duty Pallet Rack)
+   * Trích xuất từ module op() của boxme-mission-control.html
+   * Kích thước: 2.7m dài, 1.1m rộng, 4.2m cao
+   */
+  static createSelectiveRack3Tier(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'SelectiveRack3Tier';
+
+    const matCol = getMaterial(PALETTE.fulldyCobalt, 0.3, 0.4);
+    const matBeam = getMaterial(PALETTE.hazardOrange, 0.3, 0.4);
+    const matSilver = getMaterial(PALETTE.steelLight, 0.4, 0.5);
+
+    // 4 Chân cột thép chịu lực cao 4.2m
+    const colGeo = new THREE.BoxGeometry(0.08, 4.2, 0.08);
+    [[-1.25, -0.45], [1.25, -0.45], [-1.25, 0.45], [1.25, 0.45]].forEach(([cx, cz]) => {
+      const col = new THREE.Mesh(colGeo, matCol);
+      col.position.set(cx, 2.1, cz);
+      group.add(col);
+    });
+
+    // 3 Tầng dầm ngang và giằng ngang đỡ pallet
+    const beamGeo = new THREE.BoxGeometry(2.58, 0.1, 0.12);
+    const crossGeo = new THREE.BoxGeometry(0.12, 0.08, 1.0);
+    const tierYs = [0.25, 1.6, 2.95];
+
+    tierYs.forEach((ty, tierIdx) => {
+      [-0.45, 0.45].forEach(bz => {
+        const beam = new THREE.Mesh(beamGeo, matBeam);
+        beam.position.set(0, ty, bz);
+        group.add(beam);
+      });
+      [-1.25, 1.25].forEach(cx => {
+        const cross = new THREE.Mesh(crossGeo, matSilver);
+        cross.position.set(cx, ty, 0);
+        group.add(cross);
+      });
+
+      // 2 Kiện pallet đầy hàng trên mỗi tầng
+      [-0.65, 0.65].forEach(px => {
+        const pallet = LowPolyWarehouseFactory.createEuroPalletCargo({ heightTiers: 2 + (tierIdx % 2) });
+        pallet.position.set(px, ty + 0.05, 0);
+        group.add(pallet);
+      });
+    });
+
+    return group;
+  }
+
+  /**
+   * 16. Kệ Chia Hàng Ô Bồ Câu 4 Tầng (Sorting Pigeonhole Flow Rack)
+   * Trích xuất từ module ap() / ip() của boxme-mission-control.html
+   * Kích thước: 1.8m dài, 0.6m rộng, 1.85m cao
+   */
+  static createSortingFlowRack(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'SortingFlowRack';
+
+    const matFrame = getMaterial(PALETTE.steelFrame, 0.4, 0.4);
+    const matShelf = getMaterial(PALETTE.steelLight, 0.3, 0.5);
+    const matToteBlue = getMaterial(PALETTE.fulldyCobalt, 0.5, 0.0);
+    const matToteYellow = getMaterial(PALETTE.cautionYellow, 0.5, 0.0);
+
+    // 4 Cột thép khung
+    const postGeo = new THREE.BoxGeometry(0.05, 1.85, 0.05);
+    [[-0.88, -0.27], [0.88, -0.27], [-0.88, 0.27], [0.88, 0.27]].forEach(([px, pz]) => {
+      const post = new THREE.Mesh(postGeo, matFrame);
+      post.position.set(px, 0.925, pz);
+      group.add(post);
+    });
+
+    // 4 Tầng máng chia ô phân loại đơn hàng
+    const shelfGeo = new THREE.BoxGeometry(1.8, 0.04, 0.55);
+    const tierYs = [0.4, 0.85, 1.3, 1.75];
+    tierYs.forEach((ty, tIdx) => {
+      const shelf = new THREE.Mesh(shelfGeo, matShelf);
+      shelf.position.set(0, ty, 0);
+      shelf.rotation.x = 0.08;
+      group.add(shelf);
+
+      // Các khay đơn hàng ô bồ câu trên mỗi tầng
+      for (let s = -2; s <= 2; s++) {
+        const toteMat = (s + tIdx) % 2 === 0 ? matToteBlue : matToteYellow;
+        const tote = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.2, 0.4), toteMat);
+        tote.position.set(s * 0.34, ty + 0.12, 0);
+        group.add(tote);
+      }
+    });
+
+    return group;
+  }
+
+  /**
+   * 17. Xe Đẩy Chia Chọn Hàng Lưới Thép (Mobile Staging Cart with Mesh Sides)
+   * Trích xuất từ module dp() của boxme-mission-control.html
+   * Kích thước: 1.2m dài, 1.0m rộng, 1.85m cao
+   */
+  static createMobileStagingCart(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'MobileStagingCart';
+
+    const matSteel = getMaterial(PALETTE.steelBeam, 0.3, 0.5);
+    const matBlack = getMaterial(PALETTE.rubberBlack, 0.8, 0.1);
+    const matBox = getMaterial(PALETTE.cardboardKraft, 0.6, 0.0);
+
+    // 4 Trụ thép ống
+    const postGeo = new THREE.BoxGeometry(0.05, 1.8, 0.05);
+    [[-0.55, -0.45], [0.55, -0.45], [-0.55, 0.45], [0.55, 0.45]].forEach(([px, pz]) => {
+      const post = new THREE.Mesh(postGeo, matSteel);
+      post.position.set(px, 0.95, pz);
+      group.add(post);
+    });
+
+    // 3 Mặt sàn thép (đáy, giữa, nóc)
+    const deckGeo = new THREE.BoxGeometry(1.2, 0.05, 1.0);
+    [0.1, 0.9, 1.75].forEach(dy => {
+      const deck = new THREE.Mesh(deckGeo, matSteel);
+      deck.position.set(0, dy, 0);
+      group.add(deck);
+    });
+
+    // Lưới thép hai bên hông
+    for (let h = 0.2; h <= 1.7; h += 0.25) {
+      const barGeo = new THREE.BoxGeometry(0.02, 0.02, 0.95);
+      [-0.56, 0.56].forEach(bx => {
+        const bar = new THREE.Mesh(barGeo, matSteel);
+        bar.position.set(bx, h, 0);
+        group.add(bar);
+      });
+    }
+
+    // 4 Bánh xe cao su chịu tải xoay 360 độ
+    const wheelGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.05, 8);
+    wheelGeo.rotateZ(Math.PI / 2);
+    [[-0.55, -0.45], [0.55, -0.45], [-0.55, 0.45], [0.55, 0.45]].forEach(([wx, wz]) => {
+      const w = new THREE.Mesh(wheelGeo, matBlack);
+      w.position.set(wx, 0.05, wz);
+      group.add(w);
+    });
+
+    // Thùng hàng trên sàn xe
+    const b1 = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.35, 0.4), matBox);
+    b1.position.set(-0.25, 0.3, 0);
+    const b2 = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.3, 0.35), matBox);
+    b2.position.set(0.25, 0.28, 0);
+    group.add(b1, b2);
+
+    return group;
+  }
+
+  /**
+   * 18. Trạm Gác Bảo Vệ Kèm Cần Barrier Tự Động (Security Guardhouse & Barrier)
+   * Trích xuất từ module Zf() của boxme-mission-control.html
+   * Kích thước: 3.5m dài, 2.5m rộng, 2.8m cao
+   */
+  static createGuardhouseBarrier(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'GuardhouseBarrier';
+
+    const matWall = getMaterial(PALETTE.cleanWhite, 0.5, 0.0);
+    const matRoof = getMaterial(PALETTE.fulldyCobalt, 0.4, 0.2);
+    const matWindow = getMaterial(PALETTE.safetySky, 0.1, 0.8, true, 0.7);
+    const matBase = getMaterial(PALETTE.steelFrame, 0.4, 0.4);
+    const matYellow = getMaterial(PALETTE.cautionYellow, 0.4, 0.0);
+    const matDark = getMaterial(PALETTE.rubberBlack, 0.8, 0.1);
+
+    // Nhà gác bảo vệ (Booth)
+    const booth = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.4, 2.0), matWall);
+    booth.position.set(0, 1.2, 0);
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(2.7, 0.25, 2.3), matRoof);
+    roof.position.set(0, 2.45, 0);
+    const windowGlass = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.85, 0.05), matWindow);
+    windowGlass.position.set(0, 1.25, 1.01);
+    group.add(booth, roof, windowGlass);
+
+    // Trụ barrier motor
+    const barrierBase = new THREE.Mesh(new THREE.BoxGeometry(0.35, 1.0, 0.35), matBase);
+    barrierBase.position.set(-1.8, 0.5, 0.8);
+    group.add(barrierBase);
+
+    // Cần barrier sọc vàng đen chắn cổng
+    const armLen = 3.2;
+    for (let s = 0; s < 8; s++) {
+      const segMat = s % 2 === 0 ? matYellow : matDark;
+      const seg = new THREE.Mesh(new THREE.BoxGeometry(armLen / 8, 0.1, 0.05), segMat);
+      seg.position.set(-1.8 + (s + 0.5) * (armLen / 8), 0.95, 0.8);
+      group.add(seg);
+    }
+
+    return group;
+  }
+
+  /**
+   * 19. Cột Đèn Chiếu Sáng Sàn Kho 7.6m (High-Bay Yard Street Light)
+   * Trích xuất từ module ep() của boxme-mission-control.html
+   * Kích thước: 7.6m cao, cần vươn 1.6m
+   */
+  static createHighBayStreetLight(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'HighBayStreetLight';
+
+    const matPole = getMaterial(PALETTE.steelLight, 0.3, 0.6);
+    const matFixture = getMaterial(PALETTE.steelFrame, 0.4, 0.4);
+    const matLed = getMaterial(PALETTE.cleanWhite, 0.1, 0.0);
+
+    // Cột thép vươn cao 7.6m
+    const poleGeo = new THREE.CylinderGeometry(0.08, 0.14, 7.6, 8);
+    const pole = new THREE.Mesh(poleGeo, matPole);
+    pole.position.set(0, 3.8, 0);
+    group.add(pole);
+
+    // Cần ngang vươn đèn
+    const arm = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 1.6), matPole);
+    arm.position.set(0, 7.45, 0.75);
+    group.add(arm);
+
+    // Hộp đèn chiếu sáng LED công nghiệp
+    const fixture = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.14, 0.7), matFixture);
+    fixture.position.set(0, 7.38, 1.45);
+    const ledPanel = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.03, 0.56), matLed);
+    ledPanel.position.set(0, 7.32, 1.45);
+    group.add(fixture, ledPanel);
+
+    // Đế bê tông móng cột
+    const baseGeo = new THREE.CylinderGeometry(0.22, 0.26, 0.3, 8);
+    const base = new THREE.Mesh(baseGeo, getMaterial(PALETTE.concreteFloor, 0.8));
+    base.position.set(0, 0.15, 0);
+    group.add(base);
+
+    return group;
+  }
+
+  /**
+   * 20. Trụ Cứu Hỏa & Hệ Thống PCCC Sàn Kho (Fire Safety Hydrant & Pipeline)
+   * Trích xuất từ module D() của boxme-mission-control.html
+   * Kích thước: 1.2m cao, 0.7m rộng
+   */
+  static createFireSafetyHydrant(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'FireSafetyHydrant';
+
+    const matRed = getMaterial(PALETTE.fireRed, 0.3, 0.4);
+    const matCap = getMaterial(PALETTE.steelFrame, 0.3, 0.5);
+    const matBase = getMaterial(PALETTE.concreteFloor, 0.8);
+
+    // Bệ móng bê tông
+    const pad = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.12, 0.9), matBase);
+    pad.position.set(0, 0.06, 0);
+    group.add(pad);
+
+    // Trụ nước chữa cháy thân đứng
+    const standpipe = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 0.95, 8), matRed);
+    standpipe.position.set(0, 0.58, 0);
+    group.add(standpipe);
+
+    // Nắp đậy van xả chính trên đỉnh
+    const topCap = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.12, 8), matCap);
+    topCap.position.set(0, 1.08, 0);
+    group.add(topCap);
+
+    // 2 Họng xả nước hai bên (Dual Discharge Outlets)
+    const outletGeo = new THREE.CylinderGeometry(0.065, 0.065, 0.22, 8);
+    outletGeo.rotateZ(Math.PI / 2);
+    const outletL = new THREE.Mesh(outletGeo, matRed);
+    outletL.position.set(-0.16, 0.72, 0);
+    const outletR = new THREE.Mesh(outletGeo, matRed);
+    outletR.position.set(0.16, 0.72, 0);
+    const capL = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.05, 8), matCap);
+    capL.rotation.z = Math.PI / 2;
+    capL.position.set(-0.28, 0.72, 0);
+    const capR = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.05, 8), matCap);
+    capR.rotation.z = Math.PI / 2;
+    capR.position.set(0.28, 0.72, 0);
+    group.add(outletL, outletR, capL, capR);
+
+    return group;
+  }
+
+  /**
+   * 21. Thùng Rác Phân Loại Vật Liệu Đóng Gói (Industrial Waste & Recycling Bin)
+   * Trích xuất từ module pp() của boxme-mission-control.html
+   * Kích thước: 0.6m x 0.6m x 0.85m
+   */
+  static createIndustrialTrashBin(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'IndustrialTrashBin';
+
+    const matBase = getMaterial(PALETTE.steelFrame, 0.5, 0.3);
+    const matBody = getMaterial(PALETTE.steelBeam, 0.4, 0.2);
+    const matLid = getMaterial(PALETTE.cleanWhite, 0.3, 0.1);
+
+    // Đế chân thùng
+    const base = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.08, 0.45), matBase);
+    base.position.set(0, 0.04, 0);
+    group.add(base);
+
+    // Thân thùng thép chứa rác
+    const body = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.65, 0.4), matBody);
+    body.position.set(0, 0.4, 0);
+    group.add(body);
+
+    // Nắp lật có khe bỏ rác
+    const lid = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.12, 0.44), matLid);
+    lid.position.set(0, 0.78, 0);
+    group.add(lid);
+
+    return group;
+  }
+
+  /**
+   * 22. Kiện Hàng Pallet Xếp Sẵn Đệm Sàn (Buffer Pallet Stack)
+   * Trích xuất từ module pp() của boxme-mission-control.html
+   * Kích thước: 1.2m x 1.0m x 0.95m
+   */
+  static createBufferPalletStack(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'BufferPalletStack';
+
+    const matWood = getMaterial(PALETTE.woodPallet, 0.7, 0.0);
+    const matBox = getMaterial(PALETTE.cardboardKraft, 0.6, 0.0);
+
+    // Pallet gỗ EPAL
+    const pallet = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.12, 1.0), matWood);
+    pallet.position.set(0, 0.06, 0);
+    group.add(pallet);
+
+    // 2 Tầng thùng carton chờ bốc dỡ
+    const b1 = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.35, 0.8), matBox);
+    b1.position.set(0, 0.3, 0);
+    const b2 = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.35, 0.8), matBox);
+    b2.position.set(0, 0.66, 0);
+    group.add(b1, b2);
+
+    return group;
+  }
+
+  /**
+   * 23. Cây Xanh Cách Ly Quy Hoạch Sân Kho (Landscaping Green Tree)
+   * Trích xuất từ module $f() của boxme-mission-control.html
+   * Kích thước: 3.5m cao, tán lá 1.8m
+   */
+  static createLandscapeTree(options = {}) {
+    const group = new THREE.Group();
+    group.name = options.name || 'LandscapeTree';
+
+    const matTrunk = getMaterial(PALETTE.cardboardDark, 0.8, 0.0);
+    const matRing = getMaterial(PALETTE.cleanWhite, 0.6, 0.0);
+    const matFoliage1 = getMaterial(PALETTE.treeGreen, 0.8, 0.0);
+    const matFoliage2 = getMaterial(PALETTE.treeDark, 0.8, 0.0);
+
+    // Vòng bồn cây bê tông
+    const ringGeo = new THREE.CylinderGeometry(0.5, 0.55, 0.2, 8);
+    const ring = new THREE.Mesh(ringGeo, matRing);
+    ring.position.set(0, 0.1, 0);
+    group.add(ring);
+
+    // Thân cây gỗ
+    const trunkGeo = new THREE.CylinderGeometry(0.12, 0.16, 1.4, 6);
+    const trunk = new THREE.Mesh(trunkGeo, matTrunk);
+    trunk.position.set(0, 0.8, 0);
+    group.add(trunk);
+
+    // Tán lá hình học Low-Poly 2 tầng
+    const canopy1 = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 1.2, 1.2, 7), matFoliage1);
+    canopy1.position.set(0, 2.0, 0);
+    const canopy2 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.85, 1.0, 6), matFoliage2);
+    canopy2.position.set(0, 2.8, 0);
+    group.add(canopy1, canopy2);
 
     return group;
   }

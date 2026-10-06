@@ -88,4 +88,103 @@ describe('LowPolyWarehouseFactory Procedural 3D Mesh Tests', () => {
     const box = new THREE.Box3().setFromObject(dock);
     assert.ok(box.max.y >= 3.0, 'Dock wall should be over 3m high');
   });
+
+  it('should create IndustrialForklift with mast, forks, counterweight and loaded cargo', () => {
+    const fl = LowPolyWarehouseFactory.createIndustrialForklift();
+    assert.ok(fl instanceof THREE.Group);
+    assert.equal(fl.name, 'IndustrialForklift');
+    const box = new THREE.Box3().setFromObject(fl);
+    assert.ok(box.min.y >= -0.05, 'Forklift must be grounded at floor level');
+    assert.ok(box.max.y >= 2.2, 'Mast and cage should reach over 2.2m');
+  });
+
+  it('should create ConveyorSegment with rollers and moving parcels', () => {
+    const conv = LowPolyWarehouseFactory.createConveyorSegment({ length: 3.0 });
+    assert.ok(conv instanceof THREE.Group);
+    assert.equal(conv.name, 'ConveyorSegment');
+    const box = new THREE.Box3().setFromObject(conv);
+    assert.ok(box.max.z - box.min.z >= 2.8, 'Conveyor length should be ~3m');
+    assert.ok(box.max.y >= 0.7, 'Working height should be standard ~0.75m');
+  });
+
+  it('should create PackStationWithAndon with KCS screen and status lamp', () => {
+    const station = LowPolyWarehouseFactory.createPackStationWithAndon();
+    assert.ok(station instanceof THREE.Group);
+    assert.equal(station.name, 'PackStationAndon');
+    const box = new THREE.Box3().setFromObject(station);
+    assert.ok(box.max.y >= 1.6, 'Andon mast should reach ~1.75m');
+  });
+
+  it('should create SelectiveRack3Tier with 6 pallet positions and 4.2m columns', () => {
+    const rack3 = LowPolyWarehouseFactory.createSelectiveRack3Tier();
+    assert.ok(rack3 instanceof THREE.Group);
+    assert.equal(rack3.name, 'SelectiveRack3Tier');
+    const box = new THREE.Box3().setFromObject(rack3);
+    assert.ok(box.max.y >= 4.0, '3-tier rack uprights should reach 4.2m');
+  });
+
+  it('should create SortingFlowRack with inclined shelves and sorting totes', () => {
+    const flow = LowPolyWarehouseFactory.createSortingFlowRack();
+    assert.ok(flow instanceof THREE.Group);
+    assert.equal(flow.name, 'SortingFlowRack');
+    const box = new THREE.Box3().setFromObject(flow);
+    assert.ok(box.max.y >= 1.7, 'Rack height should be ~1.85m');
+  });
+
+  it('should create MobileStagingCart with wire mesh sides and parcels', () => {
+    const cart = LowPolyWarehouseFactory.createMobileStagingCart();
+    assert.ok(cart instanceof THREE.Group);
+    assert.equal(cart.name, 'MobileStagingCart');
+    const box = new THREE.Box3().setFromObject(cart);
+    assert.ok(box.max.y >= 1.7, 'Staging cart height should be ~1.85m');
+  });
+
+  it('should create GuardhouseBarrier with security booth and moving gate arm', () => {
+    const gh = LowPolyWarehouseFactory.createGuardhouseBarrier();
+    assert.ok(gh instanceof THREE.Group);
+    assert.equal(gh.name, 'GuardhouseBarrier');
+    const box = new THREE.Box3().setFromObject(gh);
+    assert.ok(box.max.y >= 2.4, 'Booth roof should reach ~2.5m');
+  });
+
+  it('should create HighBayStreetLight with 7.6m pole and LED fixture', () => {
+    const light = LowPolyWarehouseFactory.createHighBayStreetLight();
+    assert.ok(light instanceof THREE.Group);
+    assert.equal(light.name, 'HighBayStreetLight');
+    const box = new THREE.Box3().setFromObject(light);
+    assert.ok(box.max.y >= 7.0, 'Yard light pole must reach over 7m');
+  });
+
+  it('should create FireSafetyHydrant with concrete base and dual discharge valves', () => {
+    const hyd = LowPolyWarehouseFactory.createFireSafetyHydrant();
+    assert.ok(hyd instanceof THREE.Group);
+    assert.equal(hyd.name, 'FireSafetyHydrant');
+    const box = new THREE.Box3().setFromObject(hyd);
+    assert.ok(box.max.y >= 1.0, 'Hydrant standpipe should reach ~1.1m');
+  });
+
+  it('should create IndustrialTrashBin, BufferPalletStack, and LandscapeTree', () => {
+    const bin = LowPolyWarehouseFactory.createIndustrialTrashBin();
+    assert.ok(bin instanceof THREE.Group);
+    assert.equal(bin.name, 'IndustrialTrashBin');
+
+    const buf = LowPolyWarehouseFactory.createBufferPalletStack();
+    assert.ok(buf instanceof THREE.Group);
+    assert.equal(buf.name, 'BufferPalletStack');
+
+    const tree = LowPolyWarehouseFactory.createLandscapeTree();
+    assert.ok(tree instanceof THREE.Group);
+    assert.equal(tree.name, 'LandscapeTree');
+    const treeBox = new THREE.Box3().setFromObject(tree);
+    assert.ok(treeBox.max.y >= 3.0, 'Tree canopy should reach over 3m');
+  });
+
+  it('should create complete StarterWarehouseDiorama with floor, racks, truck, and workers', () => {
+    const diorama = LowPolyWarehouseFactory.createStarterWarehouseDiorama();
+    assert.ok(diorama instanceof THREE.Group);
+    assert.equal(diorama.name, 'StarterWarehouseDiorama');
+    assert.ok(diorama.children.length >= 8, 'Diorama should contain all warehouse operational elements');
+  });
 });
+
+

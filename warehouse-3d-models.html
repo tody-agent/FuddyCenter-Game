@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boxme Simulator: Studio Mô Hình 3D Khối Low-Poly (Isometric Tycoon)</title>
+  <title>Boxme Simulator: Studio Mô Hình 3D Khối Low-Poly (Phương Án 2)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #070b14;
       --surface-pod: #0d1526;
-      --surface-glass: rgba(13, 21, 38, 0.9);
+      --surface-glass: rgba(13, 21, 38, 0.94);
       --border-color: rgba(56, 189, 248, 0.22);
       --boxme-cobalt: #1e58fc;
       --safety-sky: #38bdf8;
@@ -19,6 +19,7 @@
       --hazard-amber: #f59e0b;
       --caution-yellow: #fbbf24;
       --nominal-green: #10b981;
+      --fire-red: #ef4444;
       --text-white: #f8fafc;
       --text-muted: #94a3b8;
     }
@@ -50,59 +51,78 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-color);
-      z-index: 20;
+      z-index: 30;
+      flex-shrink: 0;
     }
 
     .brand-title {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-title span.badge {
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 2px 8px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid var(--nominal-green);
-      color: var(--nominal-green);
-      border-radius: 999px;
-    }
-
-    .links-bar {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .nav-btn {
-      padding: 6px 14px;
-      font-size: 12px;
+    .brand-title span.main-text {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .badge-plan2 {
+      font-size: 11px;
       font-weight: 700;
-      color: var(--text-white);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-color);
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(30, 88, 252, 0.25);
+      border: 1px solid var(--boxme-cobalt);
+      color: var(--safety-sky);
+    }
+
+    .badge-count {
+      font-size: 11px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px;
       border-radius: 6px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid var(--nominal-green);
+      color: var(--nominal-green);
+    }
+
+    .links-bar {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-white);
       text-decoration: none;
-      transition: all 0.15s ease;
-      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .nav-btn:hover {
-      background: var(--boxme-cobalt);
-      border-color: var(--safety-sky);
+      background: rgba(30, 88, 252, 0.25);
+      border-color: var(--boxme-cobalt);
+      color: var(--safety-sky);
     }
 
-    /* Main Layout */
+    /* Main Container */
     .studio-container {
-      display: flex;
       flex: 1;
+      display: flex;
+      overflow: hidden;
       position: relative;
-      height: calc(100vh - 60px);
     }
 
     /* Sidebar Model Selector */
@@ -114,224 +134,172 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      z-index: 10;
+      gap: 6px;
+      z-index: 20;
+      flex-shrink: 0;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.25);
+      border-radius: 3px;
     }
 
     .section-title {
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
       color: var(--safety-sky);
-      letter-spacing: 0.08em;
+      font-family: 'JetBrains Mono', monospace;
       text-transform: uppercase;
-      margin: 10px 0 6px 4px;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      padding-left: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
     }
 
     .model-card {
-      padding: 12px 14px;
+      padding: 10px 12px;
       background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.15s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .model-card:hover {
-      background: rgba(56, 189, 248, 0.08);
-      border-color: var(--safety-sky);
-      transform: translateX(4px);
-    }
-
-    .model-card.active {
-      background: rgba(30, 88, 252, 0.22);
-      border-color: var(--boxme-cobalt);
-      box-shadow: 0 0 16px rgba(30, 88, 252, 0.35);
-    }
-
-    .model-card .title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .model-card .desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* 3D Canvas Viewport */
-    #viewport {
-      flex: 1;
-      height: 100%;
-      position: relative;
-      background: #090e1a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    /* Fallback Visualizer Frame */
-    #fallback-container {
-      display: none;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at center, #131f38 0%, #080c16 80%);
-      z-index: 5;
-      padding: 90px 20px 75px 20px;
-      overflow-y: auto;
-    }
-
-    .fallback-stage {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      max-width: 580px;
-      width: 100%;
-      padding: 18px 20px;
-      background: rgba(13, 21, 38, 0.9);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(20px);
-      text-align: center;
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.96); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .fallback-image-wrap {
-      width: 100%;
-      height: 250px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #e2e8f0;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 12px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .fallback-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      transition: transform 0.25s ease;
-    }
-
-    .fallback-image-wrap img.wireframe-effect {
-      filter: invert(1) hue-rotate(180deg) contrast(1.5);
-    }
-
-    .fallback-meta-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      width: 100%;
-      margin-top: 12px;
-    }
-
-    .meta-box {
-      padding: 6px 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      text-align: left;
-    }
-
-    .meta-label {
-      font-size: 9px;
-      color: var(--text-muted);
-      display: block;
-    }
-
-    .meta-val {
-      font-size: 11px;
-      color: var(--safety-sky);
-      font-weight: 700;
-      margin-top: 2px;
-    }
-
-    /* Viewport Floating Controls */
-    .viewport-controls {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      gap: 8px;
-      background: var(--surface-glass);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      z-index: 20;
-    }
-
-    .telemetry-overlay {
-      position: absolute;
-      top: 14px;
-      left: 16px;
-      background: var(--surface-glass);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      padding: 10px 14px;
-      border-radius: 8px;
-      pointer-events: none;
-      z-index: 20;
       display: flex;
       flex-direction: column;
       gap: 3px;
     }
 
-    .ctrl-btn {
-      padding: 6px 12px;
+    .model-card:hover {
+      background: rgba(30, 88, 252, 0.14);
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateX(3px);
+    }
+
+    .model-card.active {
+      background: rgba(30, 88, 252, 0.26);
+      border-color: var(--boxme-cobalt);
+      box-shadow: 0 0 14px rgba(30, 88, 252, 0.45);
+    }
+
+    .model-card .title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .model-card .badge-src {
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(249, 115, 22, 0.2);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      color: var(--hazard-orange);
+      margin-left: auto;
+    }
+
+    .model-card .desc {
       font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* Central Content Stage */
+    .stage-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Stage Tabs */
+    .stage-tabs {
+      height: 44px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(13, 21, 38, 0.85);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .tab-btn {
+      padding: 6px 14px;
+      font-size: 12px;
       font-family: 'JetBrains Mono', monospace;
       font-weight: 700;
-      color: var(--text-white);
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 4px;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .ctrl-btn:hover {
-      background: var(--boxme-cobalt);
-      border-color: var(--safety-sky);
+    .tab-btn:hover {
+      color: var(--text-white);
+      background: rgba(255, 255, 255, 0.05);
     }
 
-    .ctrl-btn.active {
-      background: var(--hazard-orange);
-      border-color: #ffffff;
+    .tab-btn.active {
+      color: var(--safety-sky);
+      background: rgba(30, 88, 252, 0.18);
+      border-color: var(--boxme-cobalt);
     }
 
-    /* Telemetry Overlay */
+    /* Tab Panes */
+    .tab-pane {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: flex;
+    }
+
+    /* 3D Viewport Pane */
+    #viewport-pane {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #090e1a;
+    }
+
+    #main-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+
+    #main-canvas:active {
+      cursor: grabbing;
+    }
+
+    /* Live Telemetry Overlay */
     .telemetry-overlay {
       position: absolute;
-      top: 20px;
+      top: 16px;
       left: 20px;
       background: var(--surface-glass);
       backdrop-filter: blur(12px);
@@ -343,7 +311,7 @@
       z-index: 10;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
     }
 
     .telemetry-row {
@@ -363,24 +331,213 @@
       gap: 6px;
       font-size: 10px;
       font-family: 'JetBrains Mono', monospace;
-      padding: 2px 6px;
+      font-weight: 700;
+      padding: 3px 8px;
       border-radius: 4px;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--safety-sky);
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--nominal-green);
       margin-top: 4px;
+      width: fit-content;
+    }
+
+    /* Viewport Floating Controls */
+    .viewport-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      background: var(--surface-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      z-index: 10;
+    }
+
+    .ctrl-btn {
+      padding: 7px 14px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--text-white);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ctrl-btn:hover {
+      background: rgba(30, 88, 252, 0.35);
+      border-color: var(--boxme-cobalt);
+    }
+
+    .ctrl-btn.active {
+      background: var(--boxme-cobalt);
+      border-color: var(--safety-sky);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(30, 88, 252, 0.6);
+    }
+
+    /* Code Inspector Pane */
+    #code-pane {
+      width: 100%;
+      height: 100%;
+      background: #080d1a;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .code-header {
+      padding: 12px 24px;
+      background: rgba(13, 21, 38, 0.9);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .code-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .code-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--safety-sky);
+    }
+
+    .code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      padding: 6px 14px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--boxme-cobalt);
+      border: 1px solid var(--safety-sky);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: #1545cc;
+    }
+
+    .code-content-wrap {
+      flex: 1;
+      overflow: auto;
+      padding: 24px;
+    }
+
+    pre.code-block {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      background: rgba(10, 16, 30, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    /* Blueprint Specs Pane */
+    #blueprint-pane {
+      width: 100%;
+      height: 100%;
+      background: #090e1a;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 28px;
+      gap: 20px;
+    }
+
+    .blueprint-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 840px;
+    }
+
+    .blueprint-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .blueprint-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .spec-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spec-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .spec-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--safety-sky);
     }
   </style>
 
-  <!-- Load Local Three.js and OrbitControls -->
+  <!-- Load Three.js Standalone + OrbitControls + LowPoly Factory Browser Bundle -->
   <script src="assets/vendor/three.min.js"></script>
   <script src="assets/vendor/OrbitControls.js"></script>
+  <script src="assets/vendor/LowPolyWarehouseFactory.browser.js"></script>
 </head>
 <body>
 
+  <!-- Top Navigation Header -->
   <header>
     <div class="brand-title">
-      <span>📦 BOXME 3D LOW-POLY STUDIO</span>
-      <span class="badge">CHUNKY ISOMETRIC 3D</span>
+      <span class="main-text">📦 BOXME 3D LOW-POLY STUDIO</span>
+      <span class="badge-plan2">PHƯƠNG ÁN 2: 3D KHỐI ĐƠN GIẢN (LOW-POLY MESH)</span>
+      <span class="badge-count">23 MÔ HÌNH THỰC TẾ</span>
     </div>
     <div class="links-bar">
       <a href="game-design-system.html" class="nav-btn">🎨 Game Design System</a>
@@ -389,18 +546,32 @@
   </header>
 
   <div class="studio-container">
-    <!-- Sidebar Model Selector -->
+    <!-- Sidebar Model Selection (All 23 Models Categorized) -->
     <div class="sidebar">
-      <div class="section-title">SA BÀN TỔNG THỂ</div>
+      <div class="section-title">
+        <span>SA BÀN TỔNG THỂ</span>
+        <span style="font-size: 9px; opacity: 0.7;">1 MỤC</span>
+      </div>
       <div class="model-card active" onclick="selectModel('diorama', this)">
         <div class="title"><span>🏭</span> Sa Bàn Kho Khởi Nghiệp</div>
-        <div class="desc">Phối cảnh sa bàn 3D hoàn chỉnh tích hợp kệ, xe tải, bàn đóng gói và công nhân.</div>
+        <div class="desc">Phối cảnh sa bàn 16x16m hoàn chỉnh tích hợp kệ, xe tải, bàn đóng gói và công nhân.</div>
       </div>
 
-      <div class="section-title">THIẾT BỊ VẬN HÀNH CƠ HỌC</div>
+      <div class="section-title">
+        <span>XE & THIẾT BỊ CƠ GIỚI</span>
+        <span style="font-size: 9px; opacity: 0.7;">4 MỤC</span>
+      </div>
+      <div class="model-card" onclick="selectModel('industrialForklift', this)">
+        <div class="title">
+          <span>🚜</span> Xe Nâng Điện FL-12
+          <span class="badge-src">GỐC Ff()</span>
+        </div>
+        <div class="desc">Xe nâng điện ngồi lái, khung lồng roll cage, cột nâng 2.42m và càng nâng pallet.</div>
+      </div>
+
       <div class="model-card" onclick="selectModel('palletJack', this)">
         <div class="title"><span>🚜</span> Xe Nâng Tay Thủy Lực</div>
-        <div class="desc">Cần bơm chữ T, bánh xe nylon kép và càng nâng chịu tĩnh tải 2.5 tấn.</div>
+        <div class="desc">Cần bơm chữ T, bánh xe nylon kép và càng nâng chịu tĩnh tải 2.5 tấn tiêu chuẩn.</div>
       </div>
 
       <div class="model-card" onclick="selectModel('pickingCart', this)">
@@ -408,9 +579,21 @@
         <div class="desc">Khung thép xanh Boxme chứa 6 khay nhựa Tote và kẹp phiếu xuất kho A4.</div>
       </div>
 
-      <div class="model-card" onclick="selectModel('packTable', this)">
-        <div class="title"><span>📦</span> Bàn Đóng Gói Thủ Công</div>
-        <div class="desc">Mặt gỗ, giá để thùng carton, cuộn xốp nổ bubble wrap, cân KCS và máy in A6.</div>
+      <div class="model-card" onclick="selectModel('deliveryTruck', this)">
+        <div class="title"><span>🚚</span> Xe Tải Giao Nhận Boxme</div>
+        <div class="desc">Xe tải thùng kín thương mại 2.5 tấn logo dải sọc Boxme Cobalt 45 độ.</div>
+      </div>
+
+      <div class="section-title">
+        <span>HỆ THỐNG KỆ & BĂNG TẢI</span>
+        <span style="font-size: 9px; opacity: 0.7;">5 MỤC</span>
+      </div>
+      <div class="model-card" onclick="selectModel('selectiveRack3Tier', this)">
+        <div class="title">
+          <span>🏗️</span> Kệ Selective 3 Tầng (4.2m)
+          <span class="badge-src">GỐC op()</span>
+        </div>
+        <div class="desc">Kệ chứa pallet 3 tầng siêu tải với 6 vị trí đặt pallet hàng lưu kho.</div>
       </div>
 
       <div class="model-card" onclick="selectModel('selectiveRack', this)">
@@ -418,9 +601,50 @@
         <div class="desc">Chân cột xanh dương và dầm ngang màu cam an toàn, chứa 4 pallet đầy hàng.</div>
       </div>
 
+      <div class="model-card" onclick="selectModel('sortingFlowRack', this)">
+        <div class="title">
+          <span>📥</span> Kệ Ô Bồ Câu 4 Tầng
+          <span class="badge-src">GỐC ap()</span>
+        </div>
+        <div class="desc">Kệ chia hàng 4 tầng máng trượt nghiêng kèm 20 khay chia chọn đơn hàng.</div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('conveyorSegment', this)">
+        <div class="title">
+          <span>🔄</span> Băng Chuyền Con Lăn 3.0m
+          <span class="badge-src">GỐC fp()</span>
+        </div>
+        <div class="desc">Băng tải vận chuyển hàng với ray dẫn hướng, chân chữ H và thùng carton di chuyển.</div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('mobileStagingCart', this)">
+        <div class="title">
+          <span>📦</span> Xe Đẩy Lưới Thép Chia Hàng
+          <span class="badge-src">GỐC dp()</span>
+        </div>
+        <div class="desc">Xe đẩy lưu động 3 tầng bọc lưới thép hai bên hông và 4 bánh xoay 360 độ.</div>
+      </div>
+
+      <div class="section-title">
+        <span>ĐÓNG GÓI & LƯU TRỮ</span>
+        <span style="font-size: 9px; opacity: 0.7;">6 MỤC</span>
+      </div>
+      <div class="model-card" onclick="selectModel('packStationAndon', this)">
+        <div class="title">
+          <span>🖥️</span> Bàn Đóng Gói Đèn Andon
+          <span class="badge-src">GỐC lp()</span>
+        </div>
+        <div class="desc">Bàn KCS kèm màn hình kiểm tra, máy in tem và cột đèn tháp tín hiệu Andon.</div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('packTable', this)">
+        <div class="title"><span>📦</span> Bàn Đóng Gói Thủ Công KCS</div>
+        <div class="desc">Mặt gỗ, cuộn màng xốp nổ bubble wrap, cân KCS và máy in mã vận đơn A6.</div>
+      </div>
+
       <div class="model-card" onclick="selectModel('palletCargo', this)">
-        <div class="title"><span>🪵</span> Kiện Pallet Gỗ EPAL Màng Co</div>
-        <div class="desc">Pallet gỗ tự nhiên xếp thùng carton đồng kích cỡ quấn màng PE và dán băng Boxme.</div>
+        <div class="title"><span>🪵</span> Kiện Pallet EPAL Màng Co</div>
+        <div class="desc">Pallet gỗ tự nhiên xếp thùng carton quấn màng PE mờ và dán tem Boxme.</div>
       </div>
 
       <div class="model-card" onclick="selectModel('toteStack', this)">
@@ -428,186 +652,173 @@
         <div class="desc">Khay nhựa đúc gân chịu va đập màu xanh và vàng, xếp chồng gọn gàng.</div>
       </div>
 
-      <div class="section-title">PHƯƠNG TIỆN & CÔNG TRÌNH</div>
-      <div class="model-card" onclick="selectModel('deliveryTruck', this)">
-        <div class="title"><span>🚚</span> Xe Tải Giao Nhận Boxme</div>
-        <div class="desc">Xe tải thùng kín thương mại 2.5 tấn logo Boxme Logistics góc nhìn 45 độ.</div>
+      <div class="model-card" onclick="selectModel('bufferPalletStack', this)">
+        <div class="title">
+          <span>📦</span> Kiện Pallet Đệm Sàn
+          <span class="badge-src">GỐC pp()</span>
+        </div>
+        <div class="desc">Kiện pallet xếp sẵn 2 lớp thùng carton chờ bốc dỡ ở khu vực staging.</div>
       </div>
 
+      <div class="model-card" onclick="selectModel('industrialTrashBin', this)">
+        <div class="title">
+          <span>🗑️</span> Thùng Rác Phân Loại Kho
+          <span class="badge-src">GỐC pp()</span>
+        </div>
+        <div class="desc">Thùng chứa vật liệu đóng gói phế liệu có nắp lật tự động và đế vững chắc.</div>
+      </div>
+
+      <div class="section-title">
+        <span>HẠ TẦNG KHO & NGOẠI THẤT</span>
+        <span style="font-size: 9px; opacity: 0.7;">5 MỤC</span>
+      </div>
       <div class="model-card" onclick="selectModel('dockBay', this)">
         <div class="title"><span>🚪</span> Cổng Tiếp Nhận Inbound Dock</div>
         <div class="desc">Cửa cuốn thép kéo cơ, đệm cao su giảm chấn và sàn đệm vạch sọc an toàn.</div>
       </div>
 
-      <div class="section-title">NHÂN SỰ VẬN HÀNH 3D</div>
+      <div class="model-card" onclick="selectModel('guardhouseBarrier', this)">
+        <div class="title">
+          <span>🛑</span> Trạm Gác & Cần Barrier
+          <span class="badge-src">GỐC Zf()</span>
+        </div>
+        <div class="desc">Nhà bảo vệ mái dốc kèm cần barrier tự động sọc phản quang vàng đen dài 3.2m.</div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('highBayStreetLight', this)">
+        <div class="title">
+          <span>💡</span> Cột Đèn Sân Kho 7.6m
+          <span class="badge-src">GỐC ep()</span>
+        </div>
+        <div class="desc">Cột thép mạ kẽm cao 7.6m vươn cần 1.6m gắn cụm đèn LED bãi xe và dock.</div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('fireSafetyHydrant', this)">
+        <div class="title">
+          <span>🧯</span> Trụ Cứu Hỏa & PCCC
+          <span class="badge-src">GỐC D()</span>
+        </div>
+        <div class="desc">Trụ cấp nước cứu hỏa màu đỏ tiêu chuẩn với bệ bê tông và 2 họng xả kép.</div>
+      </div>
+
+      <div class="model-card" onclick="selectModel('landscapeTree', this)">
+        <div class="title">
+          <span>🌳</span> Cây Xanh Cách Ly Sân Kho
+          <span class="badge-src">GỐC $f()</span>
+        </div>
+        <div class="desc">Cây xanh low-poly có bồn bê tông tròn bao quanh, tạo cảnh quan sinh thái kho.</div>
+      </div>
+
+      <div class="section-title">
+        <span>NHÂN SỰ VẬN HÀNH 3D</span>
+        <span style="font-size: 9px; opacity: 0.7;">2 MỤC</span>
+      </div>
       <div class="model-card" onclick="selectModel('workerPicker', this)">
         <div class="title"><span>👷</span> Nhân Viên Nhặt Hàng (Picker)</div>
-        <div class="desc">Đồng phục polo Boxme, áo gile lưới phản quang, nón bảo hộ và tư thế đẩy xe.</div>
+        <div class="desc">Đồng phục polo Boxme, áo gile lưới phản quang, nón bảo hộ và tư thế thao tác.</div>
       </div>
 
       <div class="model-card" onclick="selectModel('floorSupervisor', this)">
         <div class="title"><span>📋</span> Giám Sát Sàn Kho (Supervisor)</div>
-        <div class="desc">Nón bảo hộ trắng chỉ huy, bộ đàm Motorola trên vai và bảng kẹp kiểm kê KPI.</div>
+        <div class="desc">Nón bảo hộ trắng chỉ huy, bộ đàm Motorola trên vai và bảng kẹp KPI.</div>
       </div>
     </div>
 
-    <!-- 3D Canvas Viewport -->
-    <div id="viewport">
-      <!-- 2.5D Fallback Container when WebGL is disabled -->
-      <div id="fallback-container">
-        <div class="fallback-stage">
-          <div class="fallback-image-wrap">
-            <img id="fallback-img" src="assets/images/iso_warehouse_starter_hub.png" alt="Warehouse Model" />
-          </div>
-          <h3 id="fallback-title" style="font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 6px;">Sa Bàn Kho Khởi Nghiệp Toàn Cảnh</h3>
-          <p id="fallback-desc" style="font-size: 13px; color: var(--text-muted); line-height: 1.5; max-width: 580px;">
-            Sa bàn 3D hoàn chỉnh tích hợp 2 dãy kệ Selective Rack, 1 bàn đóng gói, xe kéo tay, kiện pallet, xe tải và nhân viên vận hành.
-          </p>
-          <div class="fallback-meta-grid">
-            <div class="meta-box">
-              <span class="meta-label">KÍCH THƯỚC CHUẨN</span>
-              <span class="meta-val" id="meta-dim">24.0m x 24.0m x 7.5m</span>
-            </div>
-            <div class="meta-box">
-              <span class="meta-label">SỐ ĐỈNH QUY ĐỔI</span>
-              <span class="meta-val" id="meta-poly">14,820 Đỉnh (Mesh)</span>
-            </div>
-            <div class="meta-box">
-              <span class="meta-label">VẬT LIỆU PBR</span>
-              <span class="meta-val" id="meta-mat">Boxme Industrial</span>
-            </div>
-          </div>
+    <!-- Main Stage Wrapper -->
+    <div class="stage-wrapper">
+      <!-- Stage Tabs Header -->
+      <div class="stage-tabs">
+        <button class="tab-btn active" id="tab-3d" onclick="switchTab('3d')">
+          <span>🕹️</span> Xem Mô Hình 3D Mesh
+        </button>
+        <button class="tab-btn" id="tab-code" onclick="switchTab('code')">
+          <span>💻</span> Mã Nguồn Three.js Code
+        </button>
+        <button class="tab-btn" id="tab-blueprint" onclick="switchTab('blueprint')">
+          <span>📐</span> Thông Số Blueprint
+        </button>
+      </div>
+
+      <!-- Tab 1: Interactive 3D Mesh Viewport -->
+      <div class="tab-pane active" id="viewport-pane">
+        <canvas id="main-canvas"></canvas>
+
+        <!-- Live Telemetry HUD -->
+        <div class="telemetry-overlay">
+          <div class="telemetry-row">ĐỐI TƯỢNG: <span class="telemetry-val" id="model-name">Sa Bàn Kho Khởi Nghiệp</span></div>
+          <div class="telemetry-row">SỐ ĐỈNH (VERTICES): <span class="telemetry-val" id="poly-count">Đang tính toán...</span></div>
+          <div class="telemetry-row">SỐ MẶT (TRIANGLES): <span class="telemetry-val" id="face-count">Đang tính toán...</span></div>
+          <div class="telemetry-row">GÓC QUAN SÁT: <span class="telemetry-val">Isometric 45° Tycoon</span></div>
+          <div class="engine-badge" id="engine-status">⚡ KHỞI TẠO 3D ENGINE...</div>
+        </div>
+
+        <!-- Floating Controls -->
+        <div class="viewport-controls">
+          <button class="ctrl-btn" id="btn-rotate" onclick="toggleAutoRotate()">🔄 XOAY TỰ ĐỘNG</button>
+          <button class="ctrl-btn" id="btn-wireframe" onclick="toggleWireframe()">🕸️ WIREFRAME 3D</button>
+          <button class="ctrl-btn" onclick="resetView()">📐 RESET GÓC ISO 45°</button>
+          <button class="ctrl-btn" onclick="switchTab('code')">💻 XEM MÃ NGUỒN</button>
         </div>
       </div>
 
-      <!-- Live Telemetry Overlay -->
-      <div class="telemetry-overlay">
-        <div class="telemetry-row">ĐỐI TƯỢNG: <span class="telemetry-val" id="model-name">Sa Bàn Kho Khởi Nghiệp</span></div>
-        <div class="telemetry-row">SỐ ĐỈNH: <span class="telemetry-val" id="poly-count">Đang tính toán...</span></div>
-        <div class="telemetry-row">GÓC QUAN SÁT: <span class="telemetry-val">Isometric 45° Tycoon</span></div>
-        <div class="engine-badge" id="engine-status">⚡ KIỂM TRA ĐỒ HỌA...</div>
+      <!-- Tab 2: Code Inspector -->
+      <div class="tab-pane" id="code-pane">
+        <div class="code-header">
+          <div class="code-meta">
+            <span class="code-filename" id="code-method-name">LowPolyWarehouseFactory.js</span>
+            <span class="code-tag">Three.js Procedural Low-Poly Mesh</span>
+          </div>
+          <button class="copy-btn" onclick="copyCodeSnippet()">📋 SAO CHÉP MÃ</button>
+        </div>
+        <div class="code-content-wrap">
+          <pre class="code-block"><code id="code-snippet-box">// Mã nguồn Three.js dựng khối</code></pre>
+        </div>
       </div>
 
-      <!-- Controls -->
-      <div class="viewport-controls">
-        <button class="ctrl-btn" id="btn-rotate" onclick="toggleAutoRotate()">XOAY TỰ ĐỘNG</button>
-        <button class="ctrl-btn" id="btn-wireframe" onclick="toggleWireframe()">WIREFRAME</button>
-        <button class="ctrl-btn" onclick="resetView()">RESET GÓC ISO</button>
+      <!-- Tab 3: Blueprint Specs -->
+      <div class="tab-pane" id="blueprint-pane">
+        <div class="blueprint-card">
+          <div class="blueprint-title">
+            <span>📐</span> <span id="bp-title">Sa Bàn Kho Khởi Nghiệp Toàn Cảnh</span>
+          </div>
+          <p id="bp-desc" style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+            Sa bàn 3D hoàn chỉnh tích hợp 2 dãy kệ Selective Rack, 1 bàn đóng gói, xe kéo tay, kiện pallet, xe tải và nhân viên vận hành.
+          </p>
+          <div class="blueprint-grid">
+            <div class="spec-item">
+              <span class="spec-label">KÍCH THƯỚC (DÀI x RỘNG x CAO)</span>
+              <span class="spec-val" id="bp-dim">16.0m x 16.0m x 4.0m</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">ĐIỂM NEO (PIVOT POINT)</span>
+              <span class="spec-val">Grounded (y = 0.0)</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">TỔNG SỐ ĐỈNH (VERTICES)</span>
+              <span class="spec-val" id="bp-verts">Đang nạp...</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">HỆ MÀU NHẬN DIỆN</span>
+              <span class="spec-val" id="bp-colors">Cobalt + Amber + Steel</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">CÔNG NGHỆ DỰNG</span>
+              <span class="spec-val">100% Procedural Geometry</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">FILE THAM CHIẾU</span>
+              <span class="spec-val">src/gfx/LowPolyWarehouseFactory.js</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Asset Catalog Data for Guaranteed High-Fidelity Rendering
-    var MODEL_CATALOG = {
-      diorama: {
-        title: 'Sa Bàn Kho Khởi Nghiệp Toàn Cảnh',
-        desc: 'Sa bàn 3D hoàn chỉnh tích hợp 2 dãy kệ Selective Rack, 1 bàn đóng gói, xe kéo tay, kiện pallet, xe tải và nhân viên vận hành.',
-        img: 'assets/images/iso_warehouse_starter_hub.png',
-        dim: '24.0m x 24.0m x 7.5m',
-        vertices: 14820,
-        materials: 'Composite PBR'
-      },
-      palletJack: {
-        title: 'Xe Nâng Tay Thủy Lực (Pallet Jack)',
-        desc: 'Bơm thủy lực tay cơ học, bánh xe nylon kép, càng nâng tiêu chuẩn dài 1.15m chịu tải 2.5 tấn.',
-        img: 'assets/images/equip_hand_pallet_jack.png',
-        dim: '1.55m x 0.55m x 1.25m',
-        vertices: 486,
-        materials: 'Hazard Amber Steel'
-      },
-      pickingCart: {
-        title: 'Xe Đẩy Gom Hàng 3 Tầng (Picking Trolley)',
-        desc: 'Khung thép ống sơn tĩnh điện xanh Boxme, chứa 6 khay nhựa Tote và kẹp bảng phiếu xuất kho A4.',
-        img: 'assets/images/equip_picking_cart.png',
-        dim: '1.10m x 0.65m x 1.35m',
-        vertices: 1240,
-        materials: 'Cobalt + PP Totes'
-      },
-      packTable: {
-        title: 'Bàn Đóng Gói Thủ Công Mặt Gỗ (Pack Table)',
-        desc: 'Bàn thao tác mặt gỗ chịu lực, trục treo cuộn xốp nổ bubble wrap, cân điện tử và máy in nhiệt tem A6.',
-        img: 'assets/images/equip_conventional_pack_table.png',
-        dim: '1.80m x 0.90m x 1.85m',
-        vertices: 890,
-        materials: 'Pine Wood + Steel'
-      },
-      selectiveRack: {
-        title: 'Kệ Pallet Selective Rack 2 Tầng',
-        desc: 'Chân cột thép xanh Boxme và thanh beam cam chịu lực nặng, chứa 4 đến 8 pallet chuẩn EPAL.',
-        img: 'assets/images/iso_selective_pallet_rack.png',
-        dim: '2.70m x 1.10m x 3.60m',
-        vertices: 3420,
-        materials: 'Dual Tone Racking'
-      },
-      palletCargo: {
-        title: 'Kiện Pallet Gỗ EPAL Màng Co',
-        desc: 'Pallet gỗ tự nhiên xếp thùng carton kraft dán băng keo Boxme Fragile và quấn màng co PE chống ẩm.',
-        img: 'assets/images/iso_pallet_cargo_stack.png',
-        dim: '1.20m x 0.80m x 1.40m',
-        vertices: 640,
-        materials: 'Natural Pine + PE Film'
-      },
-      toteStack: {
-        title: 'Cụm Khay Nhựa Tote Boxme',
-        desc: 'Khay nhựa công nghiệp PP nguyên sinh đúc gân chịu va đập màu xanh dương và vàng Boxme.',
-        img: 'assets/images/iso_tote_boxes_stack.png',
-        dim: '0.48m x 0.38m x 0.68m',
-        vertices: 520,
-        materials: 'Virgin PP Mold'
-      },
-      deliveryTruck: {
-        title: 'Xe Tải Giao Nhận Boxme Logistics',
-        desc: 'Xe tải thùng kín thương mại 2.5 tấn phục vụ gom hàng từ nhà sản xuất và giao bưu cục chuyển phát.',
-        img: 'assets/images/iso_delivery_truck.png',
-        dim: '5.50m x 2.20m x 2.70m',
-        vertices: 2150,
-        materials: 'Automotive Gloss'
-      },
-      dockBay: {
-        title: 'Cổng Tiếp Nhận Inbound Dock',
-        desc: 'Cổng tiếp nhận hàng hóa có cửa cuốn thép kéo cơ, đệm cao su giảm chấn và sàn đệm kẻ vạch an toàn.',
-        img: 'assets/images/iso_inbound_dock_bay.png',
-        dim: '4.40m x 2.50m x 4.20m',
-        vertices: 1180,
-        materials: 'Industrial Facade'
-      },
-      workerPicker: {
-        title: 'Nhân Viên Nhặt Hàng (Picker)',
-        desc: 'Nhân vật tỷ lệ chibi diorama mặc áo polo xanh Boxme, gile phản quang và tư thế đẩy xe gom hàng.',
-        img: 'assets/images/iso_worker_picker.png',
-        dim: '0.45m x 0.35m x 1.72m',
-        vertices: 760,
-        materials: 'Fabric + Reflector'
-      },
-      floorSupervisor: {
-        title: 'Giám Sát Sàn Kho (Supervisor)',
-        desc: 'Giám sát viên 3D đội mũ cứng trắng, mang bộ đàm Motorola trên vai và cầm bảng kẹp phân ca.',
-        img: 'assets/images/iso_floor_supervisor.png',
-        dim: '0.45m x 0.35m x 1.72m',
-        vertices: 840,
-        materials: 'Supervisor Kit'
-      }
-    };
-
-    var currentModelKey = 'diorama';
-    var is3DMode = false;
-    var scene, camera, renderer, controls;
-    var currentModelGroup = null;
-
-    // Detect WebGL Availability
-    function detectWebGL() {
-      try {
-        var canvas = document.createElement('canvas');
-        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-      } catch (e) {
-        return false;
-      }
-    }
-
-    // Audio Chime Feedback
+    // Audio Feedback
     var audioCtx = null;
-    function playClickBeep(freq) {
+    function playBeep(freq) {
       freq = freq || 600;
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -616,101 +827,688 @@
         var gain = audioCtx.createGain();
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.07);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(audioCtx.currentTime + 0.08);
+        osc.stop(audioCtx.currentTime + 0.07);
       } catch (e) {}
     }
 
-    // Setup 2.5D High-Fidelity Showcase
-    function initFallbackViewer() {
-      var fbContainer = document.getElementById('fallback-container');
-      if (fbContainer) {
-        fbContainer.style.display = 'flex';
+    // Tab Switching
+    function switchTab(tabId) {
+      playBeep(750);
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-pane').forEach(function(p) { p.classList.remove('active'); });
+
+      var targetBtn = document.getElementById('tab-' + tabId);
+      var targetPane = document.getElementById(tabId === '3d' ? 'viewport-pane' : (tabId === 'code' ? 'code-pane' : 'blueprint-pane'));
+
+      if (targetBtn) targetBtn.classList.add('active');
+      if (targetPane) targetPane.classList.add('active');
+
+      if (tabId === '3d' && is3DMode && renderer) {
+        onWindowResize();
       }
-      var statusBadge = document.getElementById('engine-status');
-      if (statusBadge) {
-        statusBadge.innerHTML = '✨ CHẾ ĐỘ ISOMETRIC 2.5D (TƯƠNG THÍCH CAO)';
-        statusBadge.style.color = '#38bdf8';
-      }
-      renderFallbackModel(currentModelKey);
     }
 
-    function renderFallbackModel(key) {
-      var item = MODEL_CATALOG[key] || MODEL_CATALOG.diorama;
+    // -------------------------------------------------------------
+    // Full Catalog of 23 Warehouse Models
+    // -------------------------------------------------------------
+    var MODEL_CATALOG = {
+      diorama: {
+        title: 'Sa Bàn Kho Khởi Nghiệp Toàn Cảnh (Starter Diorama)',
+        desc: 'Sa bàn 3D hoàn chỉnh tích hợp 2 dãy kệ Selective Rack, 1 bàn đóng gói, xe kéo tay, kiện pallet, xe tải và nhân viên vận hành.',
+        dim: '16.0m x 16.0m x 4.0m',
+        colors: 'Concrete + Cobalt + Amber',
+        zoom: 26,
+        camDist: 18,
+        camH: 14,
+        targetY: 1.0,
+        code: `// 1. Sa Bàn Kho Khởi Nghiệp Toàn Cảnh (Starter Warehouse Diorama)
+const diorama = LowPolyWarehouseFactory.createStarterWarehouseDiorama();
+scene.add(diorama);`
+      },
+      industrialForklift: {
+        title: 'Xe Nâng Điện Ngồi Lái FL-12 (Electric Forklift)',
+        desc: 'Trích xuất từ module Ff() của boxme-mission-control.html: Thân xe đối trọng đúc, cabin khung lồng roll cage, cột nâng kép 2.42m, giá nâng càng và kiện pallet hàng chuẩn.',
+        dim: '2.60m x 1.20m x 2.42m',
+        colors: 'Clean White + Steel Beam + Cobalt Seat',
+        zoom: 110,
+        camDist: 5.5,
+        camH: 3.5,
+        targetY: 1.2,
+        code: `// 12. Xe Nâng Điện Ngồi Lái FL-12 (Industrial Electric Forklift)
+// Cấu trúc trích xuất từ Ff() trong boxme-mission-control.html
+const forklift = LowPolyWarehouseFactory.createIndustrialForklift();
+scene.add(forklift);`
+      },
+      palletJack: {
+        title: 'Xe Nâng Tay Thủy Lực (Pallet Jack)',
+        desc: 'Bơm thủy lực tay cơ học, bánh xe nylon kép, càng nâng tiêu chuẩn dài 1.15m chịu tải 2.5 tấn.',
+        dim: '1.55m x 0.55m x 1.25m',
+        colors: 'Hazard Amber + Steel Frame',
+        zoom: 160,
+        camDist: 3.2,
+        camH: 2.2,
+        targetY: 0.6,
+        code: `// 2. Xe Nâng Tay Thủy Lực (Hand Pallet Jack)
+const jack = LowPolyWarehouseFactory.createHandPalletJack();
+scene.add(jack);`
+      },
+      pickingCart: {
+        title: 'Xe Đẩy Gom Hàng 3 Tầng (Picking Trolley)',
+        desc: 'Khung thép ống sơn tĩnh điện xanh Boxme, chứa 6 khay nhựa Tote và kẹp bảng phiếu xuất kho A4.',
+        dim: '1.10m x 0.65m x 1.35m',
+        colors: 'Boxme Cobalt + Yellow Totes',
+        zoom: 140,
+        camDist: 3.2,
+        camH: 2.2,
+        targetY: 0.7,
+        code: `// 3. Xe Đẩy Gom Hàng 3 Tầng (Picking Trolley)
+const cart = LowPolyWarehouseFactory.createPickingCart();
+scene.add(cart);`
+      },
+      deliveryTruck: {
+        title: 'Xe Tải Giao Nhận Boxme (Delivery Truck)',
+        desc: 'Xe tải thùng kín thương mại 2.5 tấn logo dải sọc Boxme Cobalt, cabin kính quan sát và 6 bánh xe cao su.',
+        dim: '5.50m x 2.20m x 2.70m',
+        colors: 'Boxme Blue + White Cabin',
+        zoom: 55,
+        camDist: 8.5,
+        camH: 4.8,
+        targetY: 1.3,
+        code: `// 4. Xe Tải Giao Nhận Boxme (Delivery Truck)
+const truck = LowPolyWarehouseFactory.createDeliveryTruck();
+scene.add(truck);`
+      },
+      selectiveRack3Tier: {
+        title: 'Kệ Pallet Selective 3 Tầng (4.2m 3-Tier Rack)',
+        desc: 'Trích xuất từ module op() của boxme-mission-control.html: 4 chân cột thép đục lỗ cao 4.2m, 3 tầng dầm chịu lực màu cam an toàn, chứa 6 vị trí đặt pallet hàng lưu kho.',
+        dim: '2.70m x 1.10m x 4.20m',
+        colors: 'Cobalt Posts + Safety Orange Beams',
+        zoom: 60,
+        camDist: 7.5,
+        camH: 5.0,
+        targetY: 2.1,
+        code: `// 15. Kệ Pallet Selective 3 Tầng Siêu Tải (3-Tier Rack)
+// Cấu trúc trích xuất từ op() trong boxme-mission-control.html
+const rack3 = LowPolyWarehouseFactory.createSelectiveRack3Tier();
+scene.add(rack3);`
+      },
+      selectiveRack: {
+        title: 'Kệ Pallet Selective 2 Tầng (2-Tier Rack)',
+        desc: 'Cột thép xanh đục lỗ cao 3.6m và dầm cam an toàn, chứa 4 kiện pallet hàng lưu kho tiêu chuẩn.',
+        dim: '2.70m x 1.10m x 3.60m',
+        colors: 'Cobalt Uprights + Hazard Orange Beams',
+        zoom: 70,
+        camDist: 6.5,
+        camH: 4.2,
+        targetY: 1.8,
+        code: `// 5. Kệ Pallet Selective 2 Tầng (Selective Rack)
+const rack = LowPolyWarehouseFactory.createSelectiveRack({ bays: 1 });
+scene.add(rack);`
+      },
+      sortingFlowRack: {
+        title: 'Kệ Chia Hàng Ô Bồ Câu 4 Tầng (Sorting Flow Rack)',
+        desc: 'Trích xuất từ module ap()/ip() của boxme-mission-control.html: Khung thép 4 tầng máng trượt nghiêng, chia 20 ngăn ô bồ câu chứa khay tote màu xanh và vàng để phân loại đơn hàng lẻ.',
+        dim: '1.80m x 0.60m x 1.85m',
+        colors: 'Dark Frame + Cobalt & Yellow Totes',
+        zoom: 110,
+        camDist: 4.5,
+        camH: 3.0,
+        targetY: 1.0,
+        code: `// 16. Kệ Chia Hàng Ô Bồ Câu 4 Tầng (Sorting Pigeonhole Flow Rack)
+// Cấu trúc trích xuất từ ap()/ip() trong boxme-mission-control.html
+const flowRack = LowPolyWarehouseFactory.createSortingFlowRack();
+scene.add(flowRack);`
+      },
+      conveyorSegment: {
+        title: 'Băng Chuyền Con Lăn Chuyển Hàng (Conveyor Line)',
+        desc: 'Trích xuất từ module fp() của boxme-mission-control.html: Hệ băng chuyền dài 3.0m với 2 thanh ray dẫn hướng, chân đỡ chữ H và thùng carton đang di chuyển trên mặt băng tải.',
+        dim: '3.00m x 0.85m x 0.75m',
+        colors: 'Steel Beam + Rubber Belt + Kraft Box',
+        zoom: 85,
+        camDist: 5.5,
+        camH: 3.2,
+        targetY: 0.5,
+        code: `// 13. Băng Chuyền Băng Tải Con Lăn (Conveyor Belt Line)
+// Cấu trúc trích xuất từ fp() trong boxme-mission-control.html
+const conveyor = LowPolyWarehouseFactory.createConveyorSegment({ length: 3.0 });
+scene.add(conveyor);`
+      },
+      mobileStagingCart: {
+        title: 'Xe Đẩy Lưới Thép Chia Hàng (Staging Cart)',
+        desc: 'Trích xuất từ module dp() của boxme-mission-control.html: Xe đẩy 3 tầng có rào lưới thép chống rơi hàng 2 bên hông, 4 bánh xe chịu tải 360 độ và thùng hàng lưu động.',
+        dim: '1.20m x 1.00m x 1.85m',
+        colors: 'Galvanized Steel + Rubber Wheels',
+        zoom: 120,
+        camDist: 4.2,
+        camH: 2.8,
+        targetY: 0.9,
+        code: `// 17. Xe Đẩy Chia Chọn Hàng Lưới Thép (Mobile Staging Cart)
+// Cấu trúc trích xuất từ dp() trong boxme-mission-control.html
+const stagingCart = LowPolyWarehouseFactory.createMobileStagingCart();
+scene.add(stagingCart);`
+      },
+      packStationAndon: {
+        title: 'Bàn Đóng Gói KCS Đèn Andon (Pack Station & Andon)',
+        desc: 'Trích xuất từ module lp() của boxme-mission-control.html: Bàn thao tác composite trắng, màn hình kiểm soát chất lượng KCS, máy in hóa đơn vận đơn và cột đèn tháp Andon báo trạng thái xanh.',
+        dim: '1.40m x 0.80m x 1.75m',
+        colors: 'Clean White + Steel Legs + Green Andon',
+        zoom: 120,
+        camDist: 4.2,
+        camH: 2.8,
+        targetY: 0.9,
+        code: `// 14. Bàn Đóng Gói Kèm Đèn Tín Hiệu Andon (Pack Station with Andon)
+// Cấu trúc trích xuất từ lp() trong boxme-mission-control.html
+const packStation = LowPolyWarehouseFactory.createPackStationWithAndon();
+scene.add(packStation);`
+      },
+      packTable: {
+        title: 'Bàn Đóng Gói Thủ Công KCS (Packing Station)',
+        desc: 'Bàn gỗ công nghiệp, giá treo cuộn màng xốp nổ bubble wrap, cân điện tử kiểm định KCS và máy in mã vạch vận đơn A6.',
+        dim: '1.80m x 0.90m x 1.80m',
+        colors: 'Wood Pine + Boxme Blue + Tech White',
+        zoom: 110,
+        camDist: 4.5,
+        camH: 3.0,
+        targetY: 0.9,
+        code: `// 6. Bàn Đóng Gói Thủ Công KCS (Pack Table)
+const table = LowPolyWarehouseFactory.createConventionalPackTable();
+scene.add(table);`
+      },
+      palletCargo: {
+        title: 'Kiện Pallet Gỗ EPAL Màng Co (Pallet Cargo)',
+        desc: 'Pallet gỗ thông 1.2x0.8m theo chuẩn EPAL, xếp 12 thùng carton dán tem Boxme quấn màng PE chống ẩm.',
+        dim: '1.20m x 0.80m x 1.15m',
+        colors: 'Pine Wood + Kraft Paper + PE Film',
+        zoom: 170,
+        camDist: 3.2,
+        camH: 2.2,
+        targetY: 0.6,
+        code: `// 7. Kiện Pallet Gỗ EPAL Màng Co (Pallet Cargo)
+const cargo = LowPolyWarehouseFactory.createEuroPalletCargo({ heightTiers: 3 });
+scene.add(cargo);`
+      },
+      toteStack: {
+        title: 'Cụm Khay Nhựa Tote Boxme (Tote Box Stack)',
+        desc: 'Bộ 4 khay nhựa PP đúc gân chịu lực xếp lồng nhau thông minh, luân phiên màu xanh Boxme và vàng cảnh báo.',
+        dim: '0.60m x 0.40m x 0.90m',
+        colors: 'Cobalt PP + Warning Yellow',
+        zoom: 180,
+        camDist: 2.8,
+        camH: 2.0,
+        targetY: 0.5,
+        code: `// 8. Cụm Khay Nhựa Tote Boxme (Tote Stack)
+const stack = LowPolyWarehouseFactory.createToteStack({ count: 4 });
+scene.add(stack);`
+      },
+      bufferPalletStack: {
+        title: 'Kiện Hàng Pallet Xếp Sẵn Đệm Sàn (Buffer Pallet)',
+        desc: 'Trích xuất từ module pp() của boxme-mission-control.html: Kiện pallet gỗ xếp sẵn 2 lớp thùng carton cỡ lớn chờ xe nâng hoặc công nhân bốc dỡ vào khu vực staging.',
+        dim: '1.20m x 1.00m x 0.95m',
+        colors: 'Wood Base + Cardboard Kraft',
+        zoom: 150,
+        camDist: 3.5,
+        camH: 2.4,
+        targetY: 0.5,
+        code: `// 22. Kiện Hàng Pallet Xếp Sẵn Đệm Sàn (Buffer Pallet Stack)
+// Cấu trúc trích xuất từ pp() trong boxme-mission-control.html
+const bufferPallet = LowPolyWarehouseFactory.createBufferPalletStack();
+scene.add(bufferPallet);`
+      },
+      industrialTrashBin: {
+        title: 'Thùng Rác Phân Loại Vật Liệu Đóng Gói (Recycling Bin)',
+        desc: 'Trích xuất từ module pp() của boxme-mission-control.html: Thùng rác công nghiệp thép sơn tĩnh điện có đế vững chãi và nắp lật tự đóng để thu gom xốp, băng keo và bìa carton phế liệu.',
+        dim: '0.45m x 0.45m x 0.85m',
+        colors: 'Steel Frame + Clean White Lid',
+        zoom: 200,
+        camDist: 2.5,
+        camH: 1.8,
+        targetY: 0.4,
+        code: `// 21. Thùng Rác Phân Loại Vật Liệu Đóng Gói (Industrial Trash Bin)
+// Cấu trúc trích xuất từ pp() trong boxme-mission-control.html
+const bin = LowPolyWarehouseFactory.createIndustrialTrashBin();
+scene.add(bin);`
+      },
+      dockBay: {
+        title: 'Cổng Tiếp Nhận Inbound Dock (Loading Dock)',
+        desc: 'Khung bê tông chịu lực, cửa cuốn thép nâng hạ, đệm cao su giảm chấn chống va đập xe tải và mép sàn sơn sọc an toàn.',
+        dim: '4.40m x 2.50m x 4.20m',
+        colors: 'Concrete Wall + Steel Shutter + Hazard Stripes',
+        zoom: 70,
+        camDist: 8.0,
+        camH: 5.0,
+        targetY: 2.0,
+        code: `// 9. Cổng Tiếp Nhận Inbound Dock (Inbound Dock Bay)
+const dock = LowPolyWarehouseFactory.createInboundDockBay();
+scene.add(dock);`
+      },
+      guardhouseBarrier: {
+        title: 'Trạm Gác Bảo Vệ & Barrier Tự Động (Guardhouse)',
+        desc: 'Trích xuất từ module Zf() của boxme-mission-control.html: Bốt bảo vệ kiểm soát ra vào cổng kho với mái che dốc, vách kính quan sát 360 độ và cần barrier nâng hạ sọc phản quang vàng đen dài 3.2m.',
+        dim: '3.50m x 2.50m x 2.80m',
+        colors: 'White Walls + Cobalt Roof + Hazard Gate',
+        zoom: 75,
+        camDist: 7.0,
+        camH: 4.5,
+        targetY: 1.4,
+        code: `// 18. Trạm Gác Bảo Vệ Kèm Cần Barrier Tự Động (Guardhouse Barrier)
+// Cấu trúc trích xuất từ Zf() trong boxme-mission-control.html
+const guardhouse = LowPolyWarehouseFactory.createGuardhouseBarrier();
+scene.add(guardhouse);`
+      },
+      highBayStreetLight: {
+        title: 'Cột Đèn Chiếu Sáng Sân Kho 7.6m (High-Bay Yard Light)',
+        desc: 'Trích xuất từ module ep() của boxme-mission-control.html: Cột thép bát giác mạ kẽm cao 7.6m có bệ bê tông kiên cố, cần vươn 1.6m và cụm đèn pha LED chiếu sáng bãi đỗ xe và sân nhập xuất.',
+        dim: '1.60m x 0.50m x 7.60m',
+        colors: 'Galvanized Steel + Concrete + LED White',
+        zoom: 40,
+        camDist: 12.0,
+        camH: 8.5,
+        targetY: 3.8,
+        code: `// 19. Cột Đèn Chiếu Sáng Sàn Kho 7.6m (High-Bay Street Light)
+// Cấu trúc trích xuất từ ep() trong boxme-mission-control.html
+const yardLight = LowPolyWarehouseFactory.createHighBayStreetLight();
+scene.add(yardLight);`
+      },
+      fireSafetyHydrant: {
+        title: 'Trụ Cứu Hỏa & Hệ Thống PCCC (Fire Hydrant)',
+        desc: 'Trích xuất từ module D() của boxme-mission-control.html: Trụ cấp nước chữa cháy màu đỏ an toàn PCCC tiêu chuẩn với bệ bê tông gia cố, thân trụ đứng và 2 van xả ren đồng kèm nắp đậy bảo vệ.',
+        dim: '0.90m x 0.90m x 1.20m',
+        colors: 'Safety Fire Red + Cast Iron + Concrete',
+        zoom: 180,
+        camDist: 2.8,
+        camH: 2.0,
+        targetY: 0.6,
+        code: `// 20. Trụ Cứu Hỏa & Hệ Thống PCCC Sàn Kho (Fire Safety Hydrant)
+// Cấu trúc trích xuất từ D() trong boxme-mission-control.html
+const hydrant = LowPolyWarehouseFactory.createFireSafetyHydrant();
+scene.add(hydrant);`
+      },
+      landscapeTree: {
+        title: 'Cây Xanh Cách Ly Sân Kho (Landscaping Tree)',
+        desc: 'Trích xuất từ module $f() của boxme-mission-control.html: Cây bóng mát phong cách Low-Poly với bồn bê tông tròn bao quanh gốc, thân cây gỗ vươn thẳng và tán lá hình khối đa diện 2 tầng.',
+        dim: '1.80m x 1.80m x 3.50m',
+        colors: 'Forest Green + Pine Wood + Concrete Curb',
+        zoom: 80,
+        camDist: 6.5,
+        camH: 4.5,
+        targetY: 1.8,
+        code: `// 23. Cây Xanh Cách Ly Quy Hoạch Sân Kho (Landscape Tree)
+// Cấu trúc trích xuất từ $f() trong boxme-mission-control.html
+const tree = LowPolyWarehouseFactory.createLandscapeTree();
+scene.add(tree);`
+      },
+      workerPicker: {
+        title: 'Nhân Viên Nhặt Hàng (Worker Picker)',
+        desc: 'Chibi nhân sự kho vận 3D mặc đồng phục polo xanh Boxme, áo gile lưới phản quang Neon, nón cứng bảo hộ vàng và tư thế sẵn sàng đẩy xe lấy hàng.',
+        dim: '0.50m x 0.40m x 1.75m',
+        colors: 'Boxme Polo + Neon Green Vest + Hardhat',
+        zoom: 170,
+        camDist: 3.2,
+        camH: 2.2,
+        targetY: 0.9,
+        code: `// 10. Nhân Viên Nhặt Hàng (Worker Picker)
+const picker = LowPolyWarehouseFactory.createWorkerPicker();
+scene.add(picker);`
+      },
+      floorSupervisor: {
+        title: 'Giám Sát Sàn Kho (Floor Supervisor)',
+        desc: 'Quản lý điều phối sàn kho 3D đội nón cứng trắng chỉ huy, trang bị bộ đàm Motorola trên vai và cầm bảng kẹp danh sách kiểm kê KPI.',
+        dim: '0.50m x 0.40m x 1.75m',
+        colors: 'White Hat + Motorola Radio + Clipboard',
+        zoom: 170,
+        camDist: 3.2,
+        camH: 2.2,
+        targetY: 0.9,
+        code: `// 11. Giám Sát Sàn Kho (Floor Supervisor)
+const supervisor = LowPolyWarehouseFactory.createFloorSupervisor();
+scene.add(supervisor);`
+      }
+    };
+
+    var currentModelKey = 'diorama';
+    var is3DMode = false;
+    var autoRotateActive = false;
+    var wireframeActive = false;
+
+    // Three.js State
+    var scene, camera, renderer, controls, currentMeshGroup;
+
+    // Software 3D Engine State
+    var software3D = null;
+
+    // -------------------------------------------------------------
+    // Pure Software 3D Engine (Guaranteed Real 3D Mesh Without WebGL)
+    // -------------------------------------------------------------
+    class Software3DCanvasEngine {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.rotY = 0.785; // 45 deg
+        this.rotX = 0.523; // ~30 deg
+        this.zoom = 50;
+        this.isDragging = false;
+        this.lastX = 0;
+        this.lastY = 0;
+        this.wireframe = false;
+        this.autoRotate = false;
+        this.currentGroup = null;
+        this.animFrame = null;
+
+        this.bindEvents();
+      }
+
+      bindEvents() {
+        var self = this;
+        this.canvas.addEventListener('mousedown', function(e) {
+          self.isDragging = true;
+          self.lastX = e.clientX;
+          self.lastY = e.clientY;
+        });
+
+        window.addEventListener('mousemove', function(e) {
+          if (!self.isDragging) return;
+          var dx = e.clientX - self.lastX;
+          var dy = e.clientY - self.lastY;
+          self.lastX = e.clientX;
+          self.lastY = e.clientY;
+          self.rotY += dx * 0.01;
+          self.rotX = Math.max(0.1, Math.min(1.4, self.rotX + dy * 0.01));
+          self.render();
+        });
+
+        window.addEventListener('mouseup', function() {
+          self.isDragging = false;
+        });
+
+        this.canvas.addEventListener('wheel', function(e) {
+          e.preventDefault();
+          self.zoom = Math.max(15, Math.min(400, self.zoom - e.deltaY * 0.15));
+          self.render();
+        }, { passive: false });
+      }
+
+      setModel(group, defaultZoom) {
+        this.currentGroup = group;
+        this.zoom = defaultZoom || 60;
+        this.rotY = 0.785;
+        this.rotX = 0.523;
+        this.render();
+      }
+
+      startLoop() {
+        var self = this;
+        function loop() {
+          if (self.autoRotate) {
+            self.rotY += 0.015;
+            self.render();
+          }
+          self.animFrame = requestAnimationFrame(loop);
+        }
+        loop();
+      }
+
+      render() {
+        if (!this.currentGroup) return;
+        var ctx = this.ctx;
+        var w = this.canvas.width = this.canvas.clientWidth || 800;
+        var h = this.canvas.height = this.canvas.clientHeight || 600;
+        ctx.clearRect(0, 0, w, h);
+
+        var ox = w / 2;
+        var oy = h / 2 + 30;
+        var rotY = this.rotY;
+        var rotX = this.rotX;
+        var zoom = this.zoom;
+        var wireframe = this.wireframe;
+
+        var cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+        var cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+
+        // Draw Ground Isometric Grid
+        ctx.strokeStyle = 'rgba(30, 88, 252, 0.15)';
+        ctx.lineWidth = 1;
+        var gridSize = 8, step = 1;
+        function projGrid(x, z) {
+          var x1 = x * cosY - z * sinY;
+          var z1 = x * sinY + z * cosY;
+          var y2 = -z1 * sinX;
+          return { sx: ox + x1 * zoom, sy: oy - y2 * zoom };
+        }
+        for (var gx = -gridSize; gx <= gridSize; gx += step) {
+          var pA = projGrid(gx, -gridSize), pB = projGrid(gx, gridSize);
+          ctx.beginPath(); ctx.moveTo(pA.sx, pA.sy); ctx.lineTo(pB.sx, pB.sy); ctx.stroke();
+        }
+        for (var gz = -gridSize; gz <= gridSize; gz += step) {
+          var pC = projGrid(-gridSize, gz), pD = projGrid(gridSize, gz);
+          ctx.beginPath(); ctx.moveTo(pC.sx, pC.sy); ctx.lineTo(pD.sx, pD.sy); ctx.stroke();
+        }
+
+        // Collect and project all triangles from Three.js group
+        this.currentGroup.updateMatrixWorld(true);
+        var triangles = [];
+
+        function transformV(v) {
+          var x1 = v.x * cosY - v.z * sinY;
+          var z1 = v.x * sinY + v.z * cosY;
+          var y1 = v.y;
+          var y2 = y1 * cosX - z1 * sinX;
+          var z2 = y1 * sinX + z1 * cosX;
+          return { sx: ox + x1 * zoom, sy: oy - y2 * zoom, sz: z2 };
+        }
+
+        this.currentGroup.traverse(function(node) {
+          if (!node.isMesh || !node.geometry) return;
+          var geo = node.geometry;
+          var mat = node.material;
+          var colorHex = (mat && mat.color) ? mat.color.getHex() : 0x1e58fc;
+
+          var pos = geo.attributes.position;
+          var idx = geo.index;
+          var count = idx ? idx.count : pos.count;
+          var wm = node.matrixWorld;
+
+          for (var i = 0; i < count; i += 3) {
+            var i0 = idx ? idx.getX(i) : i;
+            var i1 = idx ? idx.getX(i + 1) : i + 1;
+            var i2 = idx ? idx.getX(i + 2) : i + 2;
+
+            var v0 = new THREE.Vector3(pos.getX(i0), pos.getY(i0), pos.getZ(i0)).applyMatrix4(wm);
+            var v1 = new THREE.Vector3(pos.getX(i1), pos.getY(i1), pos.getZ(i1)).applyMatrix4(wm);
+            var v2 = new THREE.Vector3(pos.getX(i2), pos.getY(i2), pos.getZ(i2)).applyMatrix4(wm);
+
+            var p0 = transformV(v0);
+            var p1 = transformV(v1);
+            var p2 = transformV(v2);
+
+            var e1x = p1.sx - p0.sx, e1y = p1.sy - p0.sy;
+            var e2x = p2.sx - p0.sx, e2y = p2.sy - p0.sy;
+            var cross = e1x * e2y - e1y * e2x;
+
+            if (cross > 0 || wireframe) {
+              var u = new THREE.Vector3().subVectors(v1, v0);
+              var v = new THREE.Vector3().subVectors(v2, v0);
+              var norm = new THREE.Vector3().crossVectors(u, v).normalize();
+              var light = Math.max(0.25, norm.dot(new THREE.Vector3(0.5, 0.8, 0.3)));
+
+              triangles.push({
+                p0: p0, p1: p1, p2: p2,
+                depth: (p0.sz + p1.sz + p2.sz) / 3,
+                color: colorHex,
+                light: light,
+                wireframe: wireframe
+              });
+            }
+          }
+        });
+
+        // Depth Sort (Painter's Algorithm)
+        triangles.sort(function(a, b) { return a.depth - b.depth; });
+
+        // Draw Triangles
+        for (var t = 0; t < triangles.length; t++) {
+          var tri = triangles[t];
+          ctx.beginPath();
+          ctx.moveTo(tri.p0.sx, tri.p0.sy);
+          ctx.lineTo(tri.p1.sx, tri.p1.sy);
+          ctx.lineTo(tri.p2.sx, tri.p2.sy);
+          ctx.closePath();
+
+          if (tri.wireframe) {
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          } else {
+            var r = Math.min(255, Math.floor(((tri.color >> 16) & 255) * tri.light));
+            var g = Math.min(255, Math.floor(((tri.color >> 8) & 255) * tri.light));
+            var b = Math.min(255, Math.floor((tri.color & 255) * tri.light));
+            ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0,0,0,0.18)';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Model Creation Router (Using LowPolyWarehouseFactory)
+    // -------------------------------------------------------------
+    function createModelInstance(key) {
+      if (!window.LowPolyWarehouseFactory) {
+        console.error("LowPolyWarehouseFactory is not loaded!");
+        return new THREE.Group();
+      }
+      var F = window.LowPolyWarehouseFactory;
+      switch (key) {
+        case 'industrialForklift': return F.createIndustrialForklift();
+        case 'palletJack': return F.createHandPalletJack();
+        case 'pickingCart': return F.createPickingCart();
+        case 'deliveryTruck': return F.createDeliveryTruck();
+        case 'selectiveRack3Tier': return F.createSelectiveRack3Tier();
+        case 'selectiveRack': return F.createSelectiveRack({ bays: 1 });
+        case 'sortingFlowRack': return F.createSortingFlowRack();
+        case 'conveyorSegment': return F.createConveyorSegment({ length: 3.0 });
+        case 'mobileStagingCart': return F.createMobileStagingCart();
+        case 'packStationAndon': return F.createPackStationWithAndon();
+        case 'packTable': return F.createPackTable();
+        case 'palletCargo': return F.createEuroPalletCargo({ heightTiers: 3 });
+        case 'toteStack': return F.createStackOfTotes({ count: 4 });
+        case 'bufferPalletStack': return F.createBufferPalletStack();
+        case 'industrialTrashBin': return F.createIndustrialTrashBin();
+        case 'dockBay': return F.createInboundDock();
+        case 'guardhouseBarrier': return F.createGuardhouseBarrier();
+        case 'highBayStreetLight': return F.createHighBayStreetLight();
+        case 'fireSafetyHydrant': return F.createFireSafetyHydrant();
+        case 'landscapeTree': return F.createLandscapeTree();
+        case 'workerPicker': return F.createWorkerPicker();
+        case 'floorSupervisor': return F.createFloorSupervisor();
+        case 'diorama':
+        default:
+          return F.createStarterWarehouseDiorama();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Display and Update Active Model
+    // -------------------------------------------------------------
+    function displayModel(key) {
       currentModelKey = key;
+      var item = MODEL_CATALOG[key] || MODEL_CATALOG.diorama;
 
-      var imgElem = document.getElementById('fallback-img');
-      if (imgElem) {
-        imgElem.style.opacity = '0';
-        setTimeout(function() {
-          imgElem.src = item.img;
-          imgElem.style.opacity = '1';
-        }, 100);
+      // Instantiate fresh 3D procedural group
+      var group = createModelInstance(key);
+
+      // Count vertices and faces dynamically
+      var totalVerts = 0;
+      var totalFaces = 0;
+      group.traverse(function(node) {
+        if (node.isMesh && node.geometry) {
+          var pos = node.geometry.attributes.position;
+          if (pos) totalVerts += pos.count;
+          var idx = node.geometry.index;
+          totalFaces += idx ? (idx.count / 3) : (pos ? pos.count / 3 : 0);
+        }
+      });
+
+      // Update UI Telemetry
+      var nameElem = document.getElementById('model-name');
+      if (nameElem) nameElem.innerText = item.title;
+
+      var polyElem = document.getElementById('poly-count');
+      if (polyElem) polyElem.innerText = totalVerts.toLocaleString() + " Đỉnh (Mesh 3D Thực)";
+
+      var faceElem = document.getElementById('face-count');
+      if (faceElem) faceElem.innerText = Math.round(totalFaces).toLocaleString() + " Mặt Tam Giác";
+
+      // Update Code Snippet Box
+      var codeElem = document.getElementById('code-snippet-box');
+      if (codeElem) codeElem.innerText = item.code;
+
+      var codeMethod = document.getElementById('code-method-name');
+      if (codeMethod) codeMethod.innerText = 'LowPolyWarehouseFactory.' + (key === 'diorama' ? 'createStarterWarehouseDiorama()' : ('create' + key.charAt(0).toUpperCase() + key.slice(1) + '()'));
+
+      // Update Blueprint Specs
+      var bpTitle = document.getElementById('bp-title');
+      if (bpTitle) bpTitle.innerText = item.title;
+      var bpDesc = document.getElementById('bp-desc');
+      if (bpDesc) bpDesc.innerText = item.desc;
+      var bpDim = document.getElementById('bp-dim');
+      if (bpDim) bpDim.innerText = item.dim;
+      var bpVerts = document.getElementById('bp-verts');
+      if (bpVerts) bpVerts.innerText = totalVerts.toLocaleString() + " Đỉnh / " + Math.round(totalFaces).toLocaleString() + " Mặt";
+      var bpColors = document.getElementById('bp-colors');
+      if (bpColors) bpColors.innerText = item.colors;
+
+      // Send to Active 3D Engine
+      if (is3DMode && scene) {
+        scene.remove(currentMeshGroup);
+        currentMeshGroup = group;
+        scene.add(currentMeshGroup);
+
+        if (controls && camera) {
+          var dist = item.camDist || 5;
+          var ch = item.camH || 3.5;
+          var ty = item.targetY !== undefined ? item.targetY : 1.0;
+          camera.position.set(dist, ch, dist);
+          controls.target.set(0, ty, 0);
+          controls.update();
+        }
+      } else if (software3D) {
+        software3D.setModel(group, item.zoom);
       }
-
-      var titleElem = document.getElementById('fallback-title');
-      if (titleElem) titleElem.innerText = item.title;
-
-      var descElem = document.getElementById('fallback-desc');
-      if (descElem) descElem.innerText = item.desc;
-
-      var dimElem = document.getElementById('meta-dim');
-      if (dimElem) dimElem.innerText = item.dim;
-
-      var polyElem = document.getElementById('meta-poly');
-      if (polyElem) polyElem.innerText = item.vertices.toLocaleString() + " Đỉnh (Mesh)";
-
-      var matElem = document.getElementById('meta-mat');
-      if (matElem) matElem.innerText = item.materials;
-
-      // Update overlay telemetry
-      var nameOverlay = document.getElementById('model-name');
-      if (nameOverlay) nameOverlay.innerText = item.title;
-
-      var polyOverlay = document.getElementById('poly-count');
-      if (polyOverlay) polyOverlay.innerText = item.vertices.toLocaleString() + " Đỉnh";
     }
 
-    // Model Selector Handler
     function selectModel(key, element) {
-      playClickBeep(700);
+      playBeep(700);
       document.querySelectorAll('.model-card').forEach(function(c) { c.classList.remove('active'); });
       if (element) element.classList.add('active');
-
-      if (is3DMode) {
-        load3DModel(key);
-      } else {
-        renderFallbackModel(key);
-      }
+      displayModel(key);
     }
 
-    // Viewport Controls
-    var autoRotateActive = false;
+    // -------------------------------------------------------------
+    // Viewport Interactive Controls
+    // -------------------------------------------------------------
     function toggleAutoRotate() {
-      playClickBeep(550);
+      playBeep(550);
       autoRotateActive = !autoRotateActive;
       var btn = document.getElementById('btn-rotate');
       if (btn) btn.classList.toggle('active', autoRotateActive);
 
       if (is3DMode && controls) {
         controls.autoRotate = autoRotateActive;
-      } else {
-        // Fallback gentle pulsing effect
-        var img = document.getElementById('fallback-img');
-        if (img) {
-          img.style.transition = 'transform 2s ease-in-out';
-          img.style.transform = autoRotateActive ? 'scale(1.05) rotate(2deg)' : 'scale(1) rotate(0deg)';
-        }
+      } else if (software3D) {
+        software3D.autoRotate = autoRotateActive;
       }
     }
 
-    var wireframeActive = false;
     function toggleWireframe() {
-      playClickBeep(650);
+      playBeep(650);
       wireframeActive = !wireframeActive;
       var btn = document.getElementById('btn-wireframe');
       if (btn) btn.classList.toggle('active', wireframeActive);
@@ -722,145 +1520,142 @@
             else c.material.wireframe = wireframeActive;
           }
         });
-      } else {
-        var img = document.getElementById('fallback-img');
-        if (img) {
-          img.classList.toggle('wireframe-effect', wireframeActive);
-        }
+      } else if (software3D) {
+        software3D.wireframe = wireframeActive;
+        software3D.render();
       }
     }
 
     function resetView() {
-      playClickBeep(800);
+      playBeep(800);
+      var item = MODEL_CATALOG[currentModelKey] || MODEL_CATALOG.diorama;
       if (is3DMode && camera && controls) {
-        camera.position.set(16, 14, 16);
-        controls.target.set(0, 1, 0);
-        camera.lookAt(0, 1, 0);
+        var dist = item.camDist || 5;
+        var ch = item.camH || 3.5;
+        var ty = item.targetY !== undefined ? item.targetY : 1.0;
+        camera.position.set(dist, ch, dist);
+        controls.target.set(0, ty, 0);
         controls.update();
-      } else {
-        var img = document.getElementById('fallback-img');
-        if (img) {
-          img.style.transform = 'scale(1) rotate(0deg)';
-          img.classList.remove('wireframe-effect');
-        }
-        var btnRot = document.getElementById('btn-rotate');
-        if (btnRot) btnRot.classList.remove('active');
-        var btnWire = document.getElementById('btn-wireframe');
-        if (btnWire) btnWire.classList.remove('active');
-        autoRotateActive = false;
-        wireframeActive = false;
+      } else if (software3D) {
+        software3D.zoom = item.zoom || 50;
+        software3D.rotY = 0.785;
+        software3D.rotX = 0.523;
+        software3D.render();
       }
     }
 
-    // Try WebGL Initialization
-    function tryInitWebGL() {
-      if (!detectWebGL()) {
-        console.warn("WebGL not supported in current environment. Using 2.5D Fallback.");
-        initFallbackViewer();
-        return;
+    function copyCodeSnippet() {
+      playBeep(900);
+      var codeElem = document.getElementById('code-snippet-box');
+      if (codeElem && navigator.clipboard) {
+        navigator.clipboard.writeText(codeElem.innerText).then(function() {
+          alert('Đã sao chép mã nguồn Three.js của mô hình vào bộ nhớ tạm!');
+        });
       }
+    }
 
-      try {
-        var container = document.getElementById('viewport');
-        var w = container.clientWidth || (window.innerWidth - 330);
-        var h = container.clientHeight || (window.innerHeight - 60);
+    function onWindowResize() {
+      var pane = document.getElementById('viewport-pane');
+      if (!pane) return;
+      var w = pane.clientWidth;
+      var h = pane.clientHeight;
 
-        scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x0a101d);
-
-        camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 1000);
-        camera.position.set(16, 14, 16);
-        camera.lookAt(0, 1, 0);
-
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+      if (is3DMode && renderer && camera) {
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
         renderer.setSize(w, h);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-        container.appendChild(renderer.domElement);
-
-        if (typeof THREE.OrbitControls !== 'undefined') {
-          controls = new THREE.OrbitControls(camera, renderer.domElement);
-          controls.enableDamping = true;
-          controls.dampingFactor = 0.05;
-        }
-
-        // Lighting
-        var hemi = new THREE.HemisphereLight(0xffffff, 0x1e293b, 1.2);
-        scene.add(hemi);
-        var dir = new THREE.DirectionalLight(0xfffbeb, 1.6);
-        dir.position.set(20, 30, 20);
-        scene.add(dir);
-
-        // Floor
-        var floor = new THREE.Mesh(
-          new THREE.PlaneGeometry(20, 20),
-          new THREE.MeshStandardMaterial({ color: 0x101726, roughness: 0.85 })
-        );
-        floor.rotation.x = -Math.PI / 2;
-        scene.add(floor);
-        scene.add(new THREE.GridHelper(20, 20, 0x1e58fc, 0x1e293b));
-
-        currentModelGroup = new THREE.Group();
-        scene.add(currentModelGroup);
-
-        is3DMode = true;
-        var statusBadge = document.getElementById('engine-status');
-        if (statusBadge) {
-          statusBadge.innerHTML = '⚡ WEBGL HARDWARE ACCELERATED 3D';
-          statusBadge.style.color = '#10b981';
-        }
-
-        function animate() {
-          requestAnimationFrame(animate);
-          if (controls && controls.update) controls.update();
-          renderer.render(scene, camera);
-        }
-        animate();
-
-        load3DModel(currentModelKey);
-      } catch (err) {
-        console.warn("Failed to initialize WebGLRenderer. Falling back to 2.5D visualizer:", err);
-        is3DMode = false;
-        initFallbackViewer();
+      } else if (software3D) {
+        software3D.render();
       }
     }
+    window.addEventListener('resize', onWindowResize);
 
-    function load3DModel(key) {
-      if (!is3DMode || !scene) return;
-      var item = MODEL_CATALOG[key] || MODEL_CATALOG.diorama;
+    // -------------------------------------------------------------
+    // Engine Initialization: WebGL with Software 3D Fallback
+    // -------------------------------------------------------------
+    function initEngine() {
+      var canvas = document.getElementById('main-canvas');
+      var statusBadge = document.getElementById('engine-status');
 
-      // Update overlay telemetry
-      var nameOverlay = document.getElementById('model-name');
-      if (nameOverlay) nameOverlay.innerText = item.title;
-      var polyOverlay = document.getElementById('poly-count');
-      if (polyOverlay) polyOverlay.innerText = item.vertices.toLocaleString() + " Đỉnh";
-
-      scene.remove(currentModelGroup);
-      currentModelGroup = new THREE.Group();
-
-      // Simple Representative Low-Poly Mesh
-      var matBoxme = new THREE.MeshStandardMaterial({ color: 0x1e58fc, roughness: 0.4 });
-      var matAmber = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.4 });
-      var matWood = new THREE.MeshStandardMaterial({ color: 0xca8a04, roughness: 0.7 });
-
-      if (key === 'palletJack') {
-        var jack = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.4, 1.2), matAmber);
-        jack.position.set(0, 0.2, 0);
-        currentModelGroup.add(jack);
-      } else if (key === 'selectiveRack') {
-        var rack = new THREE.Mesh(new THREE.BoxGeometry(2.7, 3.6, 1.1), matBoxme);
-        rack.position.set(0, 1.8, 0);
-        currentModelGroup.add(rack);
-      } else {
-        var box = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 1.5), matBoxme);
-        box.position.set(0, 0.75, 0);
-        currentModelGroup.add(box);
+      // Test WebGL support
+      var hasWebGL = false;
+      try {
+        var testCanvas = document.createElement('canvas');
+        var gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+        hasWebGL = !!gl;
+      } catch (e) {
+        hasWebGL = false;
       }
 
-      scene.add(currentModelGroup);
+      if (hasWebGL && typeof THREE !== 'undefined' && THREE.WebGLRenderer) {
+        try {
+          var pane = document.getElementById('viewport-pane');
+          var w = pane.clientWidth || 800;
+          var h = pane.clientHeight || 600;
+
+          scene = new THREE.Scene();
+          scene.background = new THREE.Color(0x090e1a);
+
+          camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 1000);
+          camera.position.set(18, 14, 18);
+          camera.lookAt(0, 1, 0);
+
+          renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+          renderer.setSize(w, h);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+          if (typeof THREE.OrbitControls !== 'undefined') {
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+          }
+
+          // Lighting
+          var hemi = new THREE.HemisphereLight(0xffffff, 0x1e293b, 1.2);
+          scene.add(hemi);
+          var dir = new THREE.DirectionalLight(0xfffbeb, 1.6);
+          dir.position.set(20, 30, 20);
+          scene.add(dir);
+
+          // Floor Grid
+          scene.add(new THREE.GridHelper(20, 20, 0x1e58fc, 0x1e293b));
+
+          currentMeshGroup = new THREE.Group();
+          scene.add(currentMeshGroup);
+
+          is3DMode = true;
+          if (statusBadge) {
+            statusBadge.innerHTML = '⚡ WEBGL HARDWARE ACCELERATED 3D';
+            statusBadge.style.color = '#10b981';
+          }
+
+          function animate() {
+            requestAnimationFrame(animate);
+            if (controls && controls.update) controls.update();
+            renderer.render(scene, camera);
+          }
+          animate();
+
+          displayModel(currentModelKey);
+          return;
+        } catch (err) {
+          console.warn("WebGL initialization failed, falling back to Software 3D Engine:", err);
+        }
+      }
+
+      // Fallback: Pure Procedural Software 3D Engine (Zero Images, 100% 3D Geometry)
+      is3DMode = false;
+      if (statusBadge) {
+        statusBadge.innerHTML = '⚡ 3D MESH PROJECTION ENGINE (PURE CODE)';
+        statusBadge.style.color = '#38bdf8';
+      }
+      software3D = new Software3DCanvasEngine(canvas);
+      software3D.startLoop();
+      displayModel(currentModelKey);
     }
 
-    // Startup
-    window.addEventListener('DOMContentLoaded', tryInitWebGL);
+    // Launch
+    window.addEventListener('DOMContentLoaded', initEngine);
   </script>
 </body>
 </html>
