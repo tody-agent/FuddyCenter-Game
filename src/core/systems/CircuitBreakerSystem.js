@@ -12,7 +12,7 @@ export class CircuitBreakerSystem {
   static checkBankruptcyGuard(gameState, eventBus) {
     if (gameState.boxmeCash < 0 && !gameState.emergencyCreditUsed) {
       gameState.emergencyCreditUsed = true;
-      const creditLineAmount = 50000;
+      const creditLineAmount = Math.max(50000, Math.abs(gameState.boxmeCash) + 20000);
       gameState.boxmeCash += creditLineAmount;
 
       if (eventBus) {

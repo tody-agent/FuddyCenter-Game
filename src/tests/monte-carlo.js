@@ -39,10 +39,10 @@ export function runMonteCarloSimulations(iterations = 10000) {
     const slaRate = Math.min(1.0, fulfilledOrders / baseOrders);
     slaHistory.push(slaRate);
 
-    // Kịch bản Dòng tiền (Boxme Cash)
-    let cashFlow = (fulfilledOrders * 1.5) - (workerCapacity * 200) - (isMegaSale ? 50000 : 10000);
+    // Kịch bản Dòng tiền (Boxme Cash) theo GDD: Doanh thu 2.5$/đơn, Chi phí lương 150$/thợ, Chi phí kho 8000$
+    let cashFlow = (fulfilledOrders * 2.5) - (workerCapacity * 150) - (isMegaSale ? 35000 : 8000);
     if (slaRate < 0.85) {
-      cashFlow -= (baseOrders - fulfilledOrders) * 5.0; // Phạt SLA sàn TMĐT
+      cashFlow -= (baseOrders - fulfilledOrders) * 4.0; // Phạt SLA sàn TMĐT
     }
 
     // 1. Kiểm tra kịch bản KHÔNG có Circuit Breaker
