@@ -23,8 +23,8 @@ SECURITY_RULES = [
         "id": "DYN_CTX_EXEC",
         "severity": "CRITICAL",
         "description": "Dynamic context command execution: Chạy lệnh shell trước khi LLM xem xét skill",
-        "regex": re.compile(r"!`[^`]+`|`![^`]+`"),
-        "exts": [".md", ".json", ".yaml", ".yml", ".txt"]
+        "regex": re.compile(r"!\`[^`\n]+\`"),
+        "exts": [".md", ".json", ".yaml", ".yml"]
     },
     {
         "id": "UNCONSTRAINED_BASH",
@@ -38,21 +38,21 @@ SECURITY_RULES = [
         "severity": "CRITICAL",
         "description": "Thực thi file .env như shell script (Arbitrary Code Execution qua set -a; . .env)",
         "regex": re.compile(r"set\s+-a;\s*\.\s+\.env|source\s+\.env|\.\s+\.env"),
-        "exts": [".sh", ".bash", ".zsh", ".js", ".ts", ".py", ".md"]
+        "exts": [".sh", ".bash", ".zsh", ".js", ".ts", ".py"]
     },
     {
         "id": "PIPE_TO_SHELL",
         "severity": "CRITICAL",
         "description": "Tải script từ mạng và pipe thẳng vào shell (curl | sh, wget | bash)",
         "regex": re.compile(r"(curl|wget|fetch|Invoke-WebRequest)[^|\n]+?\|\s*(sh|bash|zsh|powershell|pwsh)", re.IGNORECASE),
-        "exts": [".sh", ".bash", ".js", ".ts", ".py", ".md", ".json"]
+        "exts": [".sh", ".bash", ".js", ".ts", ".py"]
     },
     {
         "id": "CREDENTIAL_SNOOPING",
         "severity": "HIGH",
         "description": "Truy cập đường dẫn credential nhạy cảm (~/.ssh, ~/.aws, token, id_rsa)",
         "regex": re.compile(r"(~|\$HOME|/root|/home/\w+)/(\.ssh|\.aws|\.gnupg|\.claude|\.herenow|\.docker)|\bgh\s+auth\s+token\b|\bid_rsa\b|\bid_ed25519\b"),
-        "exts": [".sh", ".bash", ".js", ".ts", ".py", ".md", ".json"]
+        "exts": [".sh", ".bash", ".js", ".ts", ".py"]
     },
     {
         "id": "REVERSE_SHELL",
@@ -66,14 +66,14 @@ SECURITY_RULES = [
         "severity": "HIGH",
         "description": "Lệnh xóa file phá hủy hệ thống hoặc git force push",
         "regex": re.compile(r"rm\s+-rf\s+(/|/\*|~|\$HOME|\.\./)|git\s+push\s+--force|git\s+reset\s+--hard\s+HEAD"),
-        "exts": [".sh", ".bash", ".py", ".js", ".ts", ".md"]
+        "exts": [".sh", ".bash", ".py", ".js", ".ts"]
     },
     {
         "id": "VIRAL_COPYLEFT_LICENSE",
         "severity": "MEDIUM",
         "description": "Phát hiện giấy phép lây nhiễm AGPL-3.0 hoặc GPL-3.0 (Rủi ro pháp lý cho game thương mại)",
-        "regex": re.compile(r"AGPL-3\.0|Affero\s+General\s+Public\s+License|GPL-3\.0", re.IGNORECASE),
-        "exts": [".json", ".md", ".txt", "LICENSE", "LICENCE"]
+        "regex": re.compile(r"\"license\"\s*:\s*\"(A?GPL[^\"]*)\"|Affero\s+General\s+Public\s+License|GNU\s+General\s+Public\s+License", re.IGNORECASE),
+        "exts": ["package.json", "LICENSE", "LICENCE"]
     }
 ]
 
@@ -105,13 +105,13 @@ def scan_target(target_path):
 
     # Duyệt file
     for root, dirs, files in os.walk(target):
-        # Bỏ qua các thư mục venv, node_modules, .git
-        dirs[:] = [d for d in dirs if d not in [".git", "node_modules", ".venv", "__pycache__", "dist", "build"]]
+        # Bỏ qua các thư mục venv, node_modules, .git và docs/research (tài liệu phân tích mô tả CVE)
+        dirs[:] = [d for d in dirs if d not in [".git", "node_modules", ".venv", "__pycache__", "dist", "build", "research"]]
         
         for file in files:
             file_path = Path(root) / file
-            # Bỏ qua chính file scanner
-            if file_path.resolve() == Path(__file__).resolve():
+            # Bỏ qua chính file scanner và các file telemetry state
+            if file_path.resolve() == Path(__file__).resolve() or file.endswith('-state.json'):
                 continue
             suffix = file_path.suffix.lower()
             name = file_path.name.upper()

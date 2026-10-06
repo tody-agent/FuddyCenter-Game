@@ -12,3 +12,4 @@ node_modules/
 # Operating System
 .DS_Store
 Thumbs.db
+.test-agent-state.json

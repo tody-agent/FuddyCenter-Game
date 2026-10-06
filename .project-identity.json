@@ -1,11 +1,11 @@
 {
-  "name": "bmwms",
-  "description": "Boxme Mission Control - VSIP Bac Ninh Fulfillment Center Simulator",
+  "name": "FuddyCenter-Game",
+  "description": "Fulldy Center - Smart Fulfillment Tycoon & Megahub Simulator",
   "github": {
     "account": "tody-agent",
     "org": "tody-agent",
-    "repo": "bmwms",
-    "remoteUrl": "https://github.com/tody-agent/bmwms.git",
+    "repo": "FuddyCenter-Game",
+    "remoteUrl": "https://github.com/tody-agent/FuddyCenter-Game.git",
     "userEmail": "tracuuphat@gmail.com"
   },
   "cloudflare": {

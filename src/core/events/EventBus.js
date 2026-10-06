@@ -1,6 +1,6 @@
 /**
  * SimulationEventBus
- * Giao diện phát và lắng nghe sự kiện decoupled cho Boxme Simulator
+ * Giao diện phát và lắng nghe sự kiện decoupled cho Fulldy Center Simulator
  */
 export class SimulationEventBus {
   constructor() {

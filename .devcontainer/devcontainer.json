@@ -1,5 +1,5 @@
 {
-  "name": "Boxme GameDev Secure Sandbox",
+  "name": "Fulldy Center GameDev Secure Sandbox",
   "build": {
     "dockerfile": "Dockerfile"
   },

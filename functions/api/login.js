@@ -1,11 +1,11 @@
 // Secure Authentication API with Challenge-Response & Zero Plaintext Password
-const SERVER_SECRET = "boxme_sec_chal_8f3a9b1c7d2e4f0a6b5c8d1e3f7a9b2c";
-const JWT_SECRET = "boxme_jwt_secret_99887766554433221100aabbccddeeff";
+const SERVER_SECRET = "fulldy_sec_chal_8f3a9b1c7d2e4f0a6b5c8d1e3f7a9b2c";
+const JWT_SECRET = "fulldy_jwt_secret_99887766554433221100aabbccddeeff";
 const AUTH_COOKIE = "bmwms_auth";
 
 // 100,000 rounds PBKDF2-HMAC-SHA256 hash of password with custom salt
 // Original password never exists in codebase
-const EXPECTED_CLIENT_KEY_HEX = "6f52063a3cff2f3f446986e54e1dfd8262f65426f473a4ca3062f7e9e8f5162e";
+const EXPECTED_CLIENT_KEY_HEX = "53e5f0df8a43293754ddf58afc66cd4047e5344fa178d60362d2cf43da79507a";
 
 function hexToBytes(hex) {
   const bytes = new Uint8Array(hex.length / 2);
@@ -110,8 +110,8 @@ export async function onRequestPost(context) {
     const header = base64UrlEncode(JSON.stringify({ alg: "HS256", typ: "JWT" }));
     const exp = Math.floor(now / 1000) + (30 * 86400); // 30 days
     const payload = base64UrlEncode(JSON.stringify({
-      sub: "boxme-operator",
-      aud: "bmwms",
+      sub: "fulldy-operator",
+      aud: "fulldy-center",
       iat: Math.floor(now / 1000),
       exp
     }));

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đăng nhập — Boxme Mission Control</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a1628'/><text x='16' y='22' text-anchor='middle' font-size='16' fill='%233b82f6'>B</text></svg>" />
+  <title>Đăng nhập — Fulldy Center</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a1628'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='bold' fill='%233b82f6'>F</text></svg>" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -340,10 +340,10 @@
     <div class="brand-section">
       <div class="logo-badge">
         <span class="status-dot"></span>
-        <span>Boxme Mission Control · VSIP Bắc Ninh</span>
+        <span>Fulldy Center · Megahub Operations</span>
       </div>
       <h1 class="brand-title">Xác thực quyền truy cập</h1>
-      <p class="brand-subtitle">Hệ thống mô phỏng & điều hành vận hành trung tâm hoàn tất đơn hàng</p>
+      <p class="brand-subtitle">Hệ thống mô phỏng & điều hành trung tâm hoàn tất đơn hàng Fulldy Center</p>
     </div>
 
     <div class="login-card">
@@ -399,14 +399,14 @@
 
         <button type="submit" id="submit-btn" class="submit-btn">
           <span class="spinner" id="btn-spinner"></span>
-          <span id="btn-text">Vào hệ thống Mission Control &rarr;</span>
+          <span id="btn-text">Vào hệ thống Fulldy Center &rarr;</span>
         </button>
       </form>
     </div>
 
     <div class="footer-note">
-      Boxme Global Fulfillment Platform &copy; 2026<br/>
-      VSIP Bắc Ninh Warehouse Automation & Digital Twin
+      Fulldy Games &copy; 2026<br/>
+      Fulldy Center Megahub Automation & Tycoon Simulator
     </div>
   </div>
 
@@ -421,7 +421,7 @@
     const errorText = document.getElementById('error-text');
 
     // Expected client key hash (for offline preview only - zero plaintext)
-    const OFFLINE_TARGET_HASH = "6f52063a3cff2f3f446986e54e1dfd8262f65426f473a4ca3062f7e9e8f5162e";
+    const OFFLINE_TARGET_HASH = "53e5f0df8a43293754ddf58afc66cd4047e5344fa178d60362d2cf43da79507a";
 
     toggleBtn.addEventListener('click', () => {
       const isPwd = pwdInput.type === 'password';
@@ -509,7 +509,7 @@
           console.warn('Challenge API offline, falling back to local verification.');
         }
 
-        const saltStr = challenge ? challenge.salt : 'boxme-vsip-mission-control-salt-2026';
+        const saltStr = challenge ? challenge.salt : 'fulldy-center-auth-salt-2026';
         const iterations = challenge ? challenge.iterations : 100000;
 
         // 2. High-iteration PBKDF2 key stretching
@@ -538,7 +538,7 @@
             showError('Mật khẩu không chính xác, vui lòng thử lại.');
             submitBtn.disabled = false;
             btnSpinner.style.display = 'none';
-            btnText.textContent = 'Vào hệ thống Mission Control \u2192';
+            btnText.textContent = 'Vào hệ thống Fulldy Center \u2192';
             return;
           }
         }
@@ -551,14 +551,14 @@
           showError('Mật khẩu không chính xác, vui lòng thử lại.');
           submitBtn.disabled = false;
           btnSpinner.style.display = 'none';
-          btnText.textContent = 'Vào hệ thống Mission Control \u2192';
+          btnText.textContent = 'Vào hệ thống Fulldy Center \u2192';
         }
       } catch (err) {
         console.error('Lỗi xác thực:', err);
         showError('Lỗi xác thực hệ thống: ' + err.message);
         submitBtn.disabled = false;
         btnSpinner.style.display = 'none';
-        btnText.textContent = 'Vào hệ thống Mission Control \u2192';
+        btnText.textContent = 'Vào hệ thống Fulldy Center \u2192';
       }
     });
   </script>

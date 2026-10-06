@@ -1,7 +1,7 @@
 # 🏭 MASTER GAME PRODUCTION & SIMULATION PLAN
 ## DỰ ÁN: FULFILLMENT TYCOON: MISSION CONTROL 3D (BẢN KẾ HOẠCH TOÀN DIỆN CHUẨN STUDIO GAME QUỐC TẾ)
 
-> **Nhà phát triển**: Antigravity Interactive & Boxme Simulation Studio  
+> **Nhà phát triển**: Antigravity Interactive & fulldy Simulation Studio  
 > **Phiên bản tài liệu**: Production Plan 3.0 — Studio Master Bible  
 > **Ngày phê duyệt**: 06/10/2026  
 > **Thời gian sản xuất dự kiến**: 16 tuần (4 Cột mốc sản xuất chính)  
@@ -252,7 +252,7 @@ sequenceDiagram
 
 ### 6.1 Bảng Màu Nhận Diện Cyber-Industrial (Color Palette)
 * **Màu Nền Chủ Đạo (Background)**: `#0a1628` (Xanh đêm công nghiệp thâm trầm).
-* **Màu Tương Tác Chính (Primary Interactive)**: `#2454DD` (Xanh Boxme Electric Blue) và `#00f2fe` (Neon Cyan dẫn lối cho AMR).
+* **Màu Tương Tác Chính (Primary Interactive)**: `#2454DD` (Xanh fulldy Electric Blue) và `#00f2fe` (Neon Cyan dẫn lối cho AMR).
 * **Màu Cảnh Báo Nguy Cơ (Warning / Alert)**: `#ff9f43` (Hổ phách cảnh báo nguy cơ sập SLA) và `#ee5253` (Đỏ còi khẩn cấp).
 * **Màu Sàn Nhà Xưởng (Epoxy Concrete)**: `#1e293b` với vân bánh xe mờ và vạch kẻ phân làn an toàn màu vàng `#feca57`.
 
@@ -290,7 +290,7 @@ Kế hoạch sản xuất được chia làm 4 giai đoạn rõ ràng:
 
 ### 7.1 Phân Kỳ Chi Tiết Từng Sprint (Two-Week Sprints)
 * **Sprint 1-2 (Tuần 1-4) - Nền Tảng Khung Mô Phỏng**:
-  - Tách rời mã nguồn cũ `boxme-mission-control.html` thành cấu trúc modular TypeScript.
+  - Tách rời mã nguồn cũ `fulldy-mission-control.html` thành cấu trúc modular TypeScript.
   - Xây dựng Simulation Core trên Web Worker với chu kỳ cố định 20Hz.
   - Tích hợp máy sinh số ngẫu nhiên tất định Mulberry32.
   - Dựng hệ thống `InstancedMesh` hiển thị 10.000 kiện hàng và 500 công nhân.
@@ -321,7 +321,7 @@ Dự án sở hữu mô hình kinh doanh độc đáo nhờ khả năng phục v
                     ┌─────────────────────────┴─────────────────────────┐
                     ▼                                                   ▼
        [ KÊNH CONSUMER GAMING ]                             [ KÊNH ENTERPRISE B2B SAAS ]
-  - Nền tảng: Steam PC / Web Game                      - Nền tảng: Boxme Mission Control 2.5
+  - Nền tảng: Steam PC / Web Game                      - Nền tảng: Fulldy Center 2.5
   - Đối tượng: Game thủ đam mê Tycoon / Sim            - Đối tượng: Ban Giám Đốc, Quản Lý Kho, Khách Hàng VIP
   - Mô hình: Bán game trả phí ($19.99) hoặc Freemium   - Mô hình: Đào tạo nhân sự, Diễn tập Siêu Sale, Digital Twin
   - Nội dung: 5 Cấp độ chiến dịch, Mở khóa robot,      - Nội dung: Nạp dữ liệu thật WMS, Chạy thử nghiệm What-If,
@@ -343,4 +343,4 @@ Dự án sở hữu mô hình kinh doanh độc đáo nhờ khả năng phục v
 Bản Kế Hoạch Sản Xuất Game Toàn Diện này đánh dấu bước chuyển mình quan trọng từ một ý tưởng thử nghiệm thành một dự án game quản trị kho bãi 3D đẳng cấp quốc tế. Với nền tảng nghiên cứu nghiệp vụ vững chắc, kiến trúc phần mềm tách lớp hiện đại và lộ trình sản xuất chi tiết, dự án đã sẵn sàng bước vào giai đoạn hiện thực hóa mã nguồn!
 
 ---
-© 2026 Boxme Simulation Studio & Antigravity Interactive. Tất cả các quyền được bảo hộ.
+© 2026 fulldy Simulation Studio & Antigravity Interactive. Tất cả các quyền được bảo hộ.

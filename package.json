@@ -1,28 +1,35 @@
 {
-  "name": "simulator",
+  "name": "fulldy-center",
   "version": "1.0.0",
-  "description": "Hệ thống mô phỏng 3D Digital Twin, Sandbox ra quyết định What-If & Serious Game Điều hành trung tâm hoàn tất đơn hàng VSIP Bắc Ninh (và chuỗi Hub Đông Nam Á) của Boxme Global.",
+  "description": "Fulldy Center — Smart Fulfillment Tycoon & Megahub 3D Simulator phát hành bởi Fulldy Games.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "type": "module",
+  "bin": {
+    "fulldy-cli": "bin/fulldy-cli.js"
+  },
   "scripts": {
+    "dashboard": "node bin/fulldy-cli.js",
+    "monitor": "node bin/fulldy-cli.js --monitor",
+    "cli": "node bin/fulldy-cli.js",
     "test": "node --test src/tests/**/*.test.js",
     "audit": "python3 scripts/audit-gamedev-skills.py ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tody-agent/bmwms.git"
+    "url": "git+https://github.com/tody-agent/FuddyCenter-Game.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tody-agent/bmwms/issues"
+    "url": "https://github.com/tody-agent/FuddyCenter-Game/issues"
   },
-  "homepage": "https://github.com/tody-agent/bmwms#readme",
+  "homepage": "https://github.com/tody-agent/FuddyCenter-Game#readme",
   "dependencies": {
-    "bitecs": "^0.4.0"
+    "bitecs": "^0.4.0",
+    "three": "^0.186.1"
   }
 }

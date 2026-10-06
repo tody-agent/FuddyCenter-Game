@@ -1,4 +1,4 @@
-# 🚀 MASTER PRODUCT BLUEPRINT: BOXME MISSION CONTROL 2.0
+# 🚀 MASTER PRODUCT BLUEPRINT: Fulldy Center
 ## Bản Thiết Kế Sản Phẩm Toàn Diện & Nền Tảng Trò Chơi Vững Chắc
 **Được tổng hợp từ Hội Đồng Phản Biện Đa Agent (Multi-Agent Debate: Red Team Systems Architect, 3PL Ops Veteran & Chief Behavioral Psychologist)**
 
@@ -15,8 +15,8 @@
 ## 1. ĐỊNH VỊ SẢN PHẨM & TRIẾT LÝ THIẾT KẾ CỐT LÕI
 
 ### 1.1 Khái Niệm Sản Phẩm (Product Definition)
-**Boxme Mission Control 2.0** là sự giao thoa độc nhất giữa **3 cấu phần**:
-1. **Digital Twin (Bản sao số 3D):** Trực quan hóa chính xác luồng di chuyển vật lý của hàng vạn kiện hàng tại Trung tâm hoàn tất đơn hàng Boxme VSIP Bắc Ninh (và chuỗi kho Đông Nam Á).
+**Fulldy Center** là sự giao thoa độc nhất giữa **3 cấu phần**:
+1. **Digital Twin (Bản sao số 3D):** Trực quan hóa chính xác luồng di chuyển vật lý của hàng vạn kiện hàng tại Trung tâm hoàn tất đơn hàng fulldy VSIP Bắc Ninh (và chuỗi kho Đông Nam Á).
 2. **Operations Simulator (Bộ mô phỏng Ra quyết định What-If):** Sandbox phân tích xác suất Monte Carlo (P10/P50/P90), dự báo điểm nghẽn và đo lường tác động tài chính của các quyết định điều phối.
 3. **Logistics Tycoon Game (Trò chơi Chiến lược Quản lý Đỉnh cao):** Trải nghiệm tiến hóa từ kho bãi khởi nghiệp đơn sơ đến Siêu Hub tự động hóa không đèn, quản trị nhân sự thực tế, cạnh tranh hợp đồng nhãn hàng lớn và vượt qua các trận "Boss Wave" đêm Mega Sale.
 
@@ -36,7 +36,7 @@
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                        CẤU TRÚC KINH TẾ ĐÃ ĐƯỢC CÂN BẰNG                               │
 ├───────────────────────────────────┬────────────────────────────────────────────────────┤
-│ 1. NHÓM TIỀN TỆ GIAO DỊCH         │ - 💵 Boxme Cash ($): Vốn lưu động trả lương, hộp,  │
+│ 1. NHÓM TIỀN TỆ GIAO DỊCH         │ - 💵 Fulldy Cash ($): Vốn lưu động trả lương, hộp,  │
 │    (Spendable Currencies)         │   xe tải, điện, bảo trì. Thu từ phí lưu kho & đơn. │
 │                                   │ - ⚙️ Tech Sparks: Điểm nghiên cứu R&D mở khóa      │
 │                                   │   robot AMR, máy đóng 3D, WMS AI (tích lũy qua ca).│
@@ -58,8 +58,8 @@
 
 Từ phản biện gay gắt của Red Team: *"Không bắt người chơi trả giá 4 lần cho 1 sai số dự báo nhu cầu (thiếu người -> trễ SLA -> mất CSAT -> mất tiền -> phá sản)"*. Game tích hợp **3 Chốt chặn Ngắt mạch (Circuit Breakers)**:
 
-1. **Gói Cứu Trợ Khẩn Cấp Tập Đoàn (Boxme HQ Emergency Credit Line):**
-   - Khi dòng tiền Cash âm do bị phạt SLA quá nặng, tập đoàn Boxme tự động kích hoạt gói bảo lãnh tài chính cứu trợ (lãi suất thấp, trả dần qua 10 ca), ngăn người chơi bị Game Over lãng xẹt.
+1. **Gói Cứu Trợ Khẩn Cấp Tập Đoàn (Fulldy HQ Emergency Credit Line):**
+   - Khi dòng tiền Cash âm do bị phạt SLA quá nặng, tập đoàn fulldy tự động kích hoạt gói bảo lãnh tài chính cứu trợ (lãi suất thấp, trả dần qua 10 ca), ngăn người chơi bị Game Over lãng xẹt.
 2. **Thời Gian Ân Hạn Khách Hàng (Merchant Grace Period):**
    - Một đợt bão đơn vỡ trận chỉ làm giảm $50\%$ mức độ hài lòng tạm thời, khách hàng gửi "Tối hậu thư cảnh báo" trong 3 ca chứ không hủy hợp đồng ngay lập tức, cho người chơi cơ hội lội ngược dòng.
 3. **Đơn Hàng Chữa Cháy B2B (Fallback Bulk Orders):**
@@ -127,7 +127,7 @@ Tier 2 trở đi: Mở khóa Khấu hao, Churn & Thuê Agency Mùa Sale
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ [BOXME MISSION CONTROL]  Level 3 (Urban Hub)  │  🎖️ Level 3: 4,250/10,000 XP                                           │
+│ [Fulldy Center]  Level 3 (Urban Hub)  │  🎖️ Level 3: 4,250/10,000 XP                                           │
 │ 💵 $148,250,000 (+12.5k/m)  │  ⭐ 4.85/5.0 Uy Tín  │  📦 Sức chứa: 12,450/16,000 CBM (78%)  │  ⚙️ 340 Tech Sparks     │
 ├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ [HUD RIBBON 14 KPIs]                                                                                                   │
@@ -147,7 +147,7 @@ Tier 2 trở đi: Mở khóa Khấu hao, Churn & Thuê Agency Mùa Sale
 
 ## 8. GIÁ TRỊ THƯƠNG MẠI & TÁC ĐỘNG KINH TẾ (BUSINESS IMPACT)
 
-1. **Nội bộ Boxme (Internal ROI - Lớn Nhất):**
+1. **Nội bộ fulldy (Internal ROI - Lớn Nhất):**
    - Giảm $75\%$ thời gian đào tạo Quản lý kho (từ 6 tháng xuống 3 tuần).
    - Huấn luyện trực giác phát hiện tiền triệu chứng điểm nghẽn trước 8–12 phút.
    - Tiết kiệm 15–20% chi phí phạt SLA và chi phí OT thừa mỗi mùa Siêu Sale.
@@ -160,5 +160,5 @@ Tier 2 trở đi: Mở khóa Khấu hao, Churn & Thuê Agency Mùa Sale
 
 ---
 
-© 2026 Boxme Global Fulfillment Platform. All rights reserved.
-Tài liệu Master Product Blueprint Boxme Mission Control 2.0.
+© 2026 Fulldy Games Platform. All rights reserved.
+Tài liệu Master Product Blueprint Fulldy Center.

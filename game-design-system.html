@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boxme Fulfillment Tycoon: Game Design System & Interactive HUD</title>
+  <title>Fulldy Center: Game Design System & Interactive HUD</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23070b14'/><path d='M8 10h16v12H8z' fill='none' stroke='%2338bdf8' stroke-width='2'/><circle cx='16' cy='16' r='3' fill='%23f59e0b'/></svg>" />
   
   <!-- Modern Font Stack: Outfit (Display) & JetBrains Mono (Telemetry) -->
@@ -13,7 +13,7 @@
 
   <style>
     /* ==========================================================================
-       1. BOXME FULFILLMENT TYCOON: DESIGN TOKENS (GDS)
+       1. FULLDY CENTER: DESIGN TOKENS (GDS)
        ========================================================================== */
     :root {
       /* Surfaces & Depth */
@@ -1035,7 +1035,7 @@
         </div>
         <div class="gds-brand-meta">
           <div class="gds-brand-title">
-            BOXME MISSION CONTROL
+            FULLDY CENTER MISSION CONTROL
             <span class="gds-tag-live">LIVE SIM</span>
           </div>
           <span class="gds-brand-sub">VSIP BẮC NINH MEGA HUB - SECTOR A</span>
@@ -1071,6 +1071,9 @@
           <button class="gds-speed-btn" onclick="setSpeed(15, this)">15X</button>
           <button class="gds-speed-btn" onclick="setSpeed(60, this)">60X</button>
         </div>
+        <a href="warehouse-3d-models.html" class="gds-speed-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px; border-color: var(--gds-brand-sky); color: var(--gds-brand-sky);">
+          <span>📦</span> 3D MESH STUDIO
+        </a>
         <button class="gds-btn-mode-toggle" onclick="toggleDaylightMode()">
           <span id="theme-icon">☀️</span> DAYLIGHT
         </button>
@@ -1100,32 +1103,32 @@
     </div>
 
     <!-- ======================================================================
-         3. HERO SHOWCASE: INDUSTRIAL LOGISTICS 3D ENVIRONMENT
+         3. HERO SHOWCASE: ISOMETRIC WAREHOUSE 3D ENVIRONMENT
          ====================================================================== -->
     <section class="gds-hero-section">
       <div class="gds-hero-viewport">
-        <img src="assets/images/fulfillment_game_hero_1791301240800.jpg" alt="Boxme Mega Hub 3D Simulation" class="gds-hero-image" />
+        <img src="assets/images/iso_warehouse_starter_hub.png" alt="Isometric Starter Warehouse Floor" class="gds-hero-image" />
         <div class="gds-hero-scrim"></div>
         <div class="gds-hero-overlay-content">
           <div class="gds-hero-top-row">
             <div class="gds-hud-chip">
               <span class="chip-dot"></span>
-              <span>DIGITAL TWIN ENGINE V4.2 - VSIP BẮC NINH (35,000M²)</span>
+              <span>GÓC NHÌN ISOMETRIC 3D - MẶT BẰNG KHO KHỞI NGHIỆP (500M²)</span>
             </div>
             <div class="gds-badge gds-badge-green">
-              <span>●</span> ĐỘI XE TỰ HÀNH: 100% ONLINE
+              <span>●</span> VẬN HÀNH THỦ CÔNG: ỔN ĐỊNH
             </div>
           </div>
           <div class="gds-hero-bottom-panel">
             <div class="gds-hero-headline-group">
-              <h1 class="gds-hero-title">SIÊU TRUNG TÂM HOÀN TẤT ĐƠN HÀNG 3D</h1>
+              <h1 class="gds-hero-title">MẶT BẰNG KHO KHỞI NGHIỆP ISOMETRIC 3D</h1>
               <p class="gds-hero-subtitle">
-                Hệ thống điều hành và mô phỏng chuỗi dây chuyền fulfillment tự động hóa: quản lý dock hạ tải, phân tầng kệ ABC, đội robot bưng kệ AMR và băng tải phân loại tốc độ cao.
+                Góc nhìn Isometric 3D nhẹ nhàng, trực quan và gần gũi: vạch sơn an toàn màu vàng, các dãy kệ Selective thanh đà cam, bàn đóng gói mộc mạc và công nhân đẩy xe nhặt hàng theo đợt.
               </p>
             </div>
             <div>
               <button class="gds-btn gds-btn-hazard" onclick="triggerDemoOrder()">
-                <span>📦</span> BẮT ĐẦU SIÊU SALE 11.11 (+500 ĐƠN)
+                <span>📦</span> TIẾP NHẬN ĐỢT ĐƠN MỚI (+50 ĐƠN)
               </button>
             </div>
           </div>
@@ -1149,7 +1152,7 @@
       <div class="gds-token-card">
         <div class="gds-swatch-preview" style="background: #1e58fc; color: #ffffff;">#1E58FC</div>
         <div class="gds-token-info">
-          <span class="gds-token-name">BOXME COBALT CORE</span>
+          <span class="gds-token-name">FULLDY COBALT CORE</span>
           <span class="gds-token-role">Nhận diện thương hiệu & Pulse chính</span>
         </div>
       </div>
@@ -1210,12 +1213,13 @@
       </div>
       <!-- Filter Tags -->
       <div class="gds-sim-controls">
-        <button class="gds-speed-btn active" onclick="filterGallery('phase1', this)">GIAI ĐOẠN 1: PHỔ THÔNG (7)</button>
-        <button class="gds-speed-btn" onclick="filterGallery('char-real', this)">NHÂN VẬT THỰC TẾ (2)</button>
-        <button class="gds-speed-btn" onclick="filterGallery('equip-real', this)">THIẾT BỊ CƠ BẢN (3)</button>
-        <button class="gds-speed-btn" onclick="filterGallery('tool-real', this)">DỤNG CỤ ĐÓNG GÓI (2)</button>
+        <button class="gds-speed-btn active" onclick="filterGallery('phase1', this)">GIAI ĐOẠN 1: PHỔ THÔNG</button>
+        <button class="gds-speed-btn" onclick="filterGallery('iso-asset', this)">PHỐI CẢNH ISOMETRIC 3D</button>
+        <button class="gds-speed-btn" onclick="filterGallery('equip-real', this)">THIẾT BỊ CƠ BẢN</button>
+        <button class="gds-speed-btn" onclick="filterGallery('char-real', this)">NHÂN SỰ VẬN HÀNH</button>
+        <button class="gds-speed-btn" onclick="filterGallery('tool-real', this)">DỤNG CỤ ĐÓNG GÓI</button>
         <button class="gds-speed-btn" onclick="filterGallery('future', this)">NÂNG CẤP TỰ ĐỘNG HÓA</button>
-        <button class="gds-speed-btn" onclick="filterGallery('all', this)">TẤT CẢ (16)</button>
+        <button class="gds-speed-btn" onclick="filterGallery('all', this)">TẤT CẢ TÀI NGUYÊN</button>
       </div>
     </div>
 
@@ -1223,7 +1227,7 @@
     <div class="gds-components-grid">
 
       <!-- Phase 1 Equip 1: Hand Pallet Jack -->
-      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real">
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real iso-asset">
         <div class="gds-card-head">
           <span class="gds-card-tag">
             <span>🚜</span> GIAI ĐOẠN 1: XE NÂNG TAY THỦY LỰC
@@ -1268,7 +1272,7 @@
       </div>
 
       <!-- Phase 1 Equip 2: Manual Picking Cart / Trolley -->
-      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real">
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real iso-asset">
         <div class="gds-card-head">
           <span class="gds-card-tag">
             <span>🛒</span> GIAI ĐOẠN 1: XE ĐẨY GOM HÀNG 3 TẦNG
@@ -1313,7 +1317,7 @@
       </div>
 
       <!-- Phase 1 Equip 3: Conventional Packing Workstation -->
-      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real">
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real iso-asset">
         <div class="gds-card-head">
           <span class="gds-card-tag">
             <span>📦</span> GIAI ĐOẠN 1: BÀN ĐÓNG GÓI THỦ CÔNG
@@ -1368,7 +1372,7 @@
         <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
           <img src="assets/images/char_real_warehouse_worker.png" alt="Real Warehouse Worker" class="gds-card-img" />
           <div class="gds-card-overlay-lidar">
-            <span>ĐỒNG PHỤC BOXME TIÊU CHUẨN</span>
+            <span>ĐỒNG PHỤC FULLDY TIÊU CHUẨN</span>
           </div>
         </div>
         <div class="gds-card-body">
@@ -1377,7 +1381,7 @@
             <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">LƯƠNG: $450/THÁNG</span>
           </div>
           <p class="gds-card-desc">
-            Công nhân mặc áo polo xanh Boxme, áo gile lưới phản quang, găng tay len nhúng cao su, tay cầm súng quét mã vạch có dây và bảng kẹp phiếu xuất kho bằng giấy A4.
+            Công nhân mặc áo polo xanh Fulldy, áo gile lưới phản quang, găng tay len nhúng cao su, tay cầm súng quét mã vạch có dây và bảng kẹp phiếu xuất kho bằng giấy A4.
           </p>
 
           <div class="gds-telemetry-row">
@@ -1534,6 +1538,321 @@
         </div>
       </div>
 
+      <!-- Phase 1 Equip 4: Inbound Dock Bay & Staging Zone -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real iso-asset">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🚪</span> GIAI ĐOẠN 1: CỔNG NHẬP DOCK & SÀN BỐC DỠ
+          </span>
+          <span class="gds-badge gds-badge-green">TIẾP NHẬN HÀNG HÓA</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/iso_inbound_dock_bay.png" alt="Inbound Receiving Dock Bay" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>CỬA CUỐN KIM LOẠI CƠ</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>CỔNG TIẾP NHẬN DOCK VÀ KHU ĐỆM</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">$3,500 / CỔNG</span>
+          </div>
+          <p class="gds-card-desc">
+            Cổng tiếp nhận hàng hóa thực tế có cửa cuốn nan thép kéo tay, đệm cao su giảm chấn chống va đập đuôi xe tải, sàn bê tông sơn vạch vàng đen an toàn cho xe nâng tay.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">CÔNG SUẤT TIẾP NHẬN</span>
+              <span class="gds-tel-val">4 Xe Tải / Giờ</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">DIỆN TÍCH SÀN ĐỆM</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">80 m² / Cổng</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionOpenDockDoor()">
+              <span>🚪</span> MỞ CỬA CUỐN NHẬN HÀNG
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionInspectDockSafety()">
+              <span>🛡️</span> KIỂM TRA ĐỆM GIẢM CHẤN
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Equip 5: Selective Pallet Rack 2-Tier -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real iso-asset">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🏗️</span> GIAI ĐOẠN 1: KỆ CHỨA HÀNG SELECTIVE RACK
+          </span>
+          <span class="gds-badge gds-badge-amber">TIÊU CHUẨN KHO VẬN</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/iso_selective_pallet_rack.png" alt="Selective Pallet Rack 2-Tier" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar" style="border-color: var(--gds-hazard-amber); color: var(--gds-hazard-amber);">
+            <span>THÉP CÔNG NGHIỆP SƠN TĨNH ĐIỆN</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>HỆ THỐNG GIÁ KỆ PALLET 2 TẦNG</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">$1,200 / DÃY</span>
+          </div>
+          <p class="gds-card-desc">
+            Chân trụ thép màu xanh Fulldy và thanh beam cam chịu tải nặng. Sức chứa 8 pallet hàng chuẩn Châu Âu, dễ dàng phân chia layout và bảo đảm xe kéo tay quay đầu thuận lợi.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TẢI TRỌNG THIẾT KẾ</span>
+              <span class="gds-tel-val">2,000 KG / Tầng</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TIẾT KIỆM KHÔNG GIAN</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">+65% Sàn Kho</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-hazard" onclick="actionBuildSelectiveRack()">
+              <span>+</span> LẮP ĐẶT DÃY KỆ MỚI (-$1,200)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionInspectRack()">
+              <span>📐</span> KIỂM ĐỊNH TẢI TRỌNG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Equip 6: Pallet Cargo Stack -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real tool-real iso-asset">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>📦</span> GIAI ĐOẠN 1: KIỆN PALLET GỖ MÀNG CO
+          </span>
+          <span class="gds-badge gds-badge-green">TIÊU CHUẨN XUẤT NHẬP</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/iso_pallet_cargo_stack.png" alt="Euro Pallet Wrapped Cargo Stack" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>PALLET TIÊU CHUẨN EPAL</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>PALLET GỖ ĐÓNG THÙNG QUẤN PE</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">$45 / KIỆN</span>
+          </div>
+          <p class="gds-card-desc">
+            Pallet gỗ tự nhiên chịu ẩm, xếp lớp các thùng carton đồng nhất, quấn màng co dẻo PE trong suốt dán băng dính Fulldy Fragile và kẹp túi tài liệu phiếu kiểm kê.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">TẢI TRỌNG TĨNH</span>
+              <span class="gds-tel-val">1,500 KG / Khối</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">BẢO VỆ HÀNG HÓA</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">CHỐNG ẨM & BỤI BẨN</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionWrapPallet()">
+              <span>🫧</span> QUẤN MÀNG CO PE MỚI
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionStagingPallet()">
+              <span>📍</span> CHUYỂN VÀO KHU XUẤT
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Equip 7: Box Delivery Truck -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real iso-asset">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🚚</span> GIAI ĐOẠN 1: XE TẢI CHUYÊN DỤNG FULLDY
+          </span>
+          <span class="gds-badge gds-badge-green">VẬN TẢI THƯƠNG MẠI</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/iso_delivery_truck.png" alt="Fulldy Logistics Delivery Truck" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>THÙNG KÍN BẢO VỆ HÀNG</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>XE TẢI THÙNG KÍN GIAO NHẬN 2.5 TẤN</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">$28,000 / CHIẾC</span>
+          </div>
+          <p class="gds-card-desc">
+            Xe tải chở hàng thương mại thùng kín logo Fulldy, phục vụ thu gom bưu kiện từ xưởng sản xuất về kho và giao vận hỏa tốc đến các bưu cục tập kết hàng ngày.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">DUNG TÍCH CHỨA</span>
+              <span class="gds-tel-val">18 Khối (150 Đơn Lớn)</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">LƯỢT VẬN HÀNH</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">2 Chuyến / Ngày</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionDispatchTruck()">
+              <span>🚚</span> XUẤT BẾN GIAO BƯU CỤC
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionSchedulePickup()">
+              <span>⏰</span> HẸN GIỜ LẤY HÀNG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Character 3: Isometric Order Picker -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 char-real iso-asset">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🛒</span> GIAI ĐOẠN 1: NHÂN VIÊN NHẶT HÀNG 3D
+          </span>
+          <span class="gds-badge gds-badge-green">PHỐI CẢNH ISOMETRIC</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/iso_worker_picker.png" alt="Isometric Order Picker with Cart" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>ĐẨY XE 3 TẦNG DI CHUYỂN</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>NHÂN VIÊN NHẶT HÀNG ĐẨY XE TOTE</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">LƯƠNG: $480/THÁNG</span>
+          </div>
+          <p class="gds-card-desc">
+            Nhân viên kho phong cách 3D Isometric đẩy xe gom hàng 3 tầng di chuyển theo làn vạch sơn an toàn. Trang bị đồng phục Fulldy, nón bảo hộ và phiếu xuất kho theo đợt.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">LỘ TRÌNH DI CHUYỂN</span>
+              <span class="gds-tel-val">Tuyến S-Shape Tối Ưu</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">NĂNG SUẤT THỰC ĐỊA</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">75 Đơn / Giờ</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionDeployIsoPicker()">
+              <span>🏃</span> ĐIỀU ĐỘNG NHẶT HÀNG
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionAssignCart()">
+              <span>📋</span> GÁN PHIẾU XUẤT MỚI
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Character 4: Isometric Floor Supervisor -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 char-real iso-asset">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>📋</span> GIAI ĐOẠN 1: GIÁM SÁT ĐIỀU PHỐI 3D
+          </span>
+          <span class="gds-badge gds-badge-green">PHỐI CẢNH ISOMETRIC</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/iso_floor_supervisor.png" alt="Isometric Floor Supervisor" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>BẢNG KẸP & BỘ ĐÀM HIỆN TRƯỜNG</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>GIÁM SÁT ĐIỀU PHỐI SÀN KHO 3D</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">KINH NGHIỆM: 8 NĂM</span>
+          </div>
+          <p class="gds-card-desc">
+            Giám sát viên 3D Isometric đội mũ cứng trắng, cầm bảng kẹp phân ca và bộ đàm điều phối liên tục với cổng dock và bàn đóng gói nhằm bảo đảm kịp giờ xe xuất bến.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">ĐÚNG GIỜ XE CẮT ĐƠN</span>
+              <span class="gds-tel-val">99.2% Kịp Giờ Xuất</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">PHẠM VI ĐIỀU HÀNH</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">Toàn Bộ Sàn 500m²</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionAssignIsoSupervisor()">
+              <span>📢</span> ĐIỀU PHỐI TĂNG TỐC
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionAuditInventory()">
+              <span>📝</span> KIỂM KÊ HIỆN TRƯỜNG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 Equip 8: Industrial Plastic Totes Stack -->
+      <div class="gds-game-card gds-item-card" data-category="phase1 equip-real tool-real iso-asset">
+        <div class="gds-card-head">
+          <span class="gds-card-tag">
+            <span>🧺</span> GIAI ĐOẠN 1: KHAY TOTE NHỰA GOM HÀNG
+          </span>
+          <span class="gds-badge gds-badge-green">CHUẨN WAVE PICKING</span>
+        </div>
+        <div class="gds-card-asset-frame" style="height: 280px; background: #e2e8f0;">
+          <img src="assets/images/iso_tote_boxes_stack.png" alt="Industrial Plastic Picking Totes" class="gds-card-img" />
+          <div class="gds-card-overlay-lidar">
+            <span>NHỰA PP NGUYÊN SINH</span>
+          </div>
+        </div>
+        <div class="gds-card-body">
+          <div class="gds-card-title">
+            <span>CỤM KHAY NHỰA TOTE CHIA HÀNG (FULLDY BLUE & YELLOW)</span>
+            <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-brand-sky);">$12 / CHIẾC</span>
+          </div>
+          <p class="gds-card-desc">
+            Khay nhựa công nghiệp đúc gân chịu va đập màu xanh dương và vàng Fulldy, có tay xách và khe cài tem mã vạch. Xếp chồng chắc chắn trên xe gom hàng 3 tầng.
+          </p>
+
+          <div class="gds-telemetry-row">
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">DUNG TÍCH CHỨA</span>
+              <span class="gds-tel-val">45 Lít / Khay</span>
+            </div>
+            <div class="gds-tel-item">
+              <span class="gds-tel-label">KHẢ NĂNG CHỒNG TẦNG</span>
+              <span class="gds-tel-val" style="color: var(--gds-status-nominal);">Tải Tĩnh 150 KG</span>
+            </div>
+          </div>
+
+          <div class="gds-card-actions">
+            <button class="gds-btn gds-btn-primary" onclick="actionBuyToteStack()">
+              <span>+</span> MUA 20 KHAY TOTE MỚI (-$240)
+            </button>
+            <button class="gds-btn gds-btn-ghost" onclick="actionSterilizeTotes()">
+              <span>🧼</span> VỆ SINH KHAY CHIA
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- UPCOMING ADVANCED PHASES HEADER -->
@@ -1567,7 +1886,7 @@
             <span style="font-family: var(--gds-font-mono); font-size: 14px; color: var(--gds-text-mono-amber);">BUFF: +15% TOÀN KHO</span>
           </div>
           <p class="gds-card-desc">
-            Trang bị bộ đàm tác chiến, áo phản quang Boxme và máy tính bảng Hologram. Tăng 15% tốc độ xử lý đơn hàng toàn kho và giảm 25% tỷ lệ chậm trễ tại cổng dock.
+            Trang bị bộ đàm tác chiến, áo phản quang Fulldy và máy tính bảng Hologram. Tăng 15% tốc độ xử lý đơn hàng toàn kho và giảm 25% tỷ lệ chậm trễ tại cổng dock.
           </p>
 
           <div class="gds-telemetry-row">
@@ -2110,6 +2429,67 @@
     function actionBuyLabelRolls() {
       playTone(620, 0.1);
       showToast("Đã nhập 20 cuộn decal nhiệt 100x150mm (10,000 tem vận đơn)", "📄");
+    }
+
+    // New Isometric Warehouse Action Handlers
+    function actionOpenDockDoor() {
+      playTone(420, 0.25, "sawtooth");
+      showToast("Cửa cuốn Cổng Dock 01 đã mở: Xe tải bắt đầu bốc dỡ pallet vào sàn đệm!", "🚪");
+    }
+
+    function actionInspectDockSafety() {
+      playTone(620, 0.12);
+      showToast("Kiểm tra an toàn cổng Dock: Đệm cao su giảm chấn và vạch an toàn đạt chuẩn", "🛡️");
+    }
+
+    function actionBuildSelectiveRack() {
+      playTone(500, 0.2, "square");
+      showToast("Đã lắp đặt thêm 01 Dãy Kệ Pallet 2 Tầng Chịu Lực (-$1,200)", "🏗️");
+    }
+
+    function actionInspectRack() {
+      playTone(650, 0.1);
+      showToast("Kiểm tra tải trọng kệ Selective: Tĩnh tải 2,000 kg/tầng đạt tiêu chuẩn an toàn", "📐");
+    }
+
+    function actionWrapPallet() {
+      playTone(580, 0.15);
+      showToast("Đã quấn màng co PE bảo vệ và dán băng keo niêm phong Fulldy Fragile", "🫧");
+    }
+
+    function actionStagingPallet() {
+      playTone(640, 0.12);
+      showToast("Kiện pallet đã được kéo sang line chờ xuất xe vận chuyển", "📍");
+    }
+
+    function actionDispatchTruck() {
+      playTone(520, 0.25, "triangle");
+      showToast("Xe tải Fulldy Logistics đã nhận 150 kiện và xuất bến giao bưu cục!", "🚚");
+    }
+
+    function actionSchedulePickup() {
+      playTone(700, 0.15);
+      showToast("Đã lên lịch hẹn chuyến xe lấy hàng hỏa tốc lúc 18:00 (SPX/TikTok Express)", "⏰");
+    }
+
+    function actionDeployIsoPicker() {
+      playTone(660, 0.14, "sine");
+      showToast("Nhân viên 3D đã xuất phát theo lộ trình S-Shape tối ưu trong line A-01!", "🏃");
+    }
+
+    function actionAssignIsoSupervisor() {
+      playTone(620, 0.2, "triangle");
+      showToast("Giám sát 3D đã bố trí lại luồng nhân sự tăng tốc trạm đóng gói!", "📢");
+    }
+
+    function actionBuyToteStack() {
+      playTone(540, 0.12);
+      showToast("Đã trang bị thêm 20 khay nhựa Tote đúc gân chịu va đập (-$240)", "🧺");
+    }
+
+    function actionSterilizeTotes() {
+      playTone(720, 0.1);
+      showToast("Vệ sinh làm sạch bụi bẩn cụm khay chứa hàng hoàn tất!", "🧼");
     }
 
     // New Character & Equipment Handlers

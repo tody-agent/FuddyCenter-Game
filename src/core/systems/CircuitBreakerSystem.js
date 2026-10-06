@@ -1,24 +1,24 @@
 /**
  * CircuitBreakerSystem
  * Hệ thống 3 Chốt chặn Ngắt mạch chống Vòng xoáy tử thần (Death Spiral Guards)
- * 1. Gói cứu trợ tài chính khẩn cấp Boxme HQ
+ * 1. Gói cứu trợ tài chính khẩn cấp Fulldy HQ
  * 2. Thời gian ân hạn khách hàng (Grace Period)
  * 3. Hợp đồng chữa cháy B2B Bulk Orders
  */
 export class CircuitBreakerSystem {
   /**
-   * Chốt chặn 1: Cứu trợ dòng tiền âm
+   * Chốt chặn 1: Cứu trợ dòng tiền âm (Fulldy HQ Emergency Credit Line)
    */
   static checkBankruptcyGuard(gameState, eventBus) {
-    if (gameState.boxmeCash < 0 && !gameState.emergencyCreditUsed) {
+    if (gameState.fulldyCash < 0 && !gameState.emergencyCreditUsed) {
       gameState.emergencyCreditUsed = true;
-      const creditLineAmount = Math.max(50000, Math.abs(gameState.boxmeCash) + 20000);
-      gameState.boxmeCash += creditLineAmount;
+      const creditLineAmount = Math.max(50000, Math.abs(gameState.fulldyCash) + 20000);
+      gameState.fulldyCash += creditLineAmount;
 
       if (eventBus) {
         eventBus.emit('EMERGENCY_CREDIT_ACTIVATED', {
           amount: creditLineAmount,
-          newBalance: gameState.boxmeCash,
+          newBalance: gameState.fulldyCash,
           repayTermsShifts: 10
         });
       }

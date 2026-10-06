@@ -1,9 +1,10 @@
-# Boxme Mission Control — E-Commerce Fulfillment 3D Simulator & Tycoon Game
+# Fulldy Center — Smart Fulfillment Tycoon & Megahub 3D Simulator
 
-Hệ thống mô phỏng 3D Digital Twin, Sandbox ra quyết định What-If & Serious Game Điều hành trung tâm hoàn tất đơn hàng VSIP Bắc Ninh (và chuỗi Hub Đông Nam Á) của Boxme Global.
+Hệ thống mô phỏng 3D Digital Twin, Sandbox ra quyết định What-If & Serious Game Điều hành trung tâm hoàn tất đơn hàng thông minh (Fulldy Central Megahub) phát hành bởi Fulldy Games.
 
 🌐 **Production URL**: [https://bmwms.pages.dev](https://bmwms.pages.dev)  
 🎮 **Interactive Design System**: [game-design-system.html](./game-design-system.html)  
+📦 **3D Low-Poly Mesh Studio**: [warehouse-3d-models.html](./warehouse-3d-models.html)  
 🔐 **Portal Đăng nhập**: [login.html](./login.html)  
 🕹️ **3D Simulator Trực tiếp**: [index.html](./index.html)
 
@@ -17,7 +18,7 @@ Toàn bộ hệ thống tri thức, đặc tả kỹ thuật và mô hình game 
 * 🌟 **[Master Product Blueprint](./docs/FINAL_PRODUCT_MASTER_BLUEPRINT.md)**: Bản thiết kế sản phẩm hoàn thiện cao nhất, tích hợp phản biện từ hội đồng đa Agent (Red Team Systems Balance, 3PL Ops Veteran & Behavioral Psychologist).
 * 📋 **[Master Game Design Document (GDD)](./docs/GAME_DESIGN_DOCUMENT.md)**: Tài liệu thiết kế game chi tiết (Core loops, 8 phân hệ nghiệp vụ, Dynamic Bottlenecks).
 * 📅 **[Master Game Production Plan](./docs/MASTER_GAME_PRODUCTION_PLAN.md)**: Kế hoạch sản xuất, sprint bus và lộ trình phát triển.
-* 📐 **[OpenSpec 2.0 Technical Specification](./docs/superpowers/specs/2026-10-06-boxme-simulator-openspec.md)**: Bản đặc tả kỹ thuật kiến trúc phần mềm Three.js WebGL, Simulation Core, Discrete Engine, Monte Carlo.
+* 📐 **[OpenSpec 2.0 Technical Specification](./docs/superpowers/specs/2026-10-06-fulldy-center-openspec.md)**: Bản đặc tả kỹ thuật kiến trúc phần mềm Three.js WebGL, Simulation Core, Discrete Engine, Monte Carlo.
 * 💼 **[Business Model Canvas & Value Proposition](./docs/BUSINESS_MODEL_CANVAS.md)**: Tuyên ngôn giá trị và bài toán kinh tế 4 dòng doanh thu (Internal ROI, B2B Sales, EdTech SaaS, B2C Steam Game).
 * 🏆 **[Tycoon Progression & Multi-Currency Engine](./docs/TYCOON_PROGRESSION_MULTI_CURRENCY.md)**: Lộ trình 5 cấp độ tiến hóa kho bãi (300m² -> 40.000m²), hệ thống 5 đơn vị kinh tế tương hỗ và vòng lặp Merchant Churn.
 * 👥 **[Workforce Management & Labor Dynamics](./docs/WORKFORCE_MANAGEMENT_LABOR_DYNAMICS.md)**: Quản trị lao động hai tầng (Core vs Temp Agency), rủi ro bùng ca, buddy system và bài toán lương thị trường.
@@ -51,7 +52,7 @@ Hệ thống áp dụng cơ chế xác thực đa tầng bảo vệ thông tin n
 ## 🚀 Cấu trúc Thư mục Gọn gàng (Clean Project Structure)
 
 ```
-bmwms/
+fulldy-center/
 ├── assets/
 │   └── images/            # Concept art, nhân vật, trang thiết bị 3D
 ├── docs/                  # Kho tri thức & đặc tả kỹ thuật toàn diện
@@ -64,13 +65,43 @@ bmwms/
 │       ├── login.js       # Xác thực Proof & cấp phát JWT
 │       └── logout.js      # Xóa phiên đăng nhập
 ├── game-design-system.html# Showroom tương tác Game Design System & HUD Components
-├── index.html             # Boxme Mission Control 3D Simulator (Active Production)
-├── login.html             # Giao diện đăng nhập chuẩn Dark Theme Boxme
+├── index.html             # Fulldy Center 3D Simulator (Active Production)
+├── login.html             # Giao diện đăng nhập chuẩn Dark Theme Fulldy Center
 ├── scripts/
 │   └── audit-gamedev-skills.py # Scanner an ninh chuyên dụng
 ├── .project-identity.json # Cấu hình danh tính dự án Git & Cloudflare
 └── README.md
 ```
+
+---
+
+## 🖥️ Terminal Operations Dashboard & Realtime Agent Monitor
+
+Hệ thống tích hợp giao diện Terminal CLI trực quan, hỗ trợ theo dõi tiến độ sprint, trạng thái các sub-agents, chạy test và mô phỏng tức thời:
+
+```bash
+# 1. Khởi chạy CLI Dashboard tương tác bàn phím trực tiếp
+npm run dashboard
+# hoặc
+npm run cli
+
+# 2. Chạy chế độ giám sát tự động thời gian thực (Live Watch mỗi 2s)
+npm run monitor
+
+# 3. Chạy toàn bộ Unit Tests TDD (14 tests)
+npm test
+
+# 4. Quét an ninh toàn diện
+npm run audit
+```
+
+### Các phím tắt trong Interactive CLI:
+* `[1]` Làm mới giao diện trạng thái.
+* `[2]` Chạy kiểm thử đơn vị TDD (`npm test`).
+* `[3]` Chạy giả lập Monte Carlo 10.000 ca vận hành.
+* `[4]` Chạy quét an ninh kỹ năng & mã nguồn (`audit-gamedev-skills.py`).
+* `[5]` Giả lập bước tiến trình của Agent thời gian thực.
+* `[q]` Thoát CLI.
 
 ---
 
@@ -83,4 +114,4 @@ Dự án được triển khai tự động qua Cloudflare Pages:
 npx wrangler pages deploy . --project-name bmwms --branch main
 ```
 
-© 2026 Boxme Global Fulfillment Platform. All rights reserved.
+© 2026 Fulldy Games. All rights reserved.

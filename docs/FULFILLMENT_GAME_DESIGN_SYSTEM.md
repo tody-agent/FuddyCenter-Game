@@ -1,7 +1,7 @@
-# 🎮 BOXME FULFILLMENT TYCOON: FOUNDATIONAL GAME DESIGN SYSTEM (GDS)
+# 🎮 fulldy FULFILLMENT TYCOON: FOUNDATIONAL GAME DESIGN SYSTEM (GDS)
 # Industrial Cyber-Logistics & SCADA Mission Control Architecture
 
-> **Brief Inference**: Foundational Game Design System & HUD Component Architecture for Boxme Logistics Simulator & Tycoon, with a Tactical Cyber-Industrial / Sci-Fi Logistics Control Language, leaning toward high-contrast Obsidian Carbon surfaces, Electric Cobalt and Industrial Hazard Amber accents, and Tactile Aeronautic Glass and Telemetry Micro-physics.
+> **Brief Inference**: Foundational Game Design System & HUD Component Architecture for Fulldy Logistics Simulator & Tycoon, with a Tactical Cyber-Industrial / Sci-Fi Logistics Control Language, leaning toward high-contrast Obsidian Carbon surfaces, Electric Cobalt and Industrial Hazard Amber accents, and Tactile Aeronautic Glass and Telemetry Micro-physics.
 >
 > **Configuration Dials**:
 > * `DESIGN_VARIANCE: 8` (High asymmetry, dynamic HUD pods, chamfered bezels, modular game widgets)
@@ -17,7 +17,7 @@ Trang web giám sát hiện tại (WMS Dashboard) mang phong cách hành chính:
 
 Hệ thống Design System mới cho Game được xây dựng dựa trên nguyên lý **Industrial Cyber-Logistics & Mission Control**:
 1. **Materiality & Tactile Depth**: Giao diện không phải là các khối div phẳng lì, mà mang cảm giác của bảng điều khiển hàng không vũ trụ và trạm SCADA công nghiệp: khung kim loại phay xước, gờ vát cạnh 45 độ (chamfered bevels), lớp kính đo đạc phản quang (optical glass) và đèn LED chỉ báo trạng thái.
-2. **Color Energy & Hazard Coding**: Kế thừa màu xanh nhận diện thương hiệu Boxme (`#1E58FC` Cobalt Blue), đồng thời bứt phá với các sắc thái công nghiệp rực rỡ: Vàng an toàn / Hazard Amber (`#F59E0B`), Xanh Lục SLA Nominal (`#10B981`), và Đỏ Cảnh Báo Cutoff (`#EF4444`).
+2. **Color Energy & Hazard Coding**: Kế thừa màu xanh nhận diện thương hiệu fulldy (`#1E58FC` Cobalt Blue), đồng thời bứt phá với các sắc thái công nghiệp rực rỡ: Vàng an toàn / Hazard Amber (`#F59E0B`), Xanh Lục SLA Nominal (`#10B981`), và Đỏ Cảnh Báo Cutoff (`#EF4444`).
 3. **Information Density with Tactical Hierarchy**: Tỷ lệ thông tin cao nhưng có lớp lang rõ ràng. Các con số vận hành (UPH, CBM, SLA, LPN, Tiền quỹ) sử dụng phông Monospace số học to rõ, giúp người chơi lập tức nắm bắt "nhịp thở" của kho hàng nghìn mét vuông.
 4. **Juicy Game Feel**: Tương tác có độ nảy cơ học (spring physics `scale: 0.96` khi bấm), hiệu ứng quét radar (radar sweep), thanh tiến trình phân đoạn (segmented progress bar), và âm thanh haptic tinh tế.
 
@@ -32,7 +32,7 @@ Hệ thống Design System mới cho Game được xây dựng dựa trên nguy�
   #070B14                 #0D1526                 #132038               rgba(19, 32, 56, 0.75)
   (Nền không gian)       (Khối container HUD)    (Khối tương tác nổi)    (Kính mờ quang học)
 
-[BOXME COBALT]         [CYBER SKY]             [HAZARD AMBER]          [CAUTION STRIPE]
+[Fulldy Cobalt]         [CYBER SKY]             [HAZARD AMBER]          [CAUTION STRIPE]
   #1E58FC                 #38BDF8                 #F59E0B                 #FBBF24
   (Màu chủ đạo thương hiệu)(Đường quét, Lidar)    (Xe nâng, Kệ, Băng chuyền)(Vạch an toàn công nghiệp)
 
@@ -191,18 +191,25 @@ Khi đồng hồ điểm sát giờ xe tải lăn bánh (Cutoff Time):
 
 ## 4. BẢNG DANH MỤC VISUAL ASSETS 3D (TIẾN TRÌNH TYCOON 2 GIAI ĐOẠN)
 
-### 4.1 Giai Đoạn 1: Kho Thủ Công & Thiết Bị Phổ Thông Đời Thực (Giai Đoạn Khởi Nghiệp Hiện Tại)
+### 4.1 Giai Đoạn 1: Kho Khởi Nghiệp Phổ Thông & Bộ Tài Nguyên Phối Cảnh Isometric 3D Đời Thực
+
+Toàn bộ tài nguyên Giai đoạn 1 được thiết kế theo phối cảnh **Isometric 3D (Góc nhìn trục đo 45 độ)**, ánh sáng ban ngày ấm áp dịu nhẹ (Daylight Studio), đổ bóng chân thực và đồng bộ hoàn hảo với sàn nhà kho 3D:
 
 | Asset Tên | Loại & Tỷ Lệ | Chi Tiết Tạo Hình Đời Thực | Vai Trò & Cơ Chế Vận Hành |
 |---|---|---|---|
-| `equip_hand_pallet_jack` | 1:1 3D Equipment | Xe nâng tay kéo pallet cơ học sơn vàng công nghiệp, cần bơm thủy lực chữ T, bánh xe nylon kép | Hạ tải pallet từ xe tải, kéo hàng vào sân đệm Inbound |
-| `equip_picking_cart` | 1:1 3D Equipment | Xe đẩy gom hàng 3 tầng khung thép ống xanh, chứa 6 khay nhựa vàng Tote, 4 bánh xe cao su, kẹp phiếu xuất kho | Gom đơn hàng theo đợt (Wave Batch Picking) bằng phiếu giấy |
-| `equip_conventional_pack_table` | 1:1 3D Equipment | Bàn đóng hàng mặt gỗ chân thép, giá để thùng carton số 1/2/3, cuộn xốp nổ bóng khí, cân bàn điện tử, máy in tem nhiệt A6 | Đóng thùng thủ công, bọc chống sốc, dán tem nhãn TMĐT |
-| `char_real_warehouse_worker` | 1:1 Stylized Character | Công nhân nam thực tế, áo thun polo xanh Boxme, áo gile lưới phản quang, găng tay len nhúng cao su, súng scan có dây | Đội ngũ nhặt hàng & đóng gói tuyến đầu (Lương $450/tháng) |
-| `char_real_floor_supervisor` | 1:1 Stylized Character | Trưởng ca hiện trường thực tế, áo sơ mi cài bút ngực, bộ đàm Motorola trên vai, bảng kẹp phân công ca trực | Giám sát kỷ luật ca làm, đôn đốc tiến độ, kiểm kê xác xuất |
-| `prop_tape_gun_cutter` | 1:1 3D Prop | Súng dán băng dính cầm tay màu cam có răng cắt và dao rọc giấy chuyên dụng cán vàng bọc cao su | Dụng cụ cầm tay thiết yếu cho từng nhân viên đóng gói |
-| `prop_thermal_label_printer` | 1:1 3D Prop | Máy in nhiệt trực tiếp để bàn nhả tem 100x150mm Shopee/TikTok/Lazada có mã vạch 1D và mã QR | In phiếu gửi hàng hỏa tốc và tiêu chuẩn không cần mực |
-| `prop_smart_crates_parcels` | 1:1 3D Prop | Chồng khay nhựa vàng Tote trên pallet gỗ, các thùng carton dán nhãn vận đơn và cuộn băng keo FRAGILE | Khay luân chuyển nội bộ và thùng thành phẩm chờ giao |
+| `iso_warehouse_starter_hub` | 16:9 Isometric 3D | Toàn cảnh sàn kho khởi nghiệp 500m² có vạch kẻ an toàn vàng, kệ Selective, trạm đóng gói thủ công | Bối cảnh trung tâm và bản đồ điều hành tổng quan Phase 1 |
+| `iso_inbound_dock_bay` | 1:1 Isometric 3D | Cổng tiếp nhận Inbound có cửa cuốn cơ thép, đệm cao su giảm chấn, vạch chéo vàng đen | Tiếp nhận xe tải chở hàng và bốc dỡ pallet vào sàn đệm |
+| `iso_selective_pallet_rack` | 1:1 Isometric 3D | Dãy kệ chứa hàng Selective Rack 2 tầng khung xanh dầm cam, chứa 8 pallet hàng | Tối ưu không gian lưu trữ và chiều cao trần kho (+65% diện tích) |
+| `iso_pallet_cargo_stack` | 1:1 Isometric 3D | Pallet gỗ tiêu chuẩn EPAL xếp thùng carton quấn màng co PE, dán băng dính fulldy Fragile | Kiện hàng chuẩn hóa lưu kho và phục vụ xuất nhập khẩu |
+| `equip_hand_pallet_jack` | 1:1 Isometric 3D | Xe kéo tay thủy lực 2.5 tấn sơn vàng công nghiệp, cần bơm chữ T, bánh xe nylon kép | Di chuyển pallet từ sàn đệm dock vào dãy kệ hàng |
+| `equip_picking_cart` | 1:1 Isometric 3D | Xe đẩy gom hàng 3 tầng thép ống xanh, chứa 6 khay Tote vàng, kẹp bảng phiếu xuất kho A4 | Gom hàng theo đợt (Wave Batch Picking) bằng phiếu giấy |
+| `iso_tote_boxes_stack` | 1:1 Isometric 3D | Cụm khay nhựa Tote đúc gân chịu va đập màu xanh dương và vàng fulldy có khe cài barcode | Khay chứa phân loại sản phẩm trong quá trình nhặt và đóng gói |
+| `equip_conventional_pack_table` | 1:1 Isometric 3D | Bàn đóng hàng mặt gỗ chân thép, giá để thùng carton 1/2/3, cuộn xốp nổ bóng khí, cân bàn điện tử | Đóng thùng thủ công, chèn xốp bóng khí và kiểm tra KCS |
+| `iso_worker_picker` | 1:1 Isometric 3D | Nhân viên nam 3D mặc đồng phục polo xanh fulldy, gile phản quang, đẩy xe 3 tầng trong line | Di chuyển nhặt hàng theo lộ trình S-shape tối ưu (75 UPH) |
+| `iso_floor_supervisor` | 1:1 Isometric 3D | Giám sát viên 3D đội mũ cứng trắng, cầm bảng kẹp phân công công việc và bộ đàm liên lạc | Điều phối các luồng nhặt/đóng và bảo đảm kịp giờ cắt đơn |
+| `prop_tape_gun_cutter` | 1:1 Isometric 3D | Súng dán băng dính cầm tay màu cam có răng cắt và dao rọc giấy chuyên dụng cán vàng bọc cao su | Trang bị dụng cụ dán đáy và nắp thùng cho bàn đóng gói |
+| `prop_thermal_label_printer` | 1:1 Isometric 3D | Máy in nhiệt trực tiếp để bàn nhả tem 100x150mm Shopee/TikTok/Lazada không cần mực | In tem vận đơn tức thì cho đơn hỏa tốc và tiêu chuẩn |
+| `iso_delivery_truck` | 1:1 Isometric 3D | Xe tải chở hàng thùng kín 2.5 tấn logo Fulldy Logistics góc nhìn 45 độ | Nhận hàng đóng gói và xuất bến giao về các bưu cục tập kết |
 
 ---
 
@@ -210,7 +217,7 @@ Khi đồng hồ điểm sát giờ xe tải lăn bánh (Cutoff Time):
 
 | Asset Tên | Loại & Tỷ Lệ | Chi Tiết Tạo Hình | Vị Trí Khi Đạt Cấp Độ Cao |
 |---|---|---|---|
-| `equip_electric_forklift` | 1:1 3D Equipment | Xe nâng điện 2.5 tấn vàng - xanh Boxme, trụ nâng thủy lực cao 6m, đèn an toàn chiếu điểm xanh | Nâng cấp khi dỡ hàng container số lượng lớn |
+| `equip_electric_forklift` | 1:1 3D Equipment | Xe nâng điện 2.5 tấn vàng - xanh fulldy, trụ nâng thủy lực cao 6m, đèn an toàn chiếu điểm xanh | Nâng cấp khi dỡ hàng container số lượng lớn |
 | `amr_robot_unit` | 1:1 3D Equipment | Robot tự hành AMR Kiva bưng kệ hàng, cảm biến Lidar Cyan 360 độ, pin lithium-ion | Mở khóa khi nâng cấp kho lên cấp tự động hóa cao |
 | `smart_pack_station` | 1:1 3D Equipment | Trạm đóng gói tự động tích hợp quét Hologram 3 chiều đo thể tích và băng chuyền con lăn | Mở khóa khi sản lượng vượt 5,000 đơn/ngày |
 | `char_elite_picker` | 1:1 Stylized Character | Chuyên viên nhặt hàng mang kính AR thông minh chỉ dẫn lối đi hình chữ S và súng quét cổ tay | Đội nhặt hàng chuyên nghiệp hỗ trợ đợt Siêu Sale |
@@ -280,4 +287,4 @@ Dưới đây là đoạn mã CSS & HTML mẫu chuẩn bị triển khai trực 
 - [x] **Button Contrast**: Đạt chuẩn tương phản chữ trắng trên nền xanh/amber đậm (> 4.5:1).
 - [x] **Real Images Used**: Sử dụng các ảnh render 3D độ nét cao đã sinh trong `assets/images/`.
 
-Hệ thống Design System này thiết lập nền móng vững chắc để phát triển toàn bộ giao diện game fulfillment chân thực, sống động và đậm chất Boxme.
+Hệ thống Design System này thiết lập nền móng vững chắc để phát triển toàn bộ giao diện game fulfillment chân thực, sống động và đậm chất fulldy.

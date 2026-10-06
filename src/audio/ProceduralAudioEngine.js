@@ -1,5 +1,5 @@
 /**
- * ProceduralAudioEngine: Bộ tổng hợp âm thanh thủ tục Web Audio API cho nhà kho Boxme
+ * ProceduralAudioEngine: Bộ tổng hợp âm thanh thủ tục Web Audio API cho Fulldy Center
  */
 export class ProceduralAudioEngine {
   constructor({ headless = false } = {}) {

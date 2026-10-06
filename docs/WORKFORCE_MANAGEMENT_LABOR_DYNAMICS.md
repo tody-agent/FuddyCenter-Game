@@ -1,9 +1,9 @@
 # 👥 QUẢN TRỊ NHÂN SỰ & THỊ TRƯỜNG LAO ĐỘNG KHO VẬN (WORKFORCE DYNAMICS)
-## Boxme Mission Control 2.0 — Labor Economics, Temp Agency & Retention Engine
+## Fulldy Center — Labor Economics, Temp Agency & Retention Engine
 
 * **Mã đặc tả:** WORKFORCE-LABOR-2026-10-06
 * **Phiên bản:** 1.0.0
-* **Tác giả:** Antigravity Team & Boxme Operations HR Group
+* **Tác giả:** Antigravity Team & Fulldy Operations HR Group
 * **Mục tiêu:** Mô phỏng chân thực bài toán "đau đầu nhất" của mọi Giám đốc kho bãi: Khó tuyển người, cạnh tranh tăng lương, nhân sự nghỉ ngang vô cớ, và canh bạc thuê lao động thời vụ mùa Siêu Sale (thiếu người vỡ trận vs thừa người lỗ vốn).
 
 ---
@@ -14,7 +14,7 @@ Hệ thống phân định rạch ròi giữa 2 lực lượng lao động với
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                   HỆ THỐNG LAO ĐỘNG KHO VẬN BOXME                      │
+│                   HỆ THỐNG LAO ĐỘNG KHO VẬN fulldy                      │
 ├───────────────────────────────────┬────────────────────────────────────┤
 │   LAO ĐỘNG CHÍNH THỨC (CORE)      │    LAO ĐỘNG THỜI VỤ (TEMP/CASUAL)  │
 ├───────────────────────────────────┼────────────────────────────────────┤
@@ -32,13 +32,13 @@ Hệ thống phân định rạch ròi giữa 2 lực lượng lao động với
 ## 2. LAO ĐỘNG CHÍNH THỨC: TUYỂN DỤNG, TĂNG LƯƠNG & BỎ VIỆC BẤT NGỜ
 
 ### 2.1 Thị Trường Lao Động Cạnh Tranh (Industrial Park Labor Market)
-Kho Boxme VSIP Bắc Ninh (hoặc Long An, Samut Prakan) nằm giữa các đại công xưởng (Samsung, Foxconn, Shopee SPX, Lazada Logistics):
+Kho fulldy VSIP Bắc Ninh (hoặc Long An, Samut Prakan) nằm giữa các đại công xưởng (Samsung, Foxconn, Shopee SPX, Lazada Logistics):
 - **Cơ chế Lương Thị Trường (Market Benchmark Wage):**
   - Mức lương trung bình khu công nghiệp: $W_{\text{market}} = 8.500.000\text{ VNĐ/tháng}$.
-  - Nếu người chơi trả lương $W_{\text{boxme}} < W_{\text{market}}$:
+  - Nếu người chơi trả lương $W_{\text{fulldy}} < W_{\text{market}}$:
     - Tốc độ tuyển người mới giảm $50\%$.
     - Tỷ lệ nhân viên cũ bỏ việc (Turnover Rate) tăng gấp 3 lần.
-  - Nếu người chơi tăng lương $W_{\text{boxme}} > W_{\text{market}} + 15\%$:
+  - Nếu người chơi tăng lương $W_{\text{fulldy}} > W_{\text{market}} + 15\%$:
     - Hồ sơ ứng tuyển nộp dồn dập (+80%), giữ chân được các "Thợ Master".
     - Nhưng chi phí cố định (Fixed OPEX) phình to, ăn mòn lợi nhuận ròng!
 
@@ -93,7 +93,7 @@ Trước đợt Sale, người chơi phải chọn Agency để ký hợp đồn
   - Chi phí: $220.000\text{ VNĐ/ca 8h}$.
   - Rủi ro bùng ca: **$25 - 40\%$** thợ đăng ký nhưng không đến bến xe đón.
   - Chất lượng: Lao động tự do, chưa từng làm kho, tỷ lệ dán nhầm tem cao ($3\%$).
-* **Agency Tiêu Chuẩn (Boxme Certified Partner):**
+* **Agency Tiêu Chuẩn (Fulldy Certified Partner):**
   - Chi phí: $320.000\text{ VNĐ/ca 8h}$.
   - Rủi ro bùng ca: **$10 - 15\%$**. Có giám sát viên đi cùng quản lý.
 * **Agency Cao Cấp (Premium Contingent Pool):**
@@ -143,7 +143,7 @@ Trong đó:
 * $f_{\text{buddy}} = 0.85$ nếu không có người kèm (nhặt chậm vì tìm kệ), nhưng $f_{\text{buddy}} = 1.15$ nếu có thợ chính dẫn đường.
 
 ### 5.2 Xác Suất Bỏ Việc Ngang Của Thợ Chính Trong Ca:
-$$P(\text{Quit}) = P_0 \times \left(1 + 2.5 \times \max\left(0, \frac{W_{\text{market}} - W_{\text{boxme}}}{W_{\text{market}}}\right)\right) \times \left(1 + 1.8 \times \mathbb{I}_{\text{Morale} < 30\%}\right)$$
+$$P(\text{Quit}) = P_0 \times \left(1 + 2.5 \times \max\left(0, \frac{W_{\text{market}} - W_{\text{fulldy}}}{W_{\text{market}}}\right)\right) \times \left(1 + 1.8 \times \mathbb{I}_{\text{Morale} < 30\%}\right)$$
 
 ### 5.3 Số Lượng Thợ Thời Vụ Thực Tế Đến Bến Xe (No-Show Stochastic Model):
 $$N_{\text{actual}} = \text{Binomial}\left(N_{\text{booked}}, 1 - P_{\text{no\_show}}(\text{AgencyTier})\right)$$
@@ -163,5 +163,5 @@ Khi mở tab **Quản Trị Nhân Sự (Workforce Management)**:
 
 ---
 
-© 2026 Boxme Global Fulfillment Platform. All rights reserved.
-Tài liệu Quản trị Nhân sự & Lao động Kho vận Boxme Mission Control 2.0.
+© 2026 Fulldy Games Platform. All rights reserved.
+Tài liệu Quản trị Nhân sự & Lao động Kho vận Fulldy Center.

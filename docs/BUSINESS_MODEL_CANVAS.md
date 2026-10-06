@@ -1,11 +1,11 @@
 # BUSINESS MODEL CANVAS & VALUE PROPOSITION CANVAS
-## Boxme Mission Control & Operations Simulator 2.0
+## Fulldy Center & Operations Simulator 2.0
 **Mô phỏng Vận hành 3D, Bản sao số (Digital Twin) & Serious Game Logistics**
 
 * **Mã tài liệu:** BMC-VPC-SIM-2026-10-06
 * **Phiên bản:** 1.0.0
 * **Ngày lập:** 06/10/2026
-* **Đơn vị phát triển:** Boxme Global Logistics Architecture Group
+* **Đơn vị phát triển:** Fulldy Games Architecture Group
 
 ---
 
@@ -38,7 +38,7 @@ Dự án phục vụ **3 phân khúc khách hàng mục tiêu (Multi-sided Stake
 
 ---
 
-### Phân khúc 1: Nội bộ Vận hành Boxme (COO, Warehouse Directors, Shift Leaders)
+### Phân khúc 1: Nội bộ Vận hành fulldy (COO, Warehouse Directors, Shift Leaders)
 
 #### A. Customer Profile (Chân dung khách hàng nội bộ):
 * **Customer Jobs (Việc cần làm):**
@@ -55,7 +55,7 @@ Dự án phục vụ **3 phân khúc khách hàng mục tiêu (Multi-sided Stake
   - Khả năng dự báo trước điểm nghẽn 30–60 phút với xác suất tin cậy P90 từ Monte Carlo.
   - Tối ưu hóa chi phí OPEX (không thuê thừa xe ngoài, không gọi thừa nhân công OT).
 
-#### B. Value Map (Giá trị Boxme Simulator mang lại):
+#### B. Value Map (Giá trị Fulldy Center Simulator mang lại):
 * **Pain Relievers (Giải tỏa nỗi đau):**
   - **Risk-free Training Sandbox:** Nhân sự được "cháy kho trong game" 50 lần trước khi bước vào ca trực thật, tích lũy trực giác xử lý khủng hoảng (Crisis Intuition).
   - **What-If Time-Travel DAG:** Cho phép tua lại thời gian, thử nghiệm rẽ nhánh: *"Phương án A (gọi xe) vs Phương án B (ưu tiên sàn TikTok)"* để đo lường con số thiệt hại/chi phí cụ thể trước khi bấm lệnh thực tế.
@@ -76,8 +76,8 @@ Dự án phục vụ **3 phân khúc khách hàng mục tiêu (Multi-sided Stake
 
 #### B. Value Map:
 * **Pain Relievers & Gain Creators:**
-  - **Vũ khí Sales & Showcasing Đỉnh cao:** Thay vì xem slide PowerPoint nhàm chán, đội ngũ Sales của Boxme mở trực tiếp 3D Mission Control Digital Twin. Khách hàng nhìn thấy đơn hàng của họ di chuyển qua từng zone, thuật toán cân tải thời gian thực.
-  - **Đảm bảo năng lực dựa trên xác suất:** Boxme chạy mô phỏng Monte Carlo 1.000 lần trước mặt khách hàng: *"Với 50.000 đơn của anh/chị, xác suất bàn giao đúng 17:00 là 98.7% với phương án nhân sự này"*. Tạo dựng niềm tin áp đảo so với các đối thủ 3PL truyền thống.
+  - **Vũ khí Sales & Showcasing Đỉnh cao:** Thay vì xem slide PowerPoint nhàm chán, đội ngũ Sales của fulldy mở trực tiếp 3D Mission Control Digital Twin. Khách hàng nhìn thấy đơn hàng của họ di chuyển qua từng zone, thuật toán cân tải thời gian thực.
+  - **Đảm bảo năng lực dựa trên xác suất:** fulldy chạy mô phỏng Monte Carlo 1.000 lần trước mặt khách hàng: *"Với 50.000 đơn của anh/chị, xác suất bàn giao đúng 17:00 là 98.7% với phương án nhân sự này"*. Tạo dựng niềm tin áp đảo so với các đối thủ 3PL truyền thống.
 
 ---
 
@@ -99,19 +99,19 @@ Dự án phục vụ **3 phân khúc khách hàng mục tiêu (Multi-sided Stake
 │ KEY PARTNERS      │ KEY ACTIVITIES    │ VALUE PROPOSITIONS            │ CUSTOMER          │ CUSTOMER                  │
 │ (Đối tác chính)   │ (Hoạt động chính) │ (Tuyên ngôn giá trị)          │ RELATIONSHIPS     │ SEGMENTS                  │
 │                   │                   │                               │ (Quan hệ KH)      │ (Phân khúc khách hàng)    │
-│ - Các sàn TMĐT    │ - R&D Simulation  │ 1. Cho Nội bộ Boxme:          │ - Internal Co-    │ 1. Ban Điều hành &        │
-│   (Shopee, TikTok,│   Engine & PRNG   │    "Không sợ vỡ đơn thật,     │   design & Ops    │    Quản lý kho Boxme      │
+│ - Các sàn TMĐT    │ - R&D Simulation  │ 1. Cho Nội bộ fulldy:          │ - Internal Co-    │ 1. Ban Điều hành &        │
+│   (Shopee, TikTok,│   Engine & PRNG   │    "Không sợ vỡ đơn thật,     │   design & Ops    │    Quản lý kho fulldy      │
 │   Lazada)         │ - Dựng hình 3D    │    rèn luyện trực giác điều   │   Feedback        │    (Bắc Ninh, Long An,    │
 │ - Hãng vận chuyển │   Three.js & WebGL│    hành trong 3 tuần thay vì  │ - Enterprise High-│    Bangkok)               │
 │   (SPX, J&T, GHN) │ - Tích hợp WMS/   │    6 tháng; giảm 15% OPEX".   │   Touch Sales     │ 2. Khách hàng B2B         │
-│ - Trường ĐH &     │   OMS Boxme API   │ 2. Cho Khách B2B:             │ - Self-service    │    Enterprise (Nhãn hàng  │
+│ - Trường ĐH &     │   OMS fulldy API   │ 2. Cho Khách B2B:             │ - Self-service    │    Enterprise (Nhãn hàng  │
 │   Học viện SCM    │ - Thiết kế game   │    "Minh bạch tuyệt đối,      │   EdTech Portal   │    lớn, Top Brand Mall)   │
 │ - Cloudflare Pages│   mechanics & kịch│    chứng minh năng lực SLA    │ - Community       │ 3. Trường ĐH đào tạo      │
 │   & WebGL infra   │   bản khủng hoảng │    bằng dữ liệu mô phỏng".    │   Leaderboard     │    Logistics & Viện SCM   │
 │                   ├───────────────────┤ 3. Cho Thị trường Đào tạo:    ├───────────────────┤ 4. Game thủ yêu thích     │
 │                   │ KEY RESOURCES     │    "Serious Game Logistics    │ CHANNELS          │    thể loại Tycoon        │
 │                   │ (Nguồn lực chính) │    chuẩn mực Đông Nam Á".     │ (Kênh phân phối)  │    (B2C tương lai)        │
-│                   │ - Dữ liệu vận hành│                               │ - Boxme Intranet  │                           │
+│                   │ - Dữ liệu vận hành│                               │ - Fulldy Center Portal  │                           │
 │                   │   thực tế 10 năm  │                               │ - B2B Pitch Deck  │                           │
 │                   │ - Engine mô phỏng │                               │ - Web bmwms.pages │                           │
 │                   │ - Đội ngũ Tech &  │                               │ - Hội thảo SCM    │                           │
@@ -134,7 +134,7 @@ Dự án phục vụ **3 phân khúc khách hàng mục tiêu (Multi-sided Stake
 ## 3. CHI TIẾT 9 KHỐI CỦA BUSINESS MODEL CANVAS
 
 ### 3.1 Phân khúc Khách hàng (Customer Segments)
-1. **Internal Operations (Nội bộ Boxme):**
+1. **Internal Operations (Nội bộ fulldy):**
    - Shift Leaders, Hub Managers, Operations Directors tại 6 trung tâm fulfillment (Việt Nam, Thái Lan, Indonesia).
    - Đội ngũ Nhân sự & Đào tạo (HR & Operations Academy).
 2. **B2B Enterprise Clients (Khách hàng Doanh nghiệp):**
@@ -151,13 +151,13 @@ Dự án phục vụ **3 phân khúc khách hàng mục tiêu (Multi-sided Stake
   - *"Zero-Risk Operational Training"*: Biến việc đào tạo quản lý kho từ bị động, rủi ro thành một quá trình rèn luyện trực giác có chủ đích thông qua Serious Game.
   - *"Predictive Decision Sandbox"*: Cho phép thử nghiệm các quyết định điều hành (What-If) và nhận phân tích rủi ro Monte Carlo trước khi áp dụng vào thực tế, giảm thiểu 15–20% chi phí phạt SLA và chi phí OT thừa.
 * **Đối với Khách hàng B2B:**
-  - *"Radical Operational Transparency"*: Cung cấp một bản sao số (Digital Twin) trực quan, chứng minh năng lực thực tế của Boxme bằng dữ liệu 3D thời gian thực thay vì lời hứa suông.
+  - *"Radical Operational Transparency"*: Cung cấp một bản sao số (Digital Twin) trực quan, chứng minh năng lực thực tế của fulldy bằng dữ liệu 3D thời gian thực thay vì lời hứa suông.
 * **Đối với Thị trường Đào tạo:**
   - *"State-of-the-Art Logistics Sandbox"*: Cung cấp nền tảng mô phỏng kho bãi chuẩn mực quốc tế đầu tiên tại Đông Nam Á với chi phí chỉ bằng 1/50 so với việc đầu tư kho thực nghiệm vật lý.
 
 ### 3.3 Kênh Phân Phối (Channels)
-* **Kênh nội bộ:** Hệ thống Boxme Intranet & Cổng đào tạo Boxme Academy (`bmwms.pages.dev`).
-* **Kênh B2B Sales:** Tích hợp trực tiếp vào quy trình thuyết trình bán hàng (Sales Demo / Client Experience Center) tại trụ sở Boxme.
+* **Kênh nội bộ:** Hệ thống Fulldy Center Portal & Cổng đào tạo Fulldy Academy (`bmwms.pages.dev`).
+* **Kênh B2B Sales:** Tích hợp trực tiếp vào quy trình thuyết trình bán hàng (Sales Demo / Client Experience Center) tại trụ sở fulldy.
 * **Kênh Học thuật / EdTech:** Tiếp cận qua các hội thảo khoa học chuỗi cung ứng, hợp tác doanh nghiệp - nhà trường (University Partnership Programs).
 * **Kênh Game thương mại:** Phát hành bản standalone qua Steam, Epic Games Store, hoặc WebApp.
 
@@ -184,13 +184,13 @@ Dự án tạo ra giá trị qua 4 dòng lợi ích:
 * **Dữ liệu Vận hành 10 Năm:** Toàn bộ thông số thực tế của hàng triệu đơn hàng Shopee, TikTok Shop, WPH của từng loại SKU, độ trễ xe tải theo từng tuyến đường.
 * **Simulation Core Engine:** Bộ thuật toán Discrete Timestep, Mulberry32 PRNG tất định, và mô hình hàng đợi M/M/c.
 * **Đội ngũ Nhân sự Lai (Hybrid Team):** Kỹ sư lập trình WebGL/Three.js + Chuyên gia Vận hành Kho thực chiến + Nhà thiết kế Game.
-* **Bản quyền Trí tuệ (IP) & Thương hiệu:** Thương hiệu Boxme Global Fulfillment.
+* **Bản quyền Trí tuệ (IP) & Thương hiệu:** Thương hiệu Fulldy Games Fulfillment.
 
 ### 3.7 Hoạt Động Chính (Key Activities)
 * **R&D Thuật toán Mô phỏng:** Nâng cấp liên tục độ chính xác của lõi tính toán logistics so với dữ liệu thực tế ngoài kho.
 * **Thiết kế Game & Kịch bản (Crisis Engineering):** Xây dựng các màn chơi thử thách (Boss Waves) phản ánh các sự cố mới của thị trường E-commerce Đông Nam Á.
 * **Phát triển Đồ họa & Web Audio:** Tối ưu hóa hiệu năng render 120 FPS trên trình duyệt và thiết kế tầng âm thanh kích thích Dopamine.
-* **Tích hợp API Hai chiều:** Kết nối WMS/OMS Boxme để có thể nạp dữ liệu ca thật vào simulator và ngược lại.
+* **Tích hợp API Hai chiều:** Kết nối WMS/OMS fulldy để có thể nạp dữ liệu ca thật vào simulator và ngược lại.
 
 ### 3.8 Đối Tác Chính (Key Partners)
 * **Các Sàn Thương mại Điện tử (Shopee, TikTok Shop, Lazada):** Cung cấp tiêu chuẩn SLA, quy định tính điểm phạt, và dữ liệu xu hướng Mega Sale.
@@ -210,12 +210,12 @@ Dự án tạo ra giá trị qua 4 dòng lợi ích:
 
 | Giai đoạn | Mục tiêu Trọng tâm | Thước đo Thành công (KPI) |
 |---|---|---|
-| **Phase 1: Internal Value (Hiện tại)** | Hoàn thiện công cụ phục vụ đào tạo Shift Leader và mô phỏng đợt Mega Sale nội bộ Boxme VSIP Bắc Ninh. | - Giảm 50% lỗi sai của Shift Leader mới.<br>- Không có sự cố vỡ trận SLA trong đợt Mega Sale tiếp theo. |
+| **Phase 1: Internal Value (Hiện tại)** | Hoàn thiện công cụ phục vụ đào tạo Shift Leader và mô phỏng đợt Mega Sale nội bộ fulldy VSIP Bắc Ninh. | - Giảm 50% lỗi sai của Shift Leader mới.<br>- Không có sự cố vỡ trận SLA trong đợt Mega Sale tiếp theo. |
 | **Phase 2: Sales Enablement (Quý tới)** | Đưa simulator vào quy trình Pitching khách hàng B2B Enterprise & Showroom trải nghiệm. | - Tăng 25% tỷ lệ chốt hợp đồng lớn.<br>- Rút ngắn chu kỳ đàm phán hợp đồng từ 3 tháng xuống 1 tháng. |
-| **Phase 3: EdTech & Industry Hub** | Đóng gói phiên bản giáo dục (Educational Edition) cho các trường Đại học Logistics. | - Ký hợp tác với 3–5 trường đại học lớn.<br>- Tạo dựng vị thế Boxme là Tech Leader trong ngành 3PL. |
-| **Phase 4: Commercial Tycoon Game** | Tách lớp dữ liệu bảo mật, phát hành bản thương mại giải trí ra thị trường toàn cầu. | - Tạo dòng doanh thu độc lập và marketing lan tỏa thương hiệu Boxme ra quốc tế. |
+| **Phase 3: EdTech & Industry Hub** | Đóng gói phiên bản giáo dục (Educational Edition) cho các trường Đại học Logistics. | - Ký hợp tác với 3–5 trường đại học lớn.<br>- Tạo dựng vị thế fulldy là Tech Leader trong ngành 3PL. |
+| **Phase 4: Commercial Tycoon Game** | Tách lớp dữ liệu bảo mật, phát hành bản thương mại giải trí ra thị trường toàn cầu. | - Tạo dòng doanh thu độc lập và marketing lan tỏa thương hiệu fulldy ra quốc tế. |
 
 ---
 
-© 2026 Boxme Global Fulfillment Platform. All rights reserved.
-Tài liệu định hướng kinh doanh Boxme Mission Control 2.0.
+© 2026 Fulldy Games Platform. All rights reserved.
+Tài liệu định hướng kinh doanh Fulldy Center.

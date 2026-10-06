@@ -1,7 +1,7 @@
 // Cryptographic Challenge Endpoint
 // Generates a one-time signed nonce for Challenge-Response Authentication
-const SERVER_SECRET = "boxme_sec_chal_8f3a9b1c7d2e4f0a6b5c8d1e3f7a9b2c";
-const SALT = "boxme-vsip-mission-control-salt-2026";
+const SERVER_SECRET = "fulldy_sec_chal_8f3a9b1c7d2e4f0a6b5c8d1e3f7a9b2c";
+const SALT = "fulldy-center-auth-salt-2026";
 const ITERATIONS = 100000;
 
 function bytesToHex(bytes) {

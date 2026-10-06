@@ -3,7 +3,7 @@
  * Giả lập 10.000 ca vận hành kho dưới các kịch bản cực đoan:
  * - Bão đơn Mega Sale dồn dập
  * - Thợ thời vụ bùng ca 40%
- * - Kiểm chứng tác dụng ngắt mạch của 3 Chốt chặn Circuit Breakers (Boxme Emergency Credit & Grace Period)
+ * - Kiểm chứng tác dụng ngắt mạch của 3 Chốt chặn Circuit Breakers (Fulldy Emergency Credit & Grace Period)
  */
 import { SimulationEventBus } from '../core/events/EventBus.js';
 import { CircuitBreakerSystem } from '../core/systems/CircuitBreakerSystem.js';
@@ -39,7 +39,7 @@ export function runMonteCarloSimulations(iterations = 10000) {
     const slaRate = Math.min(1.0, fulfilledOrders / baseOrders);
     slaHistory.push(slaRate);
 
-    // Kịch bản Dòng tiền (Boxme Cash) theo GDD: Doanh thu 2.5$/đơn, Chi phí lương 150$/thợ, Chi phí kho 8000$
+    // Kịch bản Dòng tiền (Fulldy Cash) theo GDD: Doanh thu 2.5$/đơn, Chi phí lương 150$/thợ, Chi phí kho 8000$
     let cashFlow = (fulfilledOrders * 2.5) - (workerCapacity * 150) - (isMegaSale ? 35000 : 8000);
     if (slaRate < 0.85) {
       cashFlow -= (baseOrders - fulfilledOrders) * 4.0; // Phạt SLA sàn TMĐT
@@ -52,7 +52,7 @@ export function runMonteCarloSimulations(iterations = 10000) {
 
     // 2. Kiểm tra kịch bản CÓ Circuit Breaker
     const bus = new SimulationEventBus();
-    const gameState = { boxmeCash: cashFlow, emergencyCreditUsed: false };
+    const gameState = { fulldyCash: cashFlow, emergencyCreditUsed: false };
 
     if (cashFlow < 0) {
       CircuitBreakerSystem.checkBankruptcyGuard(gameState, bus);
@@ -61,7 +61,7 @@ export function runMonteCarloSimulations(iterations = 10000) {
       }
     }
 
-    if (gameState.boxmeCash < -20000) {
+    if (gameState.fulldyCash < -20000) {
       results.bankruptciesWithGuard++;
     }
 
@@ -87,7 +87,7 @@ export function runMonteCarloSimulations(iterations = 10000) {
   console.log(`- SLA P90 (Kịch bản năng suất cao):         ${results.slaP90}%`);
   console.log(`- Tỷ lệ phá sản KHÔNG có Circuit Breaker:   ${((results.bankruptciesWithoutGuard / iterations) * 100).toFixed(2)}% (${results.bankruptciesWithoutGuard} ca)`);
   console.log(`- Tỷ lệ phá sản CÓ Circuit Breaker:         ${((results.bankruptciesWithGuard / iterations) * 100).toFixed(2)}% (${results.bankruptciesWithGuard} ca)`);
-  console.log(`- Số lần kích hoạt Gói cứu trợ Boxme HQ:     ${results.emergencyCreditsTriggered.toLocaleString()} lần`);
+  console.log(`- Số lần kích hoạt Gói cứu trợ Fulldy HQ:     ${results.emergencyCreditsTriggered.toLocaleString()} lần`);
   console.log(`- Số lần kích hoạt Ân hạn khách hàng:       ${results.merchantGraceTriggered.toLocaleString()} lần`);
   console.log(`============================================================\n`);
 

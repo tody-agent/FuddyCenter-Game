@@ -1,9 +1,9 @@
 # 🏆 HỆ THỐNG TIẾN HÓA KHO BÃI, ĐA TIỀN TỆ & KINH TẾ TYCOON
-## Boxme Mission Control 2.0 — Progression, Multi-Currency & Merchant Ecosystem
+## Fulldy Center — Progression, Multi-Currency & Merchant Ecosystem
 
 * **Mã đặc tả:** TYCOON-PROGRESSION-2026-10-06
 * **Phiên bản:** 1.0.0
-* **Tác giả:** Antigravity Team & Boxme Game Systems Architecture Group
+* **Tác giả:** Antigravity Team & fulldy Game Systems Architecture Group
 * **Mục tiêu:** Xóa bỏ sự nhàm chán của game 1 đơn vị tiền tệ, tạo chiều sâu tiến hóa từ kho khởi nghiệp nhỏ đến Siêu Hub tự động hóa, gắn chặt sự hài lòng của khách hàng với bài toán tăng trưởng và chi phí khấu hao.
 
 ---
@@ -38,7 +38,7 @@
 
 | Đơn vị / Chỉ số | Biểu tượng | Bản chất | Cách kiếm / Tích lũy | Mục đích sử dụng | Hệ quả khi cạn kiệt |
 |---|---|---|---|---|---|
-| **1. Tiền Mặt / Xu Vận Hành** | 💵 **Boxme Cash ($)** | Tiền tệ mềm (Soft Currency) | Thu phí lưu kho theo m³/ngày, phí pick/pack từng đơn, phí dán tem VAS. | Trả lương ca kíp, trả lương OT, mua thùng carton, thuê xe tải, chi phí điện. | Phá sản, không thể trả lương thợ $\to$ Công nhân đình công. |
+| **1. Tiền Mặt / Xu Vận Hành** | 💵 **Fulldy Cash ($)** | Tiền tệ mềm (Soft Currency) | Thu phí lưu kho theo m³/ngày, phí pick/pack từng đơn, phí dán tem VAS. | Trả lương ca kíp, trả lương OT, mua thùng carton, thuê xe tải, chi phí điện. | Phá sản, không thể trả lương thợ $\to$ Công nhân đình công. |
 | **2. Điểm Uy Tín Sàn & Đối Tác** | ⭐ **Reputation Stars** | Tiền tệ danh vọng (Prestige Currency) | Đạt SLA Shopee FHR/TikTok FDR > 98.5%, tỷ lệ đơn không lỗi > 99.8%, khách khen ngợi. | Ký hợp đồng với Brand VIP (Apple, L'Oreal), mở thêm cổng dock ưu tiên của SPX/J&T. | Bị sàn TMĐT phạt sao quả tạ, Merchant VIP rút hàng hủy hợp đồng. |
 | **3. Điểm Sức Mạnh Kho (Dung tích CBM)** | 📦 **Available CBM Power** | Điểm sức mạnh phần cứng (Hardware Metric) | Xây thêm kệ Mezzanine, mở rộng diện tích sàn, bố trí kệ thông minh (ABC Slotting). | Tiếp nhận thêm hàng lưu kho của khách mới. Càng nhiều CBM rảnh, điểm sức mạnh càng cao. | Hết chỗ lưu kho (0 CBM) $\to$ Phải từ chối xe nhập hàng Inbound, mất khách. |
 | **4. Điểm Đổi Mới Công Nghệ** | ⚙️ **Tech Sparks** | Tiền tệ nâng cấp vĩnh viễn (R&D Currency) | Hoàn thành ca đạt Rank S, xử lý thành công Boss Waves, đào tạo thợ Master. | Mở khóa cây công nghệ (Tech Tree): Robot AMR, máy dán thùng tự động, thuật toán AI Wave Pick. | Tụt hậu công nghệ, chi phí nhân công ngày càng đắt đỏ. |
@@ -78,7 +78,7 @@ Tier 1: Kho Khởi Nghiệp (300m²) ──► Tier 2: Kho Tiêu Chuẩn (2.000m
 * **Thách thức:** Chi phí tiền điện tăng cao, quản lý mệt mỏi nhân sự ca đêm, áp lực SLA 17:00 cực căng.
 
 ### Tier 4: "Siêu Trung Tâm Mega Hub VSIP Bắc Ninh" (Mega Fulfillment Hub)
-*(Tương đương hiện trạng mô phỏng của Boxme Mission Control 2.0)*
+*(Tương đương hiện trạng mô phỏng của Fulldy Center)*
 * **Diện tích & Sức chứa:** $20.000\text{ m}^2$ — Sức chứa: $45.000\text{ CBM}$.
 * **Trang thiết bị:** Sàn lửng Mezzanine 3 tầng, 50 bàn đóng gói (Pack Banks P01–P50), 3 trạm dã chiến E1–E3, 6 cửa Dock tự động có dock leveler, hệ thống phân loại băng chuyền máng trượt tự động (Pop-up Wheel Sorter).
 * **Đội ngũ:** 200 nhân công, xe nâng tự động AGV hỗ trợ.
@@ -192,7 +192,7 @@ Trên thanh Header của game sẽ tích hợp bảng điều khiển tài chín
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ [BOXME MISSION CONTROL]  Level: 3 (Urban Hub)  │  🎖️ Level 3: 4,250/10,000 XP                                           │
+│ [Fulldy Center]  Level: 3 (Urban Hub)  │  🎖️ Level 3: 4,250/10,000 XP                                           │
 │ 💵 $148,250,000 (+12.5k/m)  │  ⭐ 4.85/5.0 Uy Tín  │  📦 Sức chứa: 12,450/16,000 CBM (78%)  │  ⚙️ 340 Tech Sparks     │
 │ Ca: Ngày (14:35)  │  Tốc độ: [x1] [x5] [x15] [x60]  │  Khách Hài Lòng: 94.2% (😊 Tuyệt vời)  │  Máy Móc: 86% Khỏe Mạnh │
 └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -200,5 +200,5 @@ Trên thanh Header của game sẽ tích hợp bảng điều khiển tài chín
 
 ---
 
-© 2026 Boxme Global Fulfillment Platform. All rights reserved.
-Tài liệu Kinh tế Tycoon & Tiến hóa kho bãi Boxme Mission Control 2.0.
+© 2026 Fulldy Games Platform. All rights reserved.
+Tài liệu Kinh tế Tycoon & Tiến hóa kho bãi Fulldy Center.

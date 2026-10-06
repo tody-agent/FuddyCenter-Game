@@ -1,4 +1,4 @@
-# OpenSpec: Boxme Mission Control & Operations Simulator 2.0
+# OpenSpec: Fulldy Center & Operations Simulator 2.0
 **Hệ thống Mô phỏng Vận hành Kho bãi 3D, Bản sao số (Digital Twin) & Serious Game Điều hành Dựa trên Tâm lý học Hành vi**
 
 * **Mã đặc tả:** OPENSPEC-SIM-2026-10-06
@@ -13,7 +13,7 @@
 ## 1. TỔNG QUAN & TẦM NHÌN DỰ ÁN (Project Vision & Core Philosophy)
 
 ### 1.1 Bối cảnh & Fantasy của Game
-Phiên bản tiền nhiệm là một file HTML đơn khối (`boxme-mission-control.html`, dung lượng ~1.07MB) tích hợp Three.js, React và dữ liệu tĩnh của kho Boxme VSIP Bắc Ninh trong đợt Mega Sale 10.10.
+Phiên bản tiền nhiệm là một file HTML đơn khối (`fulldy-mission-control.html`, dung lượng ~1.07MB) tích hợp Three.js, React và dữ liệu tĩnh của kho fulldy VSIP Bắc Ninh trong đợt Mega Sale 10.10.
 
 Phiên bản 2.0 chuyển hóa nền tảng này thành một **Hệ thống Mô phỏng Vận hành Toàn diện (Operations Simulation & Management Game / Digital Twin)** với triết lý:
 > **Core Fantasy:** *"Người chơi không chỉ là người ngắm nhìn mô hình 3D tĩnh, mà là Tổng chỉ huy điều hành một thực thể sống — một trung tâm hoàn tất đơn hàng khổng lồ liên tục lệch tải, liên tục phát sinh điểm nghẽn, với áp lực deadline SLA của các sàn TMĐT đè nặng từng giây — buộc người chơi phải đưa ra những quyết định đánh đổi chiến thuật sáng suốt nhất để cứu vãn dòng chảy và bảo vệ chi phí vận hành."*
@@ -94,7 +94,7 @@ $$E_{\text{rate}}(t) = E_0 \times \left(1 + 0.4 \times (1.0 - f_{\text{fatigue}}
 ### 3.4 Giám Sát SLA Thời Gian Thực
 - **Shopee Fast Handover Rate (FHR):** Đơn đặt trước 12:00 phải bàn giao cho tài xế trước 17:00 (mục tiêu $\ge 98.5\%$).
 - **TikTok Shop Fast Dispatch Rate (FDR) & Late Dispatch Rate (LDR):** Chu kỳ gắt gao 6 giờ với đơn Same-Day.
-- **Boxme Internal Buffer:** Hệ thống tự động đặt cảnh báo sớm trước 60 phút so với deadline sàn để người chơi có cửa sổ can thiệp.
+- **fulldy Internal Buffer:** Hệ thống tự động đặt cảnh báo sớm trước 60 phút so với deadline sàn để người chơi có cửa sổ can thiệp.
 
 ---
 
@@ -361,7 +361,7 @@ Trong đó mỗi chỉ số được chuẩn hóa trên thang điểm $0 - 100$:
 Sau mỗi ca làm việc, màn hình AAR cung cấp:
 - **Biểu đồ Đối chiếu Quyết định:** So sánh đường bay của người chơi với đường bay tối ưu của thuật toán.
 - **Khoảnh khắc Bùng phát Điểm nghẽn (Aha-moment):** Chỉ rõ quyết định ở phút thứ 45 đã gây ra hậu quả nghẽn bãi đệm ở phút thứ 90 như thế nào.
-- Rèn luyện **Trực giác Vận hành (Operational Intuition)** cho đội ngũ quản lý kho Boxme mà không gây rủi ro thiệt hại đơn hàng thực tế.
+- Rèn luyện **Trực giác Vận hành (Operational Intuition)** cho đội ngũ quản lý kho fulldy mà không gây rủi ro thiệt hại đơn hàng thực tế.
 
 ---
 
@@ -387,15 +387,15 @@ Hệ thống âm thanh Web Audio API phản ánh nhịp tim của nhà kho:
 ## 10. GIAO DIỆN NGƯỜI DÙNG & ĐA NGÔN NGỮ (UI/UX & i18n)
 
 ### 10.1 Bố Cục Bàn Điều Hành (Mission Control Layout)
-- **Header Bar:** Thương hiệu Boxme, Đồng hồ mô phỏng, Chỉ báo ca (Ca A/B), Bộ tốc độ (x1, x5, x15, x60), Bộ chọn ngôn ngữ (VI/EN/TH/ZH).
-- **Metric Ribbon (14 KPI Cards):** Received, Released, Picked, Waiting IS, Packed, Handed, SLA Risk, Boxme FHR, Shopee FHR, TikTok FDR, TikTok LDR, Pack Cap %, Pick Cap %, Carrier Risk.
+- **Header Bar:** Thương hiệu fulldy, Đồng hồ mô phỏng, Chỉ báo ca (Ca A/B), Bộ tốc độ (x1, x5, x15, x60), Bộ chọn ngôn ngữ (VI/EN/TH/ZH).
+- **Metric Ribbon (14 KPI Cards):** Received, Released, Picked, Waiting IS, Packed, Handed, SLA Risk, fulldy FHR, Shopee FHR, TikTok FDR, TikTok LDR, Pack Cap %, Pick Cap %, Carrier Risk.
 - **Left Panel - Risk Inbox:** Sắp xếp rủi ro theo mức độ nghiêm trọng, hiển thị nguyên nhân và khuyến nghị xử lý.
 - **Center Viewport - 3D Canvas:** Tích hợp các widget nổi (Xe trên bãi, Cửa dock bận, Nhân sự trên sàn, Stepper tiến trình Flow).
 - **Right Panel - Tactical Inspector:** Cây phân tích nguyên nhân gốc rễ, Bán kính rủi ro SLA, Dự báo thông lượng và Bộ Action Cards can thiệp.
 - **Bottom Bar - Time-Travel Timeline:** Thanh trượt tua thời gian, vạch cảnh báo sự cố, cây nhánh DAG và nút kích hoạt Monte Carlo.
 
 ### 10.2 Chuẩn Hóa Đa Ngôn Ngữ Quốc Tế (i18n)
-Hỗ trợ đầy đủ 4 ngôn ngữ chiến lược của Boxme:
+Hỗ trợ đầy đủ 4 ngôn ngữ chiến lược của fulldy:
 - `vi`: Tiếng Việt (VSIP Bắc Ninh, Kho Long An, Kho Củ Chi).
 - `en`: English (Chuẩn quản trị logistics quốc tế).
 - `th`: ภาษาไทย (Kho Samut Prakan / Bangkok, Thái Lan).
@@ -488,9 +488,9 @@ src/
 | **Phase 1: Foundation & Core Logic** | Triển khai Discrete Simulation Engine, Mulberry32 PRNG, Dynamic Bottleneck Engine và Fatigue Model. | Engine tính toán headless chạy độc lập, kiểm thử đơn vị logic hàng đợi và tính tất định. |
 | **Phase 2: Decision Sandbox & Time-Travel** | Xây dựng Command Pattern, Action Cards, Snapshot DAG Tree và Monte Carlo Web Worker. | Khả năng tua ngược thời gian, rẽ nhánh thử nghiệm phương án A/B và chạy 500 kịch bản ngẫu nhiên. |
 | **Phase 3: 3D Visualization & Sensory Juice** | Nâng cấp Three.js pipeline, InstancedMesh hộp/thợ, N8AO, Selective Bloom, Camera Tweens và Web Audio API. | Đồ họa 3D isometric mượt mà 60-120 FPS kèm âm thanh quét mã, nhịp tim SLA và hiệu ứng thỏa mãn thị giác. |
-| **Phase 4: Game Modes, UI & i18n** | Hoàn thiện 4 kịch bản Boss Waves, Giao diện Mission Control React 19, Scorecard COS, Shift Debrief và i18n (VI/EN/TH/ZH). | Bản phát hành hoàn chỉnh Boxme Mission Control 2.0 đưa lên Cloudflare Pages. |
+| **Phase 4: Game Modes, UI & i18n** | Hoàn thiện 4 kịch bản Boss Waves, Giao diện Mission Control React 19, Scorecard COS, Shift Debrief và i18n (VI/EN/TH/ZH). | Bản phát hành hoàn chỉnh Fulldy Center đưa lên Cloudflare Pages. |
 
 ---
 
-© 2026 Boxme Global Fulfillment Platform. All rights reserved.
-Tài liệu thuộc bản quyền kiến trúc Boxme Mission Control 2.0.
+© 2026 Fulldy Games Platform. All rights reserved.
+Tài liệu thuộc bản quyền kiến trúc Fulldy Center.

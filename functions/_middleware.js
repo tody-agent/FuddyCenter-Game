@@ -1,5 +1,5 @@
 // Edge Middleware: Cryptographic Session Validation
-const JWT_SECRET = "boxme_jwt_secret_99887766554433221100aabbccddeeff";
+const JWT_SECRET = "fulldy_jwt_secret_99887766554433221100aabbccddeeff";
 const AUTH_COOKIE = "bmwms_auth";
 
 function bytesToHex(bytes) {

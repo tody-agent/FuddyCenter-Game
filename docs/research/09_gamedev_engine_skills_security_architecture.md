@@ -1,7 +1,7 @@
-# 🎮 BÁO CÁO NGHIÊN CỨU & THIẾT KẾ KIẾN TRÚC: GAME ENGINE, RUNTIME LIBRARIES & AGENT SKILLS CHO BOXME MISSION CONTROL 2.0
+# 🎮 BÁO CÁO NGHIÊN CỨU & THIẾT KẾ KIẾN TRÚC: GAME ENGINE, RUNTIME LIBRARIES & AGENT SKILLS CHO Fulldy Center
 
 > **Mã tài liệu:** ARCH-GAMEDEV-SECURITY-2026-10-06  
-> **Dự án:** Boxme Mission Control — 3D Digital Twin & Fulfillment Center Simulator (VSIP Bắc Ninh)  
+> **Dự án:** Fulldy Center — 3D Digital Twin & Fulfillment Center Simulator (VSIP Bắc Ninh)  
 > **Phạm vi:** Đánh giá an ninh chuỗi cung ứng, Thư viện runtime hiệu năng cao (bitECS, Flow Field, Three.js, PixiJS), và Quy trình làm sạch Agent Skills (Clean-room Prompt Extraction).
 
 ---
@@ -16,7 +16,7 @@
 2. **Hook RCE & Quản lý Secret thiếu an toàn**:
    - Các hook trong `.claude/settings.json` hoặc scripts khởi tạo tự chạy khi mở phiên. Việc sử dụng `set -a; . .env` là lỗ hổng thực thi mã tùy ý (Arbitrary Code Execution) nếu biến môi trường bị can thiệp.
 3. **Lây nhiễm Giấy phép (License Contamination - AGPL-3.0)**:
-   - Thư viện âm thanh Strudel trong `game-creator` mang giấy phép **AGPL-3.0**. Nếu tích hợp trực tiếp vào Boxme Mission Control (sản phẩm thương mại proprietary), toàn bộ mã nguồn của Boxme Global có nguy cơ bị buộc phải mở mã nguồn.
+   - Thư viện âm thanh Strudel trong `game-creator` mang giấy phép **AGPL-3.0**. Nếu tích hợp trực tiếp vào Fulldy Center (sản phẩm thương mại proprietary), toàn bộ mã nguồn của Fulldy Games có nguy cơ bị buộc phải mở mã nguồn.
 
 ### 1.2 Ma trận phân loại hành động (Action Matrix)
 | Bộ Skill / Repo | Mức rủi ro | Hành động chiến lược | Biện pháp kiểm soát |
@@ -30,7 +30,7 @@
 
 ---
 
-## 2. ĐỐI CHIẾU & THIẾT KẾ THƯ VIỆN RUNTIME CHO BOXME SIMULATOR
+## 2. ĐỐI CHIẾU & THIẾT KẾ THƯ VIỆN RUNTIME CHO Fulldy Center Simulator
 
 Ở quy mô Tier 4 (VSIP Bắc Ninh 20.000m²) và Tier 5 (Siêu Hub Không Đèn 40.000m²), hệ thống phải mô phỏng đồng thời:
 - $10.000 - 50.000$ kiện hàng (parcels) trên băng chuyền và giá kệ.
@@ -48,7 +48,7 @@
   - Không sinh ra rác (Zero GC Allocations trong Simulation Tick), duy trì 60 FPS mượt mà kể cả khi mô phỏng $50.000$ thực thể.
 
 ```typescript
-// Mẫu kiến trúc bitECS cho Kiện hàng (Parcels) trong Boxme Simulator
+// Mẫu kiến trúc bitECS cho Kiện hàng (Parcels) trong Fulldy Center Simulator
 import { createWorld, defineComponent, Types, addEntity, addComponent } from 'bitecs';
 
 export const Position = defineComponent({
@@ -151,7 +151,7 @@ export class CircuitBreakerSystem {
   static checkBankruptcyGuard(cash: number, eventBus: SimulationEventBus, state: any) {
     if (cash < 0 && !state.emergencyCreditActive) {
       state.emergencyCreditActive = true;
-      state.boxmeCash += 50000; // Cấp hạn mức tín dụng khẩn cấp Boxme HQ
+      state.fulldyCash += 50000; // Cấp hạn mức tín dụng khẩn cấp Fulldy HQ
       eventBus.emit('EMERGENCY_CREDIT_ACTIVATED', { amount: 50000 });
     }
   }

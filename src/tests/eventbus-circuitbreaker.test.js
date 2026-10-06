@@ -12,12 +12,12 @@ describe('EventBus & CircuitBreaker Security & Anti-Death-Spiral Tests', () => {
       receivedPayload = data;
     });
 
-    bus.emit('PARCEL_CREATED', { parcelId: 101, sku: 'BOXME-SHIRT' });
+    bus.emit('PARCEL_CREATED', { parcelId: 101, sku: 'FULLDY-SHIRT' });
 
-    assert.deepEqual(receivedPayload, { parcelId: 101, sku: 'BOXME-SHIRT' });
+    assert.deepEqual(receivedPayload, { parcelId: 101, sku: 'FULLDY-SHIRT' });
   });
 
-  test('CircuitBreaker should trigger Boxme HQ Emergency Credit when cash drops below zero', () => {
+  test('CircuitBreaker should trigger Fulldy HQ Emergency Credit when cash drops below zero', () => {
     const bus = new SimulationEventBus();
     let emergencyTriggered = false;
     let emergencyAmount = 0;
@@ -28,7 +28,7 @@ describe('EventBus & CircuitBreaker Security & Anti-Death-Spiral Tests', () => {
     });
 
     const gameState = {
-      boxmeCash: -1500,
+      fulldyCash: -1500,
       emergencyCreditUsed: false,
       reputationStars: 4.2
     };
@@ -37,7 +37,7 @@ describe('EventBus & CircuitBreaker Security & Anti-Death-Spiral Tests', () => {
 
     assert.equal(emergencyTriggered, true, 'Emergency credit event should fire');
     assert.equal(gameState.emergencyCreditUsed, true, 'Emergency credit flag must be set');
-    assert.ok(gameState.boxmeCash > 0, 'Cash must be restored to positive balance');
+    assert.ok(gameState.fulldyCash > 0, 'Cash must be restored to positive balance');
     assert.equal(emergencyAmount, 50000, 'Emergency credit line default should be 50,000');
   });
 
