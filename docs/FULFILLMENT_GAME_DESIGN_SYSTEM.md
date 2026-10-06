@@ -189,20 +189,35 @@ Khi đồng hồ điểm sát giờ xe tải lăn bánh (Cutoff Time):
 
 ---
 
-## 4. BẢNG ĐỐI CHIẾU HÌNH ẢNH & VISUAL ASSETS THỰC TẾ (9 BỘ ASSET 3D)
+## 4. BẢNG DANH MỤC VISUAL ASSETS 3D (TIẾN TRÌNH TYCOON 2 GIAI ĐOẠN)
 
-| Asset Tên | Loại & Tỷ Lệ | Chi Tiết Tạo Hình | Vị Trí Áp Dụng Trong Game |
+### 4.1 Giai Đoạn 1: Kho Thủ Công & Thiết Bị Phổ Thông Đời Thực (Giai Đoạn Khởi Nghiệp Hiện Tại)
+
+| Asset Tên | Loại & Tỷ Lệ | Chi Tiết Tạo Hình Đời Thực | Vai Trò & Cơ Chế Vận Hành |
 |---|---|---|---|
-| `fulfillment_game_hero` | 16:9 3D Render | Trung tâm fulfillment đa tầng 35.000m², kệ thép cao tầng, robot AMR mang thùng vàng, cổng dock xe tải viền neon | Hero Display, Màn hình Loading, Tổng hành dinh |
-| `mission_control_cctv_center` | 16:9 3D Render | Phòng điều hành Mission Control, tường màn hình CCTV cong đa kênh, bàn Hologram digital twin hiển thị bản đồ nhiệt 18,450 PPH | Màn hình Điều Hành Tổng, Phân hệ Giám Sát CCTV |
-| `char_shift_supervisor` | 1:1 Stylized Character | Trưởng ca điều hành nam uy tín, áo phản quang Boxme, tai nghe bộ đàm, máy tính bảng Hologram biểu đồ năng suất | Thẻ Nhân Sự Chỉ Huy, Buff +15% Tốc Độ Toàn Kho |
-| `char_elite_picker` | 1:1 Stylized Character | Chuyên viên nhặt hàng nữ, kính AR dẫn đường thông minh (Pick-to-Light HUD), máy quét gắn cổ tay phát tia laser đỏ, khay vàng Tote | Đội Nhặt Hàng Wave Picking, Giảm Sai Sót &lt;0.1% |
-| `char_robotics_engineer` | 1:1 Stylized Character | Kỹ sư bảo trì cơ điện quỳ bên cạnh robot AMR, đai dụng cụ cơ khí, kính bảo hộ trán, tablet chẩn đoán vi mạch | Trạm Kỹ Thuật, Sửa Chữa AMR & Bảo Trì Băng Tải |
-| `equip_electric_forklift` | 1:1 3D Equipment | Xe nâng điện 2.5 tấn vàng - xanh Boxme, trụ nâng thủy lực nâng pallet thùng hàng, đèn chiếu điểm an toàn màu xanh xuống sàn | Phân hệ Cổng Dock Inbound & Hạ Tải Container |
-| `amr_robot_unit` | 1:1 3D Equipment | Robot tự hành AMR-04 mang khay vàng, mắt thần Lidar quét laser Cyan 360 độ, bảng chỉ số pin Hologram 78% | Đội Xe Tự Hành Kiva, Vận Chuyển Hàng Tới Trạm Đóng |
-| `smart_pack_station` | 1:1 3D Equipment | Bàn đóng tự động, băng chuyền con lăn bọc màng bóng khí, quét Hologram kích thước thùng, cân KCS điện tử 4.75 KG | Phân hệ Đóng Gói 3D & Kiểm Tra Trọng Lượng Chuẩn |
-| `prop_rf_scanner_gun` | 1:1 3D Prop | Súng quét mã vạch công nghiệp RF bọc cao su chống va đập, màn hình cảm ứng hiển thị danh sách đơn, tia laser đỏ | Trang Bị Cầm Tay Công Nhân, Tăng 40% Tốc Độ Scan |
-| `prop_smart_crates_parcels` | 1:1 3D Prop | Chồng khay nhựa vàng Tote trên pallet gỗ, các thùng carton dán tem vận chuyển Shopee/TikTok/SPX, cuộn băng dính FRAGILE | Vật Tư Tiêu Hao, Quản Lý Tồn Kho Thùng Đóng Gói |
+| `equip_hand_pallet_jack` | 1:1 3D Equipment | Xe nâng tay kéo pallet cơ học sơn vàng công nghiệp, cần bơm thủy lực chữ T, bánh xe nylon kép | Hạ tải pallet từ xe tải, kéo hàng vào sân đệm Inbound |
+| `equip_picking_cart` | 1:1 3D Equipment | Xe đẩy gom hàng 3 tầng khung thép ống xanh, chứa 6 khay nhựa vàng Tote, 4 bánh xe cao su, kẹp phiếu xuất kho | Gom đơn hàng theo đợt (Wave Batch Picking) bằng phiếu giấy |
+| `equip_conventional_pack_table` | 1:1 3D Equipment | Bàn đóng hàng mặt gỗ chân thép, giá để thùng carton số 1/2/3, cuộn xốp nổ bóng khí, cân bàn điện tử, máy in tem nhiệt A6 | Đóng thùng thủ công, bọc chống sốc, dán tem nhãn TMĐT |
+| `char_real_warehouse_worker` | 1:1 Stylized Character | Công nhân nam thực tế, áo thun polo xanh Boxme, áo gile lưới phản quang, găng tay len nhúng cao su, súng scan có dây | Đội ngũ nhặt hàng & đóng gói tuyến đầu (Lương $450/tháng) |
+| `char_real_floor_supervisor` | 1:1 Stylized Character | Trưởng ca hiện trường thực tế, áo sơ mi cài bút ngực, bộ đàm Motorola trên vai, bảng kẹp phân công ca trực | Giám sát kỷ luật ca làm, đôn đốc tiến độ, kiểm kê xác xuất |
+| `prop_tape_gun_cutter` | 1:1 3D Prop | Súng dán băng dính cầm tay màu cam có răng cắt và dao rọc giấy chuyên dụng cán vàng bọc cao su | Dụng cụ cầm tay thiết yếu cho từng nhân viên đóng gói |
+| `prop_thermal_label_printer` | 1:1 3D Prop | Máy in nhiệt trực tiếp để bàn nhả tem 100x150mm Shopee/TikTok/Lazada có mã vạch 1D và mã QR | In phiếu gửi hàng hỏa tốc và tiêu chuẩn không cần mực |
+| `prop_smart_crates_parcels` | 1:1 3D Prop | Chồng khay nhựa vàng Tote trên pallet gỗ, các thùng carton dán nhãn vận đơn và cuộn băng keo FRAGILE | Khay luân chuyển nội bộ và thùng thành phẩm chờ giao |
+
+---
+
+### 4.2 Giai Đoạn 2 & 3: Cải Tiến Bán Tự Động & Mở Rộng Tương Lai (Late-Game Progression)
+
+| Asset Tên | Loại & Tỷ Lệ | Chi Tiết Tạo Hình | Vị Trí Khi Đạt Cấp Độ Cao |
+|---|---|---|---|
+| `equip_electric_forklift` | 1:1 3D Equipment | Xe nâng điện 2.5 tấn vàng - xanh Boxme, trụ nâng thủy lực cao 6m, đèn an toàn chiếu điểm xanh | Nâng cấp khi dỡ hàng container số lượng lớn |
+| `amr_robot_unit` | 1:1 3D Equipment | Robot tự hành AMR Kiva bưng kệ hàng, cảm biến Lidar Cyan 360 độ, pin lithium-ion | Mở khóa khi nâng cấp kho lên cấp tự động hóa cao |
+| `smart_pack_station` | 1:1 3D Equipment | Trạm đóng gói tự động tích hợp quét Hologram 3 chiều đo thể tích và băng chuyền con lăn | Mở khóa khi sản lượng vượt 5,000 đơn/ngày |
+| `char_elite_picker` | 1:1 Stylized Character | Chuyên viên nhặt hàng mang kính AR thông minh chỉ dẫn lối đi hình chữ S và súng quét cổ tay | Đội nhặt hàng chuyên nghiệp hỗ trợ đợt Siêu Sale |
+| `char_robotics_engineer` | 1:1 Stylized Character | Kỹ sư cơ điện và bảo trì robot mang đai công cụ và máy tính bảng chẩn đoán vi mạch | Bảo dưỡng hệ thống máy móc phức tạp |
+| `prop_rf_scanner_gun` | 1:1 3D Prop | Súng quét mã vạch không dây RF Gun chống nước IP67 màn hình cảm ứng | Trang bị không dây khi mở rộng diện tích kho |
+| `mission_control_cctv_center` | 16:9 3D Render | Phòng điều hành trung tâm với tường màn hình CCTV cong và bàn hiển thị Digital Twin | Mở khóa khi quản lý chuỗi trung tâm đa chi nhánh |
+| `fulfillment_game_hero` | 16:9 3D Render | Phối cảnh 3D Siêu Trung Tâm Hoàn Tất Đơn Hàng 35.000m² tại VSIP Bắc Ninh | Giao diện tổng quan và màn hình vinh danh khi đạt cấp Mega |
 
 ---
 
